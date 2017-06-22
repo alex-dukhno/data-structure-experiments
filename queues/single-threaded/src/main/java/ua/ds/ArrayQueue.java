@@ -1,7 +1,6 @@
 package ua.ds;
 
 import org.openjdk.jol.info.ClassLayout;
-import org.openjdk.jol.info.GraphLayout;
 
 public class ArrayQueue {
   private final int[] items;
@@ -37,9 +36,9 @@ public class ArrayQueue {
   }
 
   public static void main(String[] args) {
+    System.out.println("ArrayQueue Object Layout");
     System.out.println(ClassLayout.parseClass(ArrayQueue.class).toPrintable());
     System.out.println(ClassLayout.parseClass(int[].class).toPrintable());
-
-    System.out.println(GraphLayout.parseInstance(new ArrayQueue(8192)).totalSize());
+    System.out.println(ClassLayout.parseInstance(new int[0]).toPrintable());
   }
 }

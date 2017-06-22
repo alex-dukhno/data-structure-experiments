@@ -1,11 +1,11 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.OperationsPerInvocation;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.annotations.TearDown;
 
 //    ua.ds.LinkedQueue object internals:
 //    OFFSET  SIZE                     TYPE DESCRIPTION                           VALUE
@@ -44,7 +44,7 @@ import org.openjdk.jmh.annotations.TearDown;
 //    LinkedQueueBenchmark.enqueue  67108864  avgt   10  22712012.043 ± 1142984.114  us/op
 public class LinkedQueueBenchmark {
 
-//  Benchmark                                         (initialSize)  (iterations)  Mode  Cnt         Score         Error  Units
+  //  Benchmark                                         (initialSize)  (iterations)  Mode  Cnt         Score         Error  Units
 //  LinkedQueueBenchmark.Enqueueing.enqueue                         N/A            16  avgt   10         0.081 ±       0.003  us/op
 //  LinkedQueueBenchmark.Enqueueing.enqueue                         N/A            64  avgt   10         0.294 ±       0.005  us/op
 //  LinkedQueueBenchmark.Enqueueing.enqueue                         N/A           256  avgt   10         1.160 ±       0.024  us/op
@@ -59,25 +59,71 @@ public class LinkedQueueBenchmark {
 //  LinkedQueueBenchmark.Enqueueing.enqueue                         N/A      67108864  avgt   10  23069717.842 ± 2146541.602  us/op
   @State(Scope.Benchmark)
   public static class Enqueueing {
-    @Param({
-        "1024", "1364", "2048",     //L1D
-        "8192", "10921", "16384",   //L2
-        "65536", "131071", "262144" //L3
-    })
-    private int iterations;
 
     @Benchmark
-    public int enqueue() {
+    @OperationsPerInvocation(1024)
+    public LinkedQueue enqueueLessThanL1Size() {
+      return enqueue(1024);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(1364)
+    public LinkedQueue enqueueExactAsL1Size() {
+      return enqueue(1364);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(2048)
+    public LinkedQueue enqueueMoreThanL1Size() {
+      return enqueue(2048);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(8192)
+    public LinkedQueue enqueueLessThanL2Size() {
+      return enqueue(8192);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(10921)
+    public LinkedQueue enqueueExactAsL2Size() {
+      return enqueue(10921);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(16384)
+    public LinkedQueue enqueueMoreThanL2Size() {
+      return enqueue(16384);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(131072)
+    public LinkedQueue enqueueLessThanL3Size() {
+      return enqueue(131072);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(349524)
+    public LinkedQueue enqueueExactAsL3Size() {
+      return enqueue(349524);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(524288)
+    public LinkedQueue enqueueMoreThanL3Size() {
+      return enqueue(524288);
+    }
+
+    private LinkedQueue enqueue(int iterations) {
       LinkedQueue queue = new LinkedQueue();
-      int i;
-      for (i = 0; i < iterations; i++) {
+      for (int i = 0; i < iterations; i++) {
         queue.enqueue(i);
       }
-      return i + 1;
+      return queue;
     }
   }
 
-//  Benchmark                                         (initialSize)  (iterations)  Mode  Cnt         Score         Error  Units
+  //  Benchmark                                         (initialSize)  (iterations)  Mode  Cnt         Score         Error  Units
 //  LinkedQueueBenchmark.EnqueueingDequeing.enqueueDeque             16            16  avgt   10         0.095 ±       0.001  us/op
 //  LinkedQueueBenchmark.EnqueueingDequeing.enqueueDeque             16            64  avgt   10         0.368 ±       0.009  us/op
 //  LinkedQueueBenchmark.EnqueueingDequeing.enqueueDeque             16           256  avgt   10         2.125 ±       0.045  us/op
@@ -224,12 +270,7 @@ public class LinkedQueueBenchmark {
 //  LinkedQueueBenchmark.EnqueueingDequeing.enqueueDeque          32678      67108864  avgt   10    589466.921 ±   10619.514  us/op
   @State(Scope.Benchmark)
   public static class EnqueueingDequeing {
-    @Param({
-        "1024", "1364", "2048",     //L1D
-        "8192", "10921", "16384",   //L2
-        "65536", "131071", "262144" //L3
-    })
-    private int iterations;
+
     @Param({
         "1024", "1364", "2048",     //L1D
         "8192", "10921", "16384",   //L2
@@ -248,7 +289,60 @@ public class LinkedQueueBenchmark {
     }
 
     @Benchmark
-    public int enqueueDeque() {
+    @OperationsPerInvocation(1024)
+    public int enqueueDeque1024() {
+      return enqueueDeque(1024);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(1364)
+    public int enqueueDeque1364() {
+      return enqueueDeque(1364);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(2048)
+    public int enqueueDeque2048() {
+      return enqueueDeque(2048);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(8192)
+    public int enqueueDeque8192() {
+      return enqueueDeque(8192);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(10921)
+    public int enqueueDeque10921() {
+      return enqueueDeque(10921);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(16384)
+    public int enqueueDeque16384() {
+      return enqueueDeque(16384);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(65536)
+    public int enqueueDeque65536() {
+      return enqueueDeque(65536);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(131071)
+    public int enqueueDeque131071() {
+      return enqueueDeque(131071);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(262144)
+    public int enqueueDeque262144() {
+      return enqueueDeque(262144);
+    }
+
+    private int enqueueDeque(int iterations) {
       int sum = 0;
       for (int i = 0; i < iterations; i++) {
         sum += queue.deque();
