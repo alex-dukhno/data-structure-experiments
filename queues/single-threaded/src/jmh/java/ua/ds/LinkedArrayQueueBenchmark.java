@@ -399,6 +399,7 @@ public class LinkedArrayQueueBenchmark {
   }
 
   private static abstract class QueueBenchmark {
+
     private LinkedArrayQueue queue;
 
     void createQueue(int segmentSize, int numberOfSegments) {
@@ -419,8 +420,10 @@ public class LinkedArrayQueueBenchmark {
   }
 
   public static class LevelOneCache {
+
     @State(Scope.Benchmark)
-    public class __0016__000256 extends QueueBenchmark {
+    public static class __0016__000256 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 16;
       private static final int NUMBER_OF_SEGMENTS = 256;
 
@@ -437,7 +440,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0016__000292 extends QueueBenchmark {
+    public static class __0016__000292 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 16;
       private static final int NUMBER_OF_SEGMENTS = 292;
 
@@ -454,7 +458,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0016__000512 extends QueueBenchmark {
+    public static class __0016__000512 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 16;
       private static final int NUMBER_OF_SEGMENTS = 512;
 
@@ -471,7 +476,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0064__000064 extends QueueBenchmark {
+    public static class __0064__000064 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 64;
       private static final int NUMBER_OF_SEGMENTS = 64;
 
@@ -488,7 +494,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0064__000108 extends QueueBenchmark {
+    public static class __0064__000108 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 64;
       private static final int NUMBER_OF_SEGMENTS = 108;
 
@@ -505,7 +512,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0064__000128 extends QueueBenchmark {
+    public static class __0064__000128 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 64;
       private static final int NUMBER_OF_SEGMENTS = 128;
 
@@ -522,7 +530,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0256__000016 extends QueueBenchmark {
+    public static class __0256__000016 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 256;
       private static final int NUMBER_OF_SEGMENTS = 16;
 
@@ -539,7 +548,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0256__000030 extends QueueBenchmark {
+    public static class __0256__000030 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 256;
       private static final int NUMBER_OF_SEGMENTS = 30;
 
@@ -556,7 +566,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0256__000032 extends QueueBenchmark {
+    public static class __0256__000032 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 256;
       private static final int NUMBER_OF_SEGMENTS = 32;
 
@@ -573,7 +584,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __1024__000004 extends QueueBenchmark {
+    public static class __1024__000004 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 1024;
       private static final int NUMBER_OF_SEGMENTS = 4;
 
@@ -590,7 +602,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __1024__000007 extends QueueBenchmark {
+    public static class __1024__000007 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 1024;
       private static final int NUMBER_OF_SEGMENTS = 7;
 
@@ -607,7 +620,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __1024__000008 extends QueueBenchmark {
+    public static class __1024__000008 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 1024;
       private static final int NUMBER_OF_SEGMENTS = 8;
 
@@ -625,8 +639,10 @@ public class LinkedArrayQueueBenchmark {
   }
 
   public static class LevelTwoCache {
+
     @State(Scope.Benchmark)
-    public class __0016__002048 extends QueueBenchmark {
+    public static class __0016__002048 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 16;
       private static final int NUMBER_OF_SEGMENTS = 2048;
 
@@ -643,7 +659,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0016__002340 extends QueueBenchmark {
+    public static class __0016__002340 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 16;
       private static final int NUMBER_OF_SEGMENTS = 2340;
 
@@ -660,7 +677,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0016__004096 extends QueueBenchmark {
+    public static class __0016__004096 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 16;
       private static final int NUMBER_OF_SEGMENTS = 4096;
 
@@ -677,7 +695,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0064__000512 extends QueueBenchmark {
+    public static class __0064__000512 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 64;
       private static final int NUMBER_OF_SEGMENTS = 512;
 
@@ -694,7 +713,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0064__000862 extends QueueBenchmark {
+    public static class __0064__000862 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 64;
       private static final int NUMBER_OF_SEGMENTS = 862;
 
@@ -711,7 +731,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0064__001024 extends QueueBenchmark {
+    public static class __0064__001024 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 64;
       private static final int NUMBER_OF_SEGMENTS = 1024;
 
@@ -728,7 +749,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0256__000128 extends QueueBenchmark {
+    public static class __0256__000128 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 256;
       private static final int NUMBER_OF_SEGMENTS = 128;
 
@@ -745,7 +767,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0256__000244 extends QueueBenchmark {
+    public static class __0256__000244 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 256;
       private static final int NUMBER_OF_SEGMENTS = 244;
 
@@ -762,7 +785,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0256__000512 extends QueueBenchmark {
+    public static class __0256__000512 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 256;
       private static final int NUMBER_OF_SEGMENTS = 512;
 
@@ -779,7 +803,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __1024__000032 extends QueueBenchmark {
+    public static class __1024__000032 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 1024;
       private static final int NUMBER_OF_SEGMENTS = 32;
 
@@ -796,7 +821,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __1024__000063 extends QueueBenchmark {
+    public static class __1024__000063 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 1024;
       private static final int NUMBER_OF_SEGMENTS = 63;
 
@@ -813,7 +839,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __1024__000064 extends QueueBenchmark {
+    public static class __1024__000064 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 1024;
       private static final int NUMBER_OF_SEGMENTS = 64;
 
@@ -831,8 +858,10 @@ public class LinkedArrayQueueBenchmark {
   }
 
   public static class LevelThreeCache {
+
     @State(Scope.Benchmark)
-    public class __0016__065536 extends QueueBenchmark {
+    public static class __0016__065536 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 16;
       private static final int NUMBER_OF_SEGMENTS = 65536;
 
@@ -849,7 +878,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0016__074898 extends QueueBenchmark {
+    public static class __0016__074898 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 16;
       private static final int NUMBER_OF_SEGMENTS = 74898;
 
@@ -866,7 +896,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0016__131172 extends QueueBenchmark {
+    public static class __0016__131172 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 16;
       private static final int NUMBER_OF_SEGMENTS = 131172;
 
@@ -883,7 +914,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0064__0016384 extends QueueBenchmark {
+    public static class __0064__0016384 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 64;
       private static final int NUMBER_OF_SEGMENTS = 16384;
 
@@ -900,7 +932,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0064__0027594 extends QueueBenchmark {
+    public static class __0064__0027594 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 64;
       private static final int NUMBER_OF_SEGMENTS = 27594;
 
@@ -917,7 +950,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0064__0032768 extends QueueBenchmark {
+    public static class __0064__0032768 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 64;
       private static final int NUMBER_OF_SEGMENTS = 32768;
 
@@ -934,7 +968,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0256__008192 extends QueueBenchmark {
+    public static class __0256__008192 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 256;
       private static final int NUMBER_OF_SEGMENTS = 8192;
 
@@ -951,7 +986,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0256__007825 extends QueueBenchmark {
+    public static class __0256__007825 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 256;
       private static final int NUMBER_OF_SEGMENTS = 7825;
 
@@ -968,7 +1004,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __0256__0016384 extends QueueBenchmark {
+    public static class __0256__0016384 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 256;
       private static final int NUMBER_OF_SEGMENTS = 16384;
 
@@ -985,7 +1022,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __1024__002048 extends QueueBenchmark {
+    public static class __1024__002048 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 1024;
       private static final int NUMBER_OF_SEGMENTS = 2048;
 
@@ -1002,7 +1040,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __1024__002024 extends QueueBenchmark {
+    public static class __1024__002024 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 1024;
       private static final int NUMBER_OF_SEGMENTS = 2024;
 
@@ -1019,7 +1058,8 @@ public class LinkedArrayQueueBenchmark {
     }
 
     @State(Scope.Benchmark)
-    public class __1024__004096 extends QueueBenchmark {
+    public static class __1024__004096 extends QueueBenchmark {
+
       private static final int SEGMENT_SIZE = 1024;
       private static final int NUMBER_OF_SEGMENTS = 4096;
 

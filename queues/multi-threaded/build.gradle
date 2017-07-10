@@ -1,10 +1,26 @@
+buildscript {
+//    repositories {
+//        maven {
+//            url "https://plugins.gradle.org/m2/"
+//        }
+//    }
+    dependencies {
+        classpath "gradle.plugin.com.github.erizo.gradle:jcstress-gradle-plugin:0.8.1-SNAPSHOT"
+    }
+}
+
 plugins {
+//    id "com.github.erizo.gradle.jcstress" version "0.8.1-SNAPSHOT"
     id "me.champeau.gradle.jmh" version "0.3.1"
     id "io.morethan.jmhreport" version "0.4.1"
 }
 
+apply plugin: "com.github.erizo.gradle.jcstress"
+
 jmh {
-    exclude = '\"(Resizable|Linked|L2|L3|Deque|4096|1024|256|64)\"'
+    include = 'DoubleLockLinkedBlockingQueueBenchmarks|BlockingQueueTest'
+//    include = 'BlockingQueueTest'
+    exclude = '\'Single|Double\''
     forceGC = true
     iterations = 10
     benchmarkMode = ['thrpt']
@@ -12,6 +28,7 @@ jmh {
     resultsFile = project.file("${project.buildDir}/reports/jmh/results.json")
     resultFormat = 'JSON'
     timeUnit = 'ms'
+    timeout = '10s'
     verbosity = 'NORMAL'
     warmup = '1s'
     warmupIterations = 10
@@ -25,3 +42,8 @@ jmhReport {
     jmhReportOutput = project.file("${project.buildDir}/reports/jmh")
 }
 tasks.jmh.finalizedBy tasks.jmhReport
+
+jcstress {
+    jcstressDependency 'org.openjdk.jcstress:jcstress-core:0.3'
+    forks = 1
+}
