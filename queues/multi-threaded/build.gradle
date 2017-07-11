@@ -1,16 +1,10 @@
 buildscript {
-//    repositories {
-//        maven {
-//            url "https://plugins.gradle.org/m2/"
-//        }
-//    }
     dependencies {
         classpath "gradle.plugin.com.github.erizo.gradle:jcstress-gradle-plugin:0.8.1-SNAPSHOT"
     }
 }
 
 plugins {
-//    id "com.github.erizo.gradle.jcstress" version "0.8.1-SNAPSHOT"
     id "me.champeau.gradle.jmh" version "0.3.1"
     id "io.morethan.jmhreport" version "0.4.1"
 }
@@ -18,9 +12,6 @@ plugins {
 apply plugin: "com.github.erizo.gradle.jcstress"
 
 jmh {
-    include = 'DoubleLockLinkedBlockingQueueBenchmarks|BlockingQueueTest'
-//    include = 'BlockingQueueTest'
-    exclude = '\'Single|Double\''
     forceGC = true
     iterations = 10
     benchmarkMode = ['thrpt']

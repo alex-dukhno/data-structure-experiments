@@ -18,10 +18,17 @@ import org.openjdk.jmh.annotations.State;
 //     Instance size: 32 bytes
 //     Space losses: 0 bytes internal + 0 bytes external = 0 bytes total
 //
-//    L1D 32KB  32768
-//    L2  256KB 262144
-//    L3  3MB   3145728
+//    Intel(R) Core(TM) i5-5257U CPU @ 2.70 GHz, 2 Core(s), 4 Logical Processor(s)
+//          cache sizes                 queue sizes
+//    L1D   32KB     32768      4096      8192     16384
+//    L2   256KB    262144     32768     65536    131072
+//    L3     3MB   3145728    524288   1048576   2097152
 //
+//    Intel(R) Core(TM) i7-3770 CPU @ 3.40GHz, 4 Core(s), 8 Logical Processor(s)
+//          cache sizes                 queue sizes
+//    L1D   32KB       32768     4096      8192     16384
+//    L2   256KB      262144    32768     65536    131072
+//    L3     8MB     8388608  1048576   2097152   4194304
 public class BitAndResizableArrayQueueBenchmark {
 
   @State(Scope.Benchmark)

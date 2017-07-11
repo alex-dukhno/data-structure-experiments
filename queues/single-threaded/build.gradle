@@ -4,7 +4,6 @@ plugins {
 }
 
 jmh {
-    exclude = '\"(Resizable|Linked|L2|L3|Deque|4096|1024|256|64)\"'
     forceGC = true
     iterations = 10
     benchmarkMode = ['thrpt']

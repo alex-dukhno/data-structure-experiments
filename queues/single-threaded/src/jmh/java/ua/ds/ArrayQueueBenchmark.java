@@ -19,23 +19,6 @@ import org.openjdk.jmh.annotations.State;
 //    Instance size: 32 bytes
 //    Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
 //
-//    [I object internals:
-//     OFFSET  SIZE   TYPE DESCRIPTION        VALUE
-//          0    16        (object header)    N/A
-//         16     0    int [I.<elements>      N/A
-//    Instance size: 16 bytes
-//    Space losses: 0 bytes internal + 0 bytes external = 0 bytes total
-//
-//    [I object internals:
-//     OFFSET  SIZE   TYPE DESCRIPTION        VALUE
-//          0     4        (object header)    01 00 00 00 (00000001 00000000 00000000 00000000) (1)
-//          4     4        (object header)    00 00 00 00 (00000000 00000000 00000000 00000000) (0)
-//          8     4        (object header)    6d 01 00 f8 (01101101 00000001 00000000 11111000) (-134217363)
-//         12     4        (object header)    00 00 00 00 (00000000 00000000 00000000 00000000) (0)
-//         16     0    int [I.<elements>      N/A
-//    Instance size: 16 bytes
-//    Space losses: 0 bytes internal + 0 bytes external = 0 bytes total
-//
 //    Intel(R) Core(TM) i5-5257U CPU @ 2.70 GHz, 2 Core(s), 4 Logical Processor(s)
 //          cache sizes                 queue sizes
 //    L1D   32KB     32768      4096      8192     16384
@@ -47,26 +30,6 @@ import org.openjdk.jmh.annotations.State;
 //    L1D   32KB       32768     4096      8192     16384
 //    L2   256KB      262144    32768     65536    131072
 //    L3     8MB     8388608  1048576   2097152   4194304
-//
-//    Benchmark                                              (items)  Mode  Cnt     Score     Error  Units
-//    ArrayQueueBenchmark.Enqueueing.enqueue                    4096  avgt   10     3.815 ±   0.155  us/op
-//    ArrayQueueBenchmark.Enqueueing.enqueue                    8192  avgt   10     7.753 ±   0.173  us/op
-//    ArrayQueueBenchmark.Enqueueing.enqueue                   16384  avgt   10    17.405 ±   0.814  us/op
-//    ArrayQueueBenchmark.Enqueueing.enqueue                   32768  avgt   10    36.984 ±   2.855  us/op
-//    ArrayQueueBenchmark.Enqueueing.enqueue                   65536  avgt   10    79.754 ±   2.664  us/op
-//    ArrayQueueBenchmark.Enqueueing.enqueue                  131072  avgt   10   157.756 ±   6.853  us/op
-//    ArrayQueueBenchmark.Enqueueing.enqueue                 1048576  avgt   10  1300.059 ±  56.781  us/op
-//    ArrayQueueBenchmark.Enqueueing.enqueue                 2097152  avgt   10  2645.121 ± 166.538  us/op
-//    ArrayQueueBenchmark.Enqueueing.enqueue                 4194304  avgt   10  5090.807 ±  90.109  us/op
-//    ArrayQueueBenchmark.EnqueueingDequeueing.enqueueDeque     4096  avgt   10     6.430 ±   0.281  us/op
-//    ArrayQueueBenchmark.EnqueueingDequeueing.enqueueDeque     8192  avgt   10    12.878 ±   0.446  us/op
-//    ArrayQueueBenchmark.EnqueueingDequeueing.enqueueDeque    16384  avgt   10    27.560 ±   2.231  us/op
-//    ArrayQueueBenchmark.EnqueueingDequeueing.enqueueDeque    32768  avgt   10    53.468 ±   4.659  us/op
-//    ArrayQueueBenchmark.EnqueueingDequeueing.enqueueDeque    65536  avgt   10   105.661 ±   9.811  us/op
-//    ArrayQueueBenchmark.EnqueueingDequeueing.enqueueDeque   131072  avgt   10   205.350 ±   7.865  us/op
-//    ArrayQueueBenchmark.EnqueueingDequeueing.enqueueDeque  1048576  avgt   10  1641.176 ±  39.512  us/op
-//    ArrayQueueBenchmark.EnqueueingDequeueing.enqueueDeque  2097152  avgt   10  3535.760 ± 286.585  us/op
-//    ArrayQueueBenchmark.EnqueueingDequeueing.enqueueDeque  4194304  avgt   10  6635.399 ± 131.476  us/op
 public class ArrayQueueBenchmark {
 
   @State(Scope.Benchmark)
