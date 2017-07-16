@@ -1,4 +1,4 @@
 rootProject.name = 'data-sructures-parent'
 
-include ':queues:single-threaded'
-include ':queues:multi-threaded'
+include ':queues:sequential'
+include ':queues:blocking'
