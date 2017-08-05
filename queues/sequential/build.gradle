@@ -4,23 +4,24 @@ plugins {
 }
 
 jmh {
-    forceGC = true
-    iterations = 10
-    benchmarkMode = ['thrpt']
-    fork = 1
-    resultsFile = project.file("${project.buildDir}/reports/jmh/results.json")
-    resultFormat = 'JSON'
-    timeUnit = 'ms'
-    verbosity = 'NORMAL'
-    warmup = '1s'
-    warmupIterations = 10
+  forceGC = true
+  iterations = 10
+  benchmarkMode = ['thrpt']
+  fork = 1
+  resultsFile = project.file("${project.buildDir}/reports/jmh/results.json")
+  resultFormat = 'JSON'
+  timeUnit = 'ms'
+  timeout = '10s'
+  verbosity = 'NORMAL'
+  warmup = '1s'
+  warmupIterations = 10
 
-    jmhVersion = '1.19'
-    includeTests = false
+  jmhVersion = '1.19'
+  includeTests = false
 }
 
 jmhReport {
-    jmhResultPath = project.file("${project.buildDir}/reports/jmh/results.json")
-    jmhReportOutput = project.file("${project.buildDir}/reports/jmh")
+  jmhResultPath = project.file("${project.buildDir}/reports/jmh/results.json")
+  jmhReportOutput = project.file("${project.buildDir}/reports/jmh")
 }
 tasks.jmh.finalizedBy tasks.jmhReport

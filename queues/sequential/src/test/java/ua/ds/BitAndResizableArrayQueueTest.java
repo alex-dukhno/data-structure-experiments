@@ -1,34 +1,34 @@
 package ua.ds;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
-public class BitAndResizableArrayQueueTest {
+class BitAndResizableArrayQueueTest {
 
   private BitAndResizableArrayQueue queue;
 
-  @Before
-  public void setUp() throws Exception {
+  @BeforeEach
+  void setUp() throws Exception {
     queue = new BitAndResizableArrayQueue();
   }
 
   @Test
-  public void dequeFromEmptyQueue() throws Exception {
+  void dequeFromEmptyQueue() throws Exception {
     assertThat(queue.deque(), is(-1));
   }
 
   @Test
-  public void enqueueDequeItem() throws Exception {
+  void enqueueDequeItem() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
   }
 
   @Test
-  public void enqueueDequeManyItems() throws Exception {
+  void enqueueDequeManyItems() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
@@ -43,7 +43,7 @@ public class BitAndResizableArrayQueueTest {
   }
 
   @Test
-  public void enqueueManyItems_dequeManyItems() throws Exception {
+  void enqueueManyItems_dequeManyItems() throws Exception {
     queue.enqueue(10);
     queue.enqueue(20);
     queue.enqueue(30);
@@ -54,7 +54,7 @@ public class BitAndResizableArrayQueueTest {
   }
 
   @Test
-  public void enqueueMoreThanCapacity() throws Exception {
+  void enqueueMoreThanCapacity() throws Exception {
     for (int i = 0; i < 20; i++) {
       queue.enqueue(i);
     }
@@ -65,7 +65,7 @@ public class BitAndResizableArrayQueueTest {
   }
 
   @Test
-  public void enqueueToDoubleResize_dequeToShrink() throws Exception {
+  void enqueueToDoubleResize_dequeToShrink() throws Exception {
     for (int i = 0; i < 100; i++) {
       queue.enqueue(i);
     }
@@ -76,7 +76,7 @@ public class BitAndResizableArrayQueueTest {
   }
 
   @Test
-  public void enqueueDequeManyTimeMoreThanCapacity() throws Exception {
+  void enqueueDequeManyTimeMoreThanCapacity() throws Exception {
     for (int i = 0; i < 40; i++) {
       queue.enqueue(i);
     }

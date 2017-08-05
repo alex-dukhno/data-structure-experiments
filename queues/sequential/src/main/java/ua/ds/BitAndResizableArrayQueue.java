@@ -7,7 +7,7 @@ public class BitAndResizableArrayQueue {
   private static final int MIN_CAPACITY = 16;
   private static final int MAX_CAPACITY = Integer.MIN_VALUE >>> 1;
 
-  private int[] items;
+  private Integer[] items;
   private int head;
   private int tail;
   private int mask;
@@ -18,7 +18,7 @@ public class BitAndResizableArrayQueue {
   }
 
   public BitAndResizableArrayQueue(int capacity) {
-    items = new int[capacity];
+    items = new Integer[capacity];
     head = 0;
     tail = capacity - 1;
     mask = capacity - 1;
@@ -57,8 +57,8 @@ public class BitAndResizableArrayQueue {
     }
   }
 
-  private int[] copyItems(int newCapacity) {
-    int[] buffer = new int[newCapacity];
+  private Integer[] copyItems(int newCapacity) {
+    Integer[] buffer = new Integer[newCapacity];
     int newMask = newCapacity - 1;
     int newItemsIndex = (newMask - mask + tail + 1) & newMask;
     for (int itemsIndex = beginningOfItems(); itemsIndex != head; itemsIndex = nextIndex(itemsIndex, mask)) {

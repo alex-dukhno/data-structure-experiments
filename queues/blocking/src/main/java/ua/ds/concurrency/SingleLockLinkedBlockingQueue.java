@@ -1,9 +1,10 @@
 package ua.ds.concurrency;
 
+import org.openjdk.jol.info.ClassLayout;
+
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import org.openjdk.jol.info.ClassLayout;
 
 public class SingleLockLinkedBlockingQueue {
 
@@ -35,32 +36,26 @@ public class SingleLockLinkedBlockingQueue {
     }
   }
 
-  public int deque() {
+  public int deque() throws InterruptedException {
     lock.lock();
     try {
       while (head == null) {
-        try {
-          empty.await();
-        } catch (InterruptedException e) {
-          throw new RuntimeException(e);
-        }
+        empty.await();
       }
-      int item = head.item;
+      Node node = head;
       head = head.next;
       if (head == null) {
         tail = null;
       }
-      return item;
+      return node.item;
     } finally {
       lock.unlock();
     }
   }
 
-
-  private static class Node {
-
-    private final int item;
-    private Node next;
+  class Node {
+    final int item;
+    Node next;
 
     Node(int item) {
       this.item = item;

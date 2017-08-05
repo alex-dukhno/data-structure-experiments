@@ -1,29 +1,29 @@
 package ua.ds.concurrency;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class DoubleLockLinkedBlockingQueueTest {
+class DoubleLockLinkedBlockingQueueTest {
 
   private DoubleLockLinkedBlockingQueue queue;
 
-  @Before
-  public void setUp() throws Exception {
+  @BeforeEach
+  void setUp() throws Exception {
     queue = new DoubleLockLinkedBlockingQueue();
   }
 
   @Test
-  public void enqueueDequeItem() throws Exception {
+  void enqueueDequeItem() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
   }
 
   @Test
-  public void enqueueDequeItemsManyTimes() throws Exception {
+  void enqueueDequeItemsManyTimes() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
@@ -38,7 +38,7 @@ public class DoubleLockLinkedBlockingQueueTest {
   }
 
   @Test
-  public void enqueueDequeManyItems() throws Exception {
+  void enqueueDequeManyItems() throws Exception {
     queue.enqueue(10);
     queue.enqueue(20);
     queue.enqueue(30);

@@ -1,50 +1,50 @@
 package ua.ds.concurrency;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class SingleLockLinkedBlockingQueueTest {
+class SingleLockLinkedBlockingQueueTest {
 
-    private SingleLockLinkedBlockingQueue queue;
+  private SingleLockLinkedBlockingQueue queue;
 
-    @Before
-    public void setUp() throws Exception {
-        queue = new SingleLockLinkedBlockingQueue();
-    }
+  @BeforeEach
+  void setUp() throws Exception {
+    queue = new SingleLockLinkedBlockingQueue();
+  }
 
-    @Test
-    public void addOneItem() throws Exception {
-        queue.enqueue(10);
+  @Test
+  void addOneItem() throws Exception {
+    queue.enqueue(10);
 
-        assertThat(queue.deque(), is(10));
-    }
+    assertThat(queue.deque(), is(10));
+  }
 
-    @Test
-    public void addManyItems() throws Exception {
-        queue.enqueue(10);
-        queue.enqueue(20);
-        queue.enqueue(30);
+  @Test
+  void addManyItems() throws Exception {
+    queue.enqueue(10);
+    queue.enqueue(20);
+    queue.enqueue(30);
 
-        assertThat(queue.deque(), is(10));
-        assertThat(queue.deque(), is(20));
-        assertThat(queue.deque(), is(30));
-    }
+    assertThat(queue.deque(), is(10));
+    assertThat(queue.deque(), is(20));
+    assertThat(queue.deque(), is(30));
+  }
 
-    @Test
-    public void addOneByOne() throws Exception {
-        queue.enqueue(10);
+  @Test
+  void addOneByOne() throws Exception {
+    queue.enqueue(10);
 
-        assertThat(queue.deque(), is(10));
+    assertThat(queue.deque(), is(10));
 
-        queue.enqueue(20);
+    queue.enqueue(20);
 
-        assertThat(queue.deque(), is(20));
+    assertThat(queue.deque(), is(20));
 
-        queue.enqueue(30);
+    queue.enqueue(30);
 
-        assertThat(queue.deque(), is(30));
-    }
+    assertThat(queue.deque(), is(30));
+  }
 }

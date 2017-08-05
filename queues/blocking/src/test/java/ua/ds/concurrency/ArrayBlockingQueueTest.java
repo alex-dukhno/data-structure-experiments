@@ -1,4 +1,4 @@
-package ua.ds;
+package ua.ds.concurrency;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-class BranchResizableArrayQueueTest {
+class ArrayBlockingQueueTest {
 
-  private BranchResizableArrayQueue queue;
+  private ArrayBlockingQueue queue;
 
   @BeforeEach
   void setUp() throws Exception {
-    queue = new BranchResizableArrayQueue();
+    queue = new ArrayBlockingQueue(16);
   }
 
   @Test
@@ -21,29 +21,28 @@ class BranchResizableArrayQueueTest {
   }
 
   @Test
-  void enqueueDequeItem() throws Exception {
+  void enqueueItemIntoQueue() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
+    assertThat(queue.deque(), is(-1));
   }
 
   @Test
-  void enqueueDequeManyItems() throws Exception {
+  void enqueueDequeItemsOneByOne() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
 
     queue.enqueue(20);
-
     assertThat(queue.deque(), is(20));
 
     queue.enqueue(30);
-
     assertThat(queue.deque(), is(30));
   }
 
   @Test
-  void enqueueManyItems_dequeManyItems() throws Exception {
+  void enqueueDequeueManyItems() throws Exception {
     queue.enqueue(10);
     queue.enqueue(20);
     queue.enqueue(30);
@@ -51,6 +50,7 @@ class BranchResizableArrayQueueTest {
     assertThat(queue.deque(), is(10));
     assertThat(queue.deque(), is(20));
     assertThat(queue.deque(), is(30));
+    assertThat(queue.deque(), is(-1));
   }
 
   @Test
@@ -62,7 +62,9 @@ class BranchResizableArrayQueueTest {
     for (int i = 0; i < 20; i++) {
       assertThat(queue.deque(), is(i));
     }
+    assertThat(queue.deque(), is(-1));
   }
+
 
   @Test
   void enqueueToDoubleResize_dequeToShrink() throws Exception {
@@ -73,6 +75,7 @@ class BranchResizableArrayQueueTest {
     for (int i = 0; i < 100; i++) {
       assertThat(queue.deque(), is(i));
     }
+    assertThat(queue.deque(), is(-1));
   }
 
   @Test

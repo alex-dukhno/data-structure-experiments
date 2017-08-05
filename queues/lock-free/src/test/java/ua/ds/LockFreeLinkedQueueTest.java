@@ -3,16 +3,15 @@ package ua.ds;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-class LinkedQueueTest {
-
-  private LinkedQueue queue;
+class LockFreeLinkedQueueTest {
+  private LockFreeLinkedQueue queue;
 
   @BeforeEach
   void setUp() throws Exception {
-    queue = new LinkedQueue();
+    queue = new LockFreeLinkedQueue();
   }
 
   @Test

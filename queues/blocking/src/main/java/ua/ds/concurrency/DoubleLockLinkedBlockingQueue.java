@@ -90,9 +90,8 @@ public class DoubleLockLinkedBlockingQueue {
     }
     return result;
   }
-
-  private class Node {
-    int item;
+  class Node {
+    final int item;
     Node next;
 
     Node(int item) {

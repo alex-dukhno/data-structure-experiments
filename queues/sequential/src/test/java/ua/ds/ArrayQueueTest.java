@@ -1,34 +1,34 @@
 package ua.ds;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 
-public class ArrayQueueTest {
+class ArrayQueueTest {
 
   private ArrayQueue queue;
 
-  @Before
-  public void setUp() throws Exception {
+  @BeforeEach
+  void setUp() throws Exception {
     queue = new ArrayQueue();
   }
 
   @Test
-  public void dequeFromEmptyQueue() throws Exception {
+  void dequeFromEmptyQueue() throws Exception {
     assertThat(queue.deque(), is(-1));
   }
 
   @Test
-  public void enqueueDequeItem() throws Exception {
+  void enqueueDequeItem() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
   }
 
   @Test
-  public void enqueueDequeItems() throws Exception {
+  void enqueueDequeItems() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
@@ -43,7 +43,7 @@ public class ArrayQueueTest {
   }
 
   @Test
-  public void enqueueManyItemsDequeManyItems() throws Exception {
+  void enqueueManyItemsDequeManyItems() throws Exception {
     queue.enqueue(10);
     queue.enqueue(20);
     queue.enqueue(30);
@@ -54,7 +54,7 @@ public class ArrayQueueTest {
   }
 
   @Test
-  public void enqueueDequeMoreThanCapacity() throws Exception {
+  void enqueueDequeMoreThanCapacity() throws Exception {
     for (int i = 0; i < 32; i++) {
       queue.enqueue(i);
       queue.deque();

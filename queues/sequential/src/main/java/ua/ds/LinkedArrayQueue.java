@@ -43,13 +43,13 @@ public class LinkedArrayQueue {
   }
 
   private static class Segment {
-    private final int[] items;
+    private final Integer[] items;
     private Segment next;
     private int first;
     private int last;
 
     Segment(int capacity) {
-      items = new int[capacity];
+      items = new Integer[capacity];
       first = -1;
       last = -1;
     }
@@ -58,6 +58,6 @@ public class LinkedArrayQueue {
   public static void main(String[] args) {
     System.out.println(ClassLayout.parseClass(LinkedArrayQueue.class).toPrintable());
     System.out.println(ClassLayout.parseClass(LinkedArrayQueue.Segment.class).toPrintable());
-    System.out.println(ClassLayout.parseInstance(new int[16]).toPrintable());
+    System.out.println(ClassLayout.parseInstance(new Integer[16]).toPrintable());
   }
 }

@@ -7,7 +7,7 @@ import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.layouters.HotSpotLayouter;
 
 public class ArrayQueue {
-  private final int[] items;
+  private final Integer[] items;
   private int head;
   private int tail;
   private final int mask;
@@ -17,7 +17,7 @@ public class ArrayQueue {
   }
 
   public ArrayQueue(int capacity) {
-    items = new int[capacity];
+    items = new Integer[capacity];
     head = 0;
     tail = capacity - 1;
     mask = capacity - 1;
@@ -48,10 +48,16 @@ public class ArrayQueue {
     System.out.println(ClassLayout.parseClass(ArrayQueue.class, x64_coops_layouter).toPrintable());
     System.out.println(ClassLayout.parseClass(ArrayQueue.class, x64layouter).toPrintable());
     System.out.println(ClassLayout.parseClass(int[].class, x32layouter).toPrintable());
+    System.out.println(ClassLayout.parseClass(Integer[].class, x32layouter).toPrintable());
     System.out.println(ClassLayout.parseClass(int[].class, x64_coops_layouter).toPrintable());
+    System.out.println(ClassLayout.parseClass(Integer[].class, x64_coops_layouter).toPrintable());
     System.out.println(ClassLayout.parseClass(int[].class, x64layouter).toPrintable());
+    System.out.println(ClassLayout.parseClass(Integer[].class, x64layouter).toPrintable());
     System.out.println(ClassLayout.parseInstance(new int[16], x32layouter).toPrintable());
+    System.out.println(ClassLayout.parseInstance(new Integer[16], x32layouter).toPrintable());
     System.out.println(ClassLayout.parseInstance(new int[16], x64_coops_layouter).toPrintable());
+    System.out.println(ClassLayout.parseInstance(new Integer[16], x64_coops_layouter).toPrintable());
     System.out.println(ClassLayout.parseInstance(new int[16], x64layouter).toPrintable());
+    System.out.println(ClassLayout.parseInstance(new Integer[16], x64layouter).toPrintable());
   }
 }

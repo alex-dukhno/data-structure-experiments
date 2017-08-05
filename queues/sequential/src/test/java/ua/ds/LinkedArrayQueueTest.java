@@ -1,27 +1,27 @@
 package ua.ds;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class LinkedArrayQueueTest {
+class LinkedArrayQueueTest {
 
   private LinkedArrayQueue queue;
 
-  @Before
-  public void setUp() throws Exception {
+  @BeforeEach
+  void setUp() throws Exception {
     queue = new LinkedArrayQueue();
   }
   
   @Test
-  public void dequeFromEmptyQueue() throws Exception {
+  void dequeFromEmptyQueue() throws Exception {
     assertThat(queue.deque(), is(-1));
   }
 
   @Test
-  public void enqueueDequeItem() throws Exception {
+  void enqueueDequeItem() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
@@ -29,7 +29,7 @@ public class LinkedArrayQueueTest {
   }
 
   @Test
-  public void enqueueDequeItemManyTimes() throws Exception {
+  void enqueueDequeItemManyTimes() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
@@ -44,7 +44,7 @@ public class LinkedArrayQueueTest {
   }
 
   @Test
-  public void enqueueManyItemsDequeAll() throws Exception {
+  void enqueueManyItemsDequeAll() throws Exception {
       queue.enqueue(10);
       queue.enqueue(20);
       queue.enqueue(30);
@@ -56,7 +56,7 @@ public class LinkedArrayQueueTest {
   }
 
   @Test
-  public void enqueueDequeItemsMoreThanSegmentCapacity() throws Exception {
+  void enqueueDequeItemsMoreThanSegmentCapacity() throws Exception {
     for (int i = 0; i < 20; i++) {
       queue.enqueue(i);
     }
@@ -68,7 +68,7 @@ public class LinkedArrayQueueTest {
   }
 
   @Test
-  public void enqueueMoreThanOneSegment_thenDeque() throws Exception {
+  void enqueueMoreThanOneSegment_thenDeque() throws Exception {
     for (int i = 0; i < 40; i++) {
       queue.enqueue(i);
     }
@@ -80,7 +80,7 @@ public class LinkedArrayQueueTest {
   }
 
   @Test
-  public void enqueueDequeMoreThanSegmentCapacity() throws Exception {
+  void enqueueDequeMoreThanSegmentCapacity() throws Exception {
     for(int i = 0; i < 40; i++) {
       queue.enqueue(i);
       assertThat(queue.deque(), is(i));
