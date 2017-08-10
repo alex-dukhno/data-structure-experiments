@@ -35,7 +35,7 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Group("SingleWriterSingleReader")
     @GroupThreads(1)
     @OperationsPerInvocation(256)
-    public int deque() {
+    public int deque() throws InterruptedException {
       int sum = 0;
       for (int i = 0; i < 256; i++) {
         sum += queue.deque();
@@ -72,7 +72,7 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Group("SingleWriterSingleReader")
     @GroupThreads(1)
     @OperationsPerInvocation(256)
-    public int deque() {
+    public int deque() throws InterruptedException {
       int sum = 0;
       for (int i = 0; i < 256; i++) {
         sum += queue.deque();
@@ -106,7 +106,7 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
     @OperationsPerInvocation(256)
-    public int twoReadersDeque() {
+    public int twoReadersDeque() throws InterruptedException {
       int sum = 0;
       for (int i = 0; i < 256; i++) {
         sum += queue.deque();
@@ -130,7 +130,7 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
     @OperationsPerInvocation(256)
-    public int fourReadersDeque() {
+    public int fourReadersDeque() throws InterruptedException {
       int sum = 0;
       for (int i = 0; i < 256; i++) {
         sum += queue.deque();
@@ -167,7 +167,7 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
     @OperationsPerInvocation(256)
-    public int twoReadersDeque() {
+    public int twoReadersDeque() throws InterruptedException {
       int sum = 0;
       for (int i = 0; i < 256; i++) {
         sum += queue.deque();
@@ -191,7 +191,7 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
     @OperationsPerInvocation(256)
-    public int fourReadersDeque() {
+    public int fourReadersDeque() throws InterruptedException {
       int sum = 0;
       for (int i = 0; i < 256; i++) {
         sum += queue.deque();

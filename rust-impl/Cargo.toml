@@ -1,0 +1,13 @@
+[package]
+name = "data-structures"
+version = "1.0.0"
+authors = ["Alex-Diez <alex.dukhno@icloud.com>"]
+
+[lib]
+name = "datasructures"
+
+[dependencies]
+clippy = {version = "*", optional = true}
+
+[features]
+default = []

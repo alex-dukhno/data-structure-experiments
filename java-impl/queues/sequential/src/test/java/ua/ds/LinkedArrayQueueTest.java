@@ -14,7 +14,7 @@ class LinkedArrayQueueTest {
   void setUp() throws Exception {
     queue = new LinkedArrayQueue();
   }
-  
+
   @Test
   void dequeFromEmptyQueue() throws Exception {
     assertThat(queue.deque(), is(-1));
