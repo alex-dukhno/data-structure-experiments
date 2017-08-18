@@ -6,6 +6,7 @@ import org.openjdk.jol.info.GraphLayout;
 public class LinkedQueue {
   private Node head;
   private Node tail;
+  int size;
 
   public Integer deque() {
     if (head == null) return -1;
@@ -25,6 +26,7 @@ public class LinkedQueue {
       tail.next = node;
     }
     tail = node;
+    size++;
   }
 
   private class Node {

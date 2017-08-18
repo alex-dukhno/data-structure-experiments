@@ -7,6 +7,8 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
+import java.util.stream.IntStream;
+
 //    ua.ds.LinkedQueue object internals:
 //    OFFSET  SIZE                     TYPE DESCRIPTION                           VALUE
 //         0    12                          (object header)                           N/A
@@ -42,64 +44,154 @@ public class LinkedQueueBenchmark {
   public static class Enqueueing {
 
     @Benchmark
-    @OperationsPerInvocation(1024)
-    public LinkedQueue enqueueLessThanL1Size() {
-      return enqueue(1024);
+    public LinkedQueue enqueue512() {
+      return enqueue(512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(1364)
-    public LinkedQueue enqueueExactAsL1Size() {
-      return enqueue(1364);
+    @OperationsPerInvocation(2 * 512)
+    public LinkedQueue enqueue1024() {
+      return enqueue(2 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(2048)
-    public LinkedQueue enqueueMoreThanL1Size() {
-      return enqueue(2048);
+    @OperationsPerInvocation(3 * 512)
+    public LinkedQueue enqueue1536() {
+      return enqueue(3 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(8192)
-    public LinkedQueue enqueueLessThanL2Size() {
-      return enqueue(8192);
+    @OperationsPerInvocation(4 * 512)
+    public LinkedQueue enqueue2048() {
+      return enqueue(4 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(10921)
-    public LinkedQueue enqueueExactAsL2Size() {
-      return enqueue(10921);
+    @OperationsPerInvocation(4096)
+    public LinkedQueue enqueue4096() {
+      return enqueue(4096);
     }
 
     @Benchmark
-    @OperationsPerInvocation(16384)
-    public LinkedQueue enqueueMoreThanL2Size() {
-      return enqueue(16384);
+    @OperationsPerInvocation(2 * 4096)
+    public LinkedQueue enqueue8192() {
+      return enqueue(2 * 4096);
     }
 
     @Benchmark
-    @OperationsPerInvocation(131072)
-    public LinkedQueue enqueueLessThanL3Size() {
-      return enqueue(131072);
+    @OperationsPerInvocation(3 * 4096)
+    public LinkedQueue enqueue12288() {
+      return enqueue(3 * 4096);
     }
 
     @Benchmark
-    @OperationsPerInvocation(349524)
-    public LinkedQueue enqueueExactAsL3Size() {
-      return enqueue(349524);
+    @OperationsPerInvocation(4 * 4096)
+    public LinkedQueue enqueue16384() {
+      return enqueue(4 * 4096);
     }
 
     @Benchmark
-    @OperationsPerInvocation(524288)
-    public LinkedQueue enqueueMoreThanL3Size() {
-      return enqueue(524288);
+    @OperationsPerInvocation(32768)
+    public LinkedQueue enqueue32768() {
+      return enqueue(32768);
     }
+
+    @Benchmark
+    @OperationsPerInvocation(2 * 32768)
+    public LinkedQueue enqueue65536() {
+      return enqueue(2 * 32768);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(3 * 32768)
+    public LinkedQueue enqueue98304() {
+      return enqueue(3 * 32768);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(4 * 32768)
+    public LinkedQueue enqueue131072() {
+      return enqueue(4 * 32768);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(262144)
+    public LinkedQueue enqueue262144() {
+      return enqueue(262144);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(2 * 262144)
+    public LinkedQueue enqueue524288() {
+      return enqueue(2 * 262144);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(3 * 262144)
+    public LinkedQueue enqueue786432() {
+      return enqueue(3 * 262144);
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(4 * 262144)
+    public LinkedQueue enqueue1048576() {
+      return enqueue(4 * 262144);
+    }
+
+//    @Benchmark
+//    @OperationsPerInvocation(1364)
+//    public LinkedQueue enqueueExactAsL1Size() {
+//      return enqueue(1364);
+//    }
+//
+//    @Benchmark
+//    @OperationsPerInvocation(2048)
+//    public LinkedQueue enqueueMoreThanL1Size() {
+//      return enqueue(2048);
+//    }
+//
+//    @Benchmark
+//    @OperationsPerInvocation(8192)
+//    public LinkedQueue enqueueLessThanL2Size() {
+//      return enqueue(8192);
+//    }
+//
+//    @Benchmark
+//    @OperationsPerInvocation(10921)
+//    public LinkedQueue enqueueExactAsL2Size() {
+//      return enqueue(10921);
+//    }
+//
+//    @Benchmark
+//    @OperationsPerInvocation(16384)
+//    public LinkedQueue enqueueMoreThanL2Size() {
+//      return enqueue(16384);
+//    }
+//
+//    @Benchmark
+//    @OperationsPerInvocation(131072)
+//    public LinkedQueue enqueueLessThanL3Size() {
+//      return enqueue(131072);
+//    }
+//
+//    @Benchmark
+//    @OperationsPerInvocation(349524)
+//    public LinkedQueue enqueueExactAsL3Size() {
+//      return enqueue(349524);
+//    }
+//
+//    @Benchmark
+//    @OperationsPerInvocation(524288)
+//    public LinkedQueue enqueueMoreThanL3Size() {
+//      return enqueue(524288);
+//    }
 
     private LinkedQueue enqueue(int iterations) {
       LinkedQueue queue = new LinkedQueue();
       for (int i = 0; i < iterations; i++) {
         queue.enqueue(i);
       }
+      assert queue.size == iterations;
       return queue;
     }
   }
@@ -184,6 +276,7 @@ public class LinkedQueueBenchmark {
         sum += queue.deque();
         queue.enqueue(i);
       }
+      assert sum == IntStream.iterate(0, i -> i + 1).limit(iterations).sum();
       return sum;
     }
   }
