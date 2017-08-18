@@ -68,4 +68,5 @@ gradle/
 build/
 
 Cargo.lock
+.DS_Store
 

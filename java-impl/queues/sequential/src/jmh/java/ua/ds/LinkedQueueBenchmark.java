@@ -49,235 +49,140 @@ public class LinkedQueueBenchmark {
     }
 
     @Benchmark
-    @OperationsPerInvocation(2 * 512)
     public LinkedQueue enqueue1024() {
       return enqueue(2 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(3 * 512)
-    public LinkedQueue enqueue1536() {
-      return enqueue(3 * 512);
-    }
-
-    @Benchmark
-    @OperationsPerInvocation(4 * 512)
     public LinkedQueue enqueue2048() {
       return enqueue(4 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(4096)
     public LinkedQueue enqueue4096() {
-      return enqueue(4096);
+      return enqueue(8 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(2 * 4096)
     public LinkedQueue enqueue8192() {
-      return enqueue(2 * 4096);
+      return enqueue(16 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(3 * 4096)
-    public LinkedQueue enqueue12288() {
-      return enqueue(3 * 4096);
-    }
-
-    @Benchmark
-    @OperationsPerInvocation(4 * 4096)
     public LinkedQueue enqueue16384() {
-      return enqueue(4 * 4096);
+      return enqueue(32 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(32768)
     public LinkedQueue enqueue32768() {
-      return enqueue(32768);
+      return enqueue(64 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(2 * 32768)
     public LinkedQueue enqueue65536() {
-      return enqueue(2 * 32768);
+      return enqueue(128 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(3 * 32768)
-    public LinkedQueue enqueue98304() {
-      return enqueue(3 * 32768);
-    }
-
-    @Benchmark
-    @OperationsPerInvocation(4 * 32768)
     public LinkedQueue enqueue131072() {
-      return enqueue(4 * 32768);
+      return enqueue(256 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(262144)
     public LinkedQueue enqueue262144() {
-      return enqueue(262144);
+      return enqueue(512 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(2 * 262144)
     public LinkedQueue enqueue524288() {
-      return enqueue(2 * 262144);
+      return enqueue(1024 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(3 * 262144)
-    public LinkedQueue enqueue786432() {
-      return enqueue(3 * 262144);
-    }
-
-    @Benchmark
-    @OperationsPerInvocation(4 * 262144)
     public LinkedQueue enqueue1048576() {
-      return enqueue(4 * 262144);
-    }
-
-//    @Benchmark
-//    @OperationsPerInvocation(1364)
-//    public LinkedQueue enqueueExactAsL1Size() {
-//      return enqueue(1364);
-//    }
-//
-//    @Benchmark
-//    @OperationsPerInvocation(2048)
-//    public LinkedQueue enqueueMoreThanL1Size() {
-//      return enqueue(2048);
-//    }
-//
-//    @Benchmark
-//    @OperationsPerInvocation(8192)
-//    public LinkedQueue enqueueLessThanL2Size() {
-//      return enqueue(8192);
-//    }
-//
-//    @Benchmark
-//    @OperationsPerInvocation(10921)
-//    public LinkedQueue enqueueExactAsL2Size() {
-//      return enqueue(10921);
-//    }
-//
-//    @Benchmark
-//    @OperationsPerInvocation(16384)
-//    public LinkedQueue enqueueMoreThanL2Size() {
-//      return enqueue(16384);
-//    }
-//
-//    @Benchmark
-//    @OperationsPerInvocation(131072)
-//    public LinkedQueue enqueueLessThanL3Size() {
-//      return enqueue(131072);
-//    }
-//
-//    @Benchmark
-//    @OperationsPerInvocation(349524)
-//    public LinkedQueue enqueueExactAsL3Size() {
-//      return enqueue(349524);
-//    }
-//
-//    @Benchmark
-//    @OperationsPerInvocation(524288)
-//    public LinkedQueue enqueueMoreThanL3Size() {
-//      return enqueue(524288);
-//    }
-
-    private LinkedQueue enqueue(int iterations) {
-      LinkedQueue queue = new LinkedQueue();
-      for (int i = 0; i < iterations; i++) {
-        queue.enqueue(i);
-      }
-      assert queue.size == iterations;
-      return queue;
+      return enqueue(2048 * 512);
     }
   }
 
   @State(Scope.Benchmark)
   public static class EnqueueingDequeing {
 
-    @Param({
-        "1024", "1364", "2048",     //L1D
-        "8192", "10921", "16384",   //L2
-        "65536", "131071", "262144" //L3
-    })
-    private int initialSize;
-
-    private LinkedQueue queue;
-
-    @Setup
-    public void createQueue() {
-      queue = new LinkedQueue();
-      for (int i = 0; i < initialSize; i++) {
-        queue.enqueue(i);
-      }
+    @Benchmark
+    public int enqueue512() {
+      return deque(enqueue(512), 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(1024)
-    public int enqueueDeque1024() {
-      return enqueueDeque(1024);
+    public int enqueue1024() {
+      return deque(enqueue(2 * 512), 2 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(1364)
-    public int enqueueDeque1364() {
-      return enqueueDeque(1364);
+    public int enqueue2048() {
+      return deque(enqueue(4 * 512), 4 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(2048)
-    public int enqueueDeque2048() {
-      return enqueueDeque(2048);
+    public int enqueue4096() {
+      return deque(enqueue(8 * 512), 8 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(8192)
-    public int enqueueDeque8192() {
-      return enqueueDeque(8192);
+    public int enqueue8192() {
+      return deque(enqueue(16 * 512), 16 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(10921)
-    public int enqueueDeque10921() {
-      return enqueueDeque(10921);
+    public int enqueue16384() {
+      return deque(enqueue(32 * 512), 32 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(16384)
-    public int enqueueDeque16384() {
-      return enqueueDeque(16384);
+    public int enqueue32768() {
+      return deque(enqueue(64 * 512), 64 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(65536)
-    public int enqueueDeque65536() {
-      return enqueueDeque(65536);
+    public int enqueue65536() {
+      return deque(enqueue(128 * 512), 128 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(131071)
-    public int enqueueDeque131071() {
-      return enqueueDeque(131071);
+    public int enqueue131072() {
+      return deque(enqueue(256 * 512), 256 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(262144)
-    public int enqueueDeque262144() {
-      return enqueueDeque(262144);
+    public int enqueue262144() {
+      return deque(enqueue(512 * 512), 512 * 512);
     }
 
-    private int enqueueDeque(int iterations) {
-      int sum = 0;
-      for (int i = 0; i < iterations; i++) {
-        sum += queue.deque();
-        queue.enqueue(i);
-      }
-      assert sum == IntStream.iterate(0, i -> i + 1).limit(iterations).sum();
-      return sum;
+    @Benchmark
+    public int enqueue524288() {
+      return deque(enqueue(1024 * 512), 1024 * 512);
     }
+
+    @Benchmark
+    public int enqueue1048576() {
+      return deque(enqueue(2048 * 512), 2048 * 512);
+    }
+  }
+
+  private static LinkedQueue enqueue(int iterations) {
+    LinkedQueue queue = new LinkedQueue();
+    for (int i = 0; i < iterations; i++) {
+      queue.enqueue(i);
+    }
+    assert queue.size == iterations;
+    return queue;
+  }
+
+  private static int deque(LinkedQueue queue, int iterations) {
+    int sum = 0;
+    for (int i = 0; i < iterations; i++) {
+      sum += queue.deque();
+    }
+    assert sum == IntStream.iterate(0, i -> i + 1).limit(iterations).sum();
+    return sum;
   }
 }
