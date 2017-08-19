@@ -41,129 +41,129 @@ import java.util.stream.IntStream;
 public class LinkedQueueBenchmark {
 
   @State(Scope.Benchmark)
-  public static class Enqueueing {
+  public static class LinkedQueueEnqueue {
 
     @Benchmark
-    public LinkedQueue enqueue00000512() {
+    public LinkedQueue _00000512() {
       return enqueue(512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue00001024() {
+    public LinkedQueue _00001024() {
       return enqueue(2 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue00002048() {
+    public LinkedQueue _00002048() {
       return enqueue(4 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue00004096() {
+    public LinkedQueue _00004096() {
       return enqueue(8 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue00008192() {
+    public LinkedQueue _00008192() {
       return enqueue(16 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue00016384() {
+    public LinkedQueue _00016384() {
       return enqueue(32 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue00032768() {
+    public LinkedQueue _00032768() {
       return enqueue(64 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue00065536() {
+    public LinkedQueue _00065536() {
       return enqueue(128 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue00131072() {
+    public LinkedQueue _00131072() {
       return enqueue(256 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue00262144() {
+    public LinkedQueue _00262144() {
       return enqueue(512 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue00524288() {
+    public LinkedQueue _00524288() {
       return enqueue(1024 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue01048576() {
+    public LinkedQueue _01048576() {
       return enqueue(2048 * 512);
     }
   }
 
   @State(Scope.Benchmark)
-  public static class EnqueueingDequeing {
+  public static class LinkedQueueEnqueueDeque {
 
     @Benchmark
-    public int enqueue00000512() {
+    public int _00000512() {
       return deque(enqueue(512), 512);
     }
 
     @Benchmark
-    public int enqueue00001024() {
+    public int _00001024() {
       return deque(enqueue(2 * 512), 2 * 512);
     }
 
     @Benchmark
-    public int enqueue00002048() {
+    public int _00002048() {
       return deque(enqueue(4 * 512), 4 * 512);
     }
 
     @Benchmark
-    public int enqueue00004096() {
+    public int _00004096() {
       return deque(enqueue(8 * 512), 8 * 512);
     }
 
     @Benchmark
-    public int enqueue00008192() {
+    public int _00008192() {
       return deque(enqueue(16 * 512), 16 * 512);
     }
 
     @Benchmark
-    public int enqueue00016384() {
+    public int _00016384() {
       return deque(enqueue(32 * 512), 32 * 512);
     }
 
     @Benchmark
-    public int enqueue00032768() {
+    public int _00032768() {
       return deque(enqueue(64 * 512), 64 * 512);
     }
 
     @Benchmark
-    public int enqueue00065536() {
+    public int _00065536() {
       return deque(enqueue(128 * 512), 128 * 512);
     }
 
     @Benchmark
-    public int enqueue00131072() {
+    public int _00131072() {
       return deque(enqueue(256 * 512), 256 * 512);
     }
 
     @Benchmark
-    public int enqueue00262144() {
+    public int _00262144() {
       return deque(enqueue(512 * 512), 512 * 512);
     }
 
     @Benchmark
-    public int enqueue00524288() {
+    public int _00524288() {
       return deque(enqueue(1024 * 512), 1024 * 512);
     }
 
     @Benchmark
-    public int enqueue01048576() {
+    public int _01048576() {
       return deque(enqueue(2048 * 512), 2048 * 512);
     }
   }
@@ -173,7 +173,6 @@ public class LinkedQueueBenchmark {
     for (int i = 0; i < iterations; i++) {
       queue.enqueue(i);
     }
-    assert queue.size == iterations;
     return queue;
   }
 
@@ -182,7 +181,6 @@ public class LinkedQueueBenchmark {
     for (int i = 0; i < iterations; i++) {
       sum += queue.deque();
     }
-    assert sum == IntStream.iterate(0, i -> i + 1).limit(iterations).sum();
     return sum;
   }
 }

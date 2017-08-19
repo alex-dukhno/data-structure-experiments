@@ -32,184 +32,146 @@ import org.openjdk.jmh.annotations.State;
 public class BitAndResizableArrayQueueBenchmark {
 
   @State(Scope.Benchmark)
-  public static class Enqueueing {
+  public static class BitAndResizableArrayQueueEnqueue {
 
     @Benchmark
-    @OperationsPerInvocation(4096)
-    public BitAndResizableArrayQueue enqueue_LessThanL1Size() {
-      return enqueue(4096);
-    }
-
-    @Benchmark
-    @OperationsPerInvocation(8192)
-    public BitAndResizableArrayQueue enqueue__ExactAsL1Size() {
-      return enqueue(8192);
+    public BitAndResizableArrayQueue _00000512() {
+      return enqueue(512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(16384)
-    public BitAndResizableArrayQueue enqueue___MoreThanL1Size() {
-      return enqueue(16384);
+    public BitAndResizableArrayQueue _00001024() {
+      return enqueue(2 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(32768)
-    public BitAndResizableArrayQueue enqueue_LessThanL2Size() {
-      return enqueue(32768);
+    public BitAndResizableArrayQueue _00002048() {
+      return enqueue(4 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(65536)
-    public BitAndResizableArrayQueue enqueue__ExactAsL2Size() {
-      return enqueue(65536);
+    public BitAndResizableArrayQueue _00004096() {
+      return enqueue(8 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(131072)
-    public BitAndResizableArrayQueue enqueue___MoreThanL2Size() {
-      return enqueue(131072);
+    public BitAndResizableArrayQueue _00008192() {
+      return enqueue(16 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(1048576)
-    public BitAndResizableArrayQueue enqueue_LessThanL3Size() {
-      return enqueue(1048576);
+    public BitAndResizableArrayQueue _00016384() {
+      return enqueue(32 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(2097152)
-    public BitAndResizableArrayQueue enqueue__ExactAsL3Size() {
-      return enqueue(2097152);
+    public BitAndResizableArrayQueue _00032768() {
+      return enqueue(64 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(4194304)
-    public BitAndResizableArrayQueue enqueue___MoreThanL3Size() {
-      return enqueue(4194304);
-    }
-
-    private BitAndResizableArrayQueue enqueue(int initialSize) {
-      BitAndResizableArrayQueue queue = new BitAndResizableArrayQueue();
-      for (int i = 0; i < initialSize - 1; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    public BitAndResizableArrayQueue _00065536() {
+      return enqueue(128 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(4096)
-    public BitAndResizableArrayQueue preallocateEnqueue_LessThanL1Size() {
-      return preallocateEnqueue(4096);
+    public BitAndResizableArrayQueue _00131072() {
+      return enqueue(256 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(8192)
-    public BitAndResizableArrayQueue preallocateEnqueue__ExactAsL1Size() {
-      return preallocateEnqueue(8192);
+    public BitAndResizableArrayQueue _00262144() {
+      return enqueue(512 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(16384)
-    public BitAndResizableArrayQueue preallocateEnqueue___MoreThanL1Size() {
-      return preallocateEnqueue(16384);
+    public BitAndResizableArrayQueue _00524288() {
+      return enqueue(1024 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(32768)
-    public BitAndResizableArrayQueue preallocateEnqueue_LessThanL2Size() {
-      return preallocateEnqueue(32768);
-    }
-
-    @Benchmark
-    @OperationsPerInvocation(65536)
-    public BitAndResizableArrayQueue preallocateEnqueue__ExactAsL2Size() {
-      return preallocateEnqueue(65536);
-    }
-
-    @Benchmark
-    @OperationsPerInvocation(131072)
-    public BitAndResizableArrayQueue preallocateEnqueue___MoreThanL2Size() {
-      return preallocateEnqueue(131072);
-    }
-
-    @Benchmark
-    @OperationsPerInvocation(1048576)
-    public BitAndResizableArrayQueue preallocateEnqueue_LessThanL3Size() {
-      return preallocateEnqueue(1048576);
-    }
-
-    @Benchmark
-    @OperationsPerInvocation(2097152)
-    public BitAndResizableArrayQueue preallocateEnqueue__ExactAsL3Size() {
-      return preallocateEnqueue(2097152);
-    }
-
-    @Benchmark
-    @OperationsPerInvocation(4194304)
-    public BitAndResizableArrayQueue preallocateEnqueue___MoreThanL3Size() {
-      return preallocateEnqueue(4194304);
-    }
-
-    private BitAndResizableArrayQueue preallocateEnqueue(int preallocateSize) {
-      BitAndResizableArrayQueue queue = new BitAndResizableArrayQueue(preallocateSize);
-      for (int i = 0; i < preallocateSize - 1; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    public BitAndResizableArrayQueue _01048576() {
+      return enqueue(2048 * 512);
     }
   }
 
   @State(Scope.Benchmark)
-  public static class EnqueueingDequeing {
+  public static class BitAndResizableArrayQueueEnqueueDeque {
 
-    @Param({
-        "4096", "8192", "16384",
-        "32768", "65536", "131072",
-        "1048576", "2097152", "4194304"
-    })
-    private int capacity;
-
-    private BitAndResizableArrayQueue queue;
-
-    @Setup
-    public void createQueue() {
-      queue = new BitAndResizableArrayQueue(capacity);
-      for (int i = 0; i < capacity - 1; i++) {
-        queue.enqueue(i);
-      }
+    @Benchmark
+    public int _00000512() {
+      return deque(enqueue(512), 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(64)
-    public int enqueueDeque64() {
-      return enqueueDeque(64);
+    public int _00001024() {
+      return deque(enqueue(2 * 512), 2 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(256)
-    public int enqueueDeque256() {
-      return enqueueDeque(256);
+    public int _00002048() {
+      return deque(enqueue(4 * 512), 4 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(1024)
-    public int enqueueDeque1024() {
-      return enqueueDeque(1024);
+    public int _00004096() {
+      return deque(enqueue(8 * 512), 8 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(4096)
-    public int enqueueDeque4096() {
-      return enqueueDeque(4096);
+    public int _00008192() {
+      return deque(enqueue(16 * 512), 16 * 512);
     }
 
-    int enqueueDeque(int iterations) {
-      int sum = 0;
-      for (int i = 0; i < iterations - 1; i++) {
-        sum += queue.deque();
-        queue.enqueue(i);
-      }
-      return sum;
+    @Benchmark
+    public int _00016384() {
+      return deque(enqueue(32 * 512), 32 * 512);
     }
+
+    @Benchmark
+    public int _00032768() {
+      return deque(enqueue(64 * 512), 64 * 512);
+    }
+
+    @Benchmark
+    public int _00065536() {
+      return deque(enqueue(128 * 512), 128 * 512);
+    }
+
+    @Benchmark
+    public int _00131072() {
+      return deque(enqueue(256 * 512), 256 * 512);
+    }
+
+    @Benchmark
+    public int _00262144() {
+      return deque(enqueue(512 * 512), 512 * 512);
+    }
+
+    @Benchmark
+    public int _00524288() {
+      return deque(enqueue(1024 * 512), 1024 * 512);
+    }
+
+    @Benchmark
+    public int _01048576() {
+      return deque(enqueue(2048 * 512), 2048 * 512);
+    }
+  }
+
+  private static BitAndResizableArrayQueue enqueue(int iterations) {
+    BitAndResizableArrayQueue queue = new BitAndResizableArrayQueue();
+    for (int i = 0; i < iterations; i++) {
+      queue.enqueue(i);
+    }
+    return queue;
+  }
+
+  private static int deque(BitAndResizableArrayQueue queue, int iterations) {
+    int sum = 0;
+    for (int i = 0; i < iterations; i++) {
+      sum += queue.deque();
+    }
+    return sum;
   }
 }

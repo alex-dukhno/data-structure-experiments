@@ -1,10 +1,7 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.OperationsPerInvocation;
-import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 //    Array Queue layout
@@ -33,122 +30,146 @@ import org.openjdk.jmh.annotations.State;
 public class ArrayQueueBenchmark {
 
   @State(Scope.Benchmark)
-  public static class Enqueueing {
+  public static class ArrayQueueEnqueue {
 
     @Benchmark
-    @OperationsPerInvocation(4096)
-    public ArrayQueue enqueue_LessThanL1Size() {
-      return enqueue(4096);
+    public ArrayQueue _00000512() {
+      return enqueue(512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(8192)
-    public ArrayQueue enqueue__ExactAsL1Size() {
-      return enqueue(8192);
+    public ArrayQueue _00001024() {
+      return enqueue(2 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(16384)
-    public ArrayQueue enqueue___MoreThanL1Size() {
-      return enqueue(16384);
+    public ArrayQueue _00002048() {
+      return enqueue(4 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(32768)
-    public ArrayQueue enqueue__LessThanL2Size() {
-      return enqueue(32768);
+    public ArrayQueue _00004096() {
+      return enqueue(8 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(65536)
-    public ArrayQueue enqueue__ExactAsL2Size() {
-      return enqueue(65536);
+    public ArrayQueue _00008192() {
+      return enqueue(16 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(131072)
-    public ArrayQueue enqueue___MoreThanL2Size() {
-      return enqueue(131072);
+    public ArrayQueue _00016384() {
+      return enqueue(32 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(1048576)
-    public ArrayQueue enqueue_LessThanL3Size() {
-      return enqueue(1048576);
+    public ArrayQueue _00032768() {
+      return enqueue(64 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(2097152)
-    public ArrayQueue enqueue__ExactAsL3Size() {
-      return enqueue(2097152);
+    public ArrayQueue _00065536() {
+      return enqueue(128 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(4194304)
-    public ArrayQueue enqueue___MoreThanL3Size() {
-      return enqueue(4194304);
+    public ArrayQueue _00131072() {
+      return enqueue(256 * 512);
     }
 
-    private ArrayQueue enqueue(int items) {
-      ArrayQueue queue = new ArrayQueue(items);
-      for (int i = 0; i < items - 1; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    @Benchmark
+    public ArrayQueue _00262144() {
+      return enqueue(512 * 512);
+    }
+
+    @Benchmark
+    public ArrayQueue _00524288() {
+      return enqueue(1024 * 512);
+    }
+
+    @Benchmark
+    public ArrayQueue _01048576() {
+      return enqueue(2048 * 512);
     }
   }
 
   @State(Scope.Benchmark)
-  public static class EnqueueingDequeueing {
+  public static class ArrayQueueEnqueueDeque {
 
-    @Param({
-        "4096", "8192", "16384",
-        "32768", "65536", "131072",
-        "1048576", "2097152", "4194304"
-    })
-    private int capacity;
-
-    private ArrayQueue queue;
-
-    @Setup
-    public void createQueue() {
-      queue = new ArrayQueue(capacity);
-      for (int i = 0; i < capacity - 1; i++) {
-        queue.enqueue(i);
-      }
+    @Benchmark
+    public int _00000512() {
+      return deque(enqueue(512), 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(64)
-    public int enqueueDeque0064() {
-      return enqueueDeque(64);
+    public int _00001024() {
+      return deque(enqueue(2 * 512), 2 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(256)
-    public int enqueueDeque0256() {
-      return enqueueDeque(256);
+    public int _00002048() {
+      return deque(enqueue(4 * 512), 4 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(1024)
-    public int enqueueDeque1024() {
-      return enqueueDeque(1024);
+    public int _00004096() {
+      return deque(enqueue(8 * 512), 8 * 512);
     }
 
     @Benchmark
-    @OperationsPerInvocation(4096)
-    public int enqueueDeque4096() {
-      return enqueueDeque(4096);
+    public int _00008192() {
+      return deque(enqueue(16 * 512), 16 * 512);
     }
 
-    private int enqueueDeque(int iterations) {
-      int sum = 0;
-      for (int i = 0; i < iterations; i++) {
-        sum += queue.deque();
-        queue.enqueue(i);
-      }
-      return sum;
+    @Benchmark
+    public int _00016384() {
+      return deque(enqueue(32 * 512), 32 * 512);
     }
+
+    @Benchmark
+    public int _00032768() {
+      return deque(enqueue(64 * 512), 64 * 512);
+    }
+
+    @Benchmark
+    public int _00065536() {
+      return deque(enqueue(128 * 512), 128 * 512);
+    }
+
+    @Benchmark
+    public int _00131072() {
+      return deque(enqueue(256 * 512), 256 * 512);
+    }
+
+    @Benchmark
+    public int _00262144() {
+      return deque(enqueue(512 * 512), 512 * 512);
+    }
+
+    @Benchmark
+    public int _00524288() {
+      return deque(enqueue(1024 * 512), 1024 * 512);
+    }
+
+    @Benchmark
+    public int _01048576() {
+      return deque(enqueue(2048 * 512), 2048 * 512);
+    }
+  }
+
+  private static ArrayQueue enqueue(int iterations) {
+    ArrayQueue queue = new ArrayQueue(iterations);
+    for (int i = 0; i < iterations; i++) {
+      queue.enqueue(i);
+    }
+    return queue;
+  }
+
+  private static int deque(ArrayQueue queue, int iterations) {
+    int sum = 0;
+    for (int i = 0; i < iterations; i++) {
+      sum += queue.deque();
+    }
+    return sum;
   }
 }
