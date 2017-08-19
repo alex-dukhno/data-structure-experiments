@@ -1,18 +1,19 @@
 plugins {
-  id "me.champeau.gradle.jmh" version "0.4.4"
+  id "me.champeau.gradle.jmh" version "0.3.1"
   id "io.morethan.jmhreport" version "0.4.1"
 }
 
 jmh {
-  profilers = ['hs_comp', 'hs_gc', 'hs_rt']
+//  profilers = ['hs_comp', 'hs_gc', 'hs_rt']
+  exclude = '.*Array.*'
   forceGC = true
   iterations = 5
   warmupIterations = 5
   benchmarkMode = ['thrpt']
   fork = 1
-  resultsFile = project.file("${project.buildDir}/reports/jmh/results.txt")
-  resultFormat = 'TEXT'
-  timeUnit = 'ms'
+  resultsFile = project.file("${project.buildDir}/reports/jmh/results.json")
+  resultFormat = 'JSON'
+  timeUnit = 's'
   timeout = '10s'
   verbosity = 'NORMAL'
   warmup = '1s'

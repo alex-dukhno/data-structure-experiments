@@ -44,62 +44,62 @@ public class LinkedQueueBenchmark {
   public static class Enqueueing {
 
     @Benchmark
-    public LinkedQueue enqueue512() {
+    public LinkedQueue enqueue00000512() {
       return enqueue(512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue1024() {
+    public LinkedQueue enqueue00001024() {
       return enqueue(2 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue2048() {
+    public LinkedQueue enqueue00002048() {
       return enqueue(4 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue4096() {
+    public LinkedQueue enqueue00004096() {
       return enqueue(8 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue8192() {
+    public LinkedQueue enqueue00008192() {
       return enqueue(16 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue16384() {
+    public LinkedQueue enqueue00016384() {
       return enqueue(32 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue32768() {
+    public LinkedQueue enqueue00032768() {
       return enqueue(64 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue65536() {
+    public LinkedQueue enqueue00065536() {
       return enqueue(128 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue131072() {
+    public LinkedQueue enqueue00131072() {
       return enqueue(256 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue262144() {
+    public LinkedQueue enqueue00262144() {
       return enqueue(512 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue524288() {
+    public LinkedQueue enqueue00524288() {
       return enqueue(1024 * 512);
     }
 
     @Benchmark
-    public LinkedQueue enqueue1048576() {
+    public LinkedQueue enqueue01048576() {
       return enqueue(2048 * 512);
     }
   }
@@ -108,62 +108,62 @@ public class LinkedQueueBenchmark {
   public static class EnqueueingDequeing {
 
     @Benchmark
-    public int enqueue512() {
+    public int enqueue00000512() {
       return deque(enqueue(512), 512);
     }
 
     @Benchmark
-    public int enqueue1024() {
+    public int enqueue00001024() {
       return deque(enqueue(2 * 512), 2 * 512);
     }
 
     @Benchmark
-    public int enqueue2048() {
+    public int enqueue00002048() {
       return deque(enqueue(4 * 512), 4 * 512);
     }
 
     @Benchmark
-    public int enqueue4096() {
+    public int enqueue00004096() {
       return deque(enqueue(8 * 512), 8 * 512);
     }
 
     @Benchmark
-    public int enqueue8192() {
+    public int enqueue00008192() {
       return deque(enqueue(16 * 512), 16 * 512);
     }
 
     @Benchmark
-    public int enqueue16384() {
+    public int enqueue00016384() {
       return deque(enqueue(32 * 512), 32 * 512);
     }
 
     @Benchmark
-    public int enqueue32768() {
+    public int enqueue00032768() {
       return deque(enqueue(64 * 512), 64 * 512);
     }
 
     @Benchmark
-    public int enqueue65536() {
+    public int enqueue00065536() {
       return deque(enqueue(128 * 512), 128 * 512);
     }
 
     @Benchmark
-    public int enqueue131072() {
+    public int enqueue00131072() {
       return deque(enqueue(256 * 512), 256 * 512);
     }
 
     @Benchmark
-    public int enqueue262144() {
+    public int enqueue00262144() {
       return deque(enqueue(512 * 512), 512 * 512);
     }
 
     @Benchmark
-    public int enqueue524288() {
+    public int enqueue00524288() {
       return deque(enqueue(1024 * 512), 1024 * 512);
     }
 
     @Benchmark
-    public int enqueue1048576() {
+    public int enqueue01048576() {
       return deque(enqueue(2048 * 512), 2048 * 512);
     }
   }
