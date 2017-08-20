@@ -5,13 +5,13 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 
 //    Array Queue layout
-//    ua.ds.ArrayQueue object internals:
+//    ua.ds.NonResizableArrayQueue object internals:
 //     OFFSET  SIZE    TYPE DESCRIPTION       VALUE
 //          0    12         (object header)   N/A
-//         12     4     int ArrayQueue.head   N/A
-//         16     4     int ArrayQueue.tail   N/A
-//         20     4     int ArrayQueue.mask   N/A
-//         24     4   int[] ArrayQueue.items  N/A
+//         12     4     int NonResizableArrayQueue.head   N/A
+//         16     4     int NonResizableArrayQueue.tail   N/A
+//         20     4     int NonResizableArrayQueue.mask   N/A
+//         24     4   int[] NonResizableArrayQueue.items  N/A
 //         28     4         (loss due to the next object alignment)
 //    Instance size: 32 bytes
 //    Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
@@ -27,74 +27,74 @@ import org.openjdk.jmh.annotations.State;
 //    L1D   32KB       32768     4096      8192     16384
 //    L2   256KB      262144    32768     65536    131072
 //    L3     8MB     8388608  1048576   2097152   4194304
-public class ArrayQueueBenchmark {
+public class NonResizableArrayQueueBenchmark {
 
   @State(Scope.Benchmark)
-  public static class ArrayQueueEnqueue {
+  public static class NonResizableArrayQueueEnqueue {
 
     @Benchmark
-    public ArrayQueue _00000512() {
+    public NonResizableArrayQueue _00000512() {
       return enqueue(512);
     }
 
     @Benchmark
-    public ArrayQueue _00001024() {
+    public NonResizableArrayQueue _00001024() {
       return enqueue(2 * 512);
     }
 
     @Benchmark
-    public ArrayQueue _00002048() {
+    public NonResizableArrayQueue _00002048() {
       return enqueue(4 * 512);
     }
 
     @Benchmark
-    public ArrayQueue _00004096() {
+    public NonResizableArrayQueue _00004096() {
       return enqueue(8 * 512);
     }
 
     @Benchmark
-    public ArrayQueue _00008192() {
+    public NonResizableArrayQueue _00008192() {
       return enqueue(16 * 512);
     }
 
     @Benchmark
-    public ArrayQueue _00016384() {
+    public NonResizableArrayQueue _00016384() {
       return enqueue(32 * 512);
     }
 
     @Benchmark
-    public ArrayQueue _00032768() {
+    public NonResizableArrayQueue _00032768() {
       return enqueue(64 * 512);
     }
 
     @Benchmark
-    public ArrayQueue _00065536() {
+    public NonResizableArrayQueue _00065536() {
       return enqueue(128 * 512);
     }
 
     @Benchmark
-    public ArrayQueue _00131072() {
+    public NonResizableArrayQueue _00131072() {
       return enqueue(256 * 512);
     }
 
     @Benchmark
-    public ArrayQueue _00262144() {
+    public NonResizableArrayQueue _00262144() {
       return enqueue(512 * 512);
     }
 
     @Benchmark
-    public ArrayQueue _00524288() {
+    public NonResizableArrayQueue _00524288() {
       return enqueue(1024 * 512);
     }
 
     @Benchmark
-    public ArrayQueue _01048576() {
+    public NonResizableArrayQueue _01048576() {
       return enqueue(2048 * 512);
     }
   }
 
   @State(Scope.Benchmark)
-  public static class ArrayQueueEnqueueDeque {
+  public static class NonResizableArrayQueueEnqueueDeque {
 
     @Benchmark
     public int _00000512() {
@@ -157,15 +157,15 @@ public class ArrayQueueBenchmark {
     }
   }
 
-  private static ArrayQueue enqueue(int iterations) {
-    ArrayQueue queue = new ArrayQueue(iterations);
+  private static NonResizableArrayQueue enqueue(int iterations) {
+    NonResizableArrayQueue queue = new NonResizableArrayQueue(iterations);
     for (int i = 0; i < iterations; i++) {
       queue.enqueue(i);
     }
     return queue;
   }
 
-  private static int deque(ArrayQueue queue, int iterations) {
+  private static int deque(NonResizableArrayQueue queue, int iterations) {
     int sum = 0;
     for (int i = 0; i < iterations; i++) {
       sum += queue.deque();

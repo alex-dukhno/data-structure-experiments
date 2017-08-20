@@ -1,112 +1,55 @@
 package ua.ds;
 
 import org.openjdk.jol.info.ClassLayout;
-import org.openjdk.jol.info.GraphLayout;
 
 public class BitAndResizableArrayQueue {
   private static final int MIN_CAPACITY = 16;
   private static final int MAX_CAPACITY = Integer.MIN_VALUE >>> 1;
 
-  private Integer[] items;
+  private int[] items;
   private int head;
   private int tail;
-  private int mask;
-  private int capacity;
+  private int size;
 
   public BitAndResizableArrayQueue() {
     this(16);
   }
 
   public BitAndResizableArrayQueue(int capacity) {
-    items = new Integer[capacity];
+    items = new int[capacity];
+    size = 0;
     head = 0;
-    tail = capacity - 1;
-    mask = capacity - 1;
-    this.capacity = capacity;
+    tail = 0;
   }
 
   public int deque() {
     if (isEmpty()) return -1;
-    nextTailIndex();
-    int item = items[tail];
-    if (isFullByQuarter()) shrink();
+    int item = items[head];
+    size--;
+    head = (head + 1) & (items.length - 1);
+    if (size > MIN_CAPACITY && size == items.length >> 2) resize(items.length >> 1);
     return item;
   }
 
-  private void nextTailIndex() {
-    tail = nextIndex(tail, mask);
-  }
-
-  private boolean isFullByQuarter() {
-    return size() == quarterOfCapacity();
-  }
-
-  private int size() {
-    return mask - (tail - head & mask);
-  }
-
-  private int quarterOfCapacity() {
-    return capacity >> 2;
-  }
-
-  private void shrink() {
-    if (capacity > MIN_CAPACITY) {
-      int newCapacity = capacity >> 1;
-      items = copyItems(newCapacity);
-      updateCursor(newCapacity - 1);
-    }
-  }
-
-  private Integer[] copyItems(int newCapacity) {
-    Integer[] buffer = new Integer[newCapacity];
-    int newMask = newCapacity - 1;
-    int newItemsIndex = (newMask - mask + tail + 1) & newMask;
-    for (int itemsIndex = beginningOfItems(); itemsIndex != head; itemsIndex = nextIndex(itemsIndex, mask)) {
-      buffer[newItemsIndex] = items[itemsIndex];
-      newItemsIndex = nextIndex(newItemsIndex, newMask);
-    }
-    return buffer;
-  }
-
-  private int nextIndex(int index, int mask) {
-    return (index + 1) & mask;
-  }
-
-  private int beginningOfItems() {
-    return nextIndex(tail, mask);
-  }
-
-  private void updateCursor(int newMask) {
-    tail = (newMask - mask + tail) & newMask;
-    head = head & newMask;
-    mask = newMask;
-    capacity = newMask + 1;
+  private boolean isEmpty() {
+    return size == 0;
   }
 
   public void enqueue(int item) {
-    if (isFull()) resize();
-    int index = head;
-    nextHeadIndex();
-    items[index] = item;
+    if (size == items.length) resize(items.length << 1);
+    items[tail] = item;
+    tail = (tail + 1) & (items.length - 1);
+    size++;
   }
 
-  private void nextHeadIndex() {
-    head = nextIndex(head, mask);
-  }
-
-  private boolean isFull() {
-    return head == tail;
-  }
-
-  private void resize() {
-    int newCapacity = capacity << 1;
-    newCapacity = newCapacity > MAX_CAPACITY ? MAX_CAPACITY : newCapacity;
-    items = copyItems(newCapacity);
-    updateCursor(newCapacity - 1);
-  }
-
-  private boolean isEmpty() {
-    return (tail - head & mask) == mask;
+  private void resize(int capacity) {
+    int[] temp = new int[capacity];
+    for (int i = 0; i < size; i++) {
+      temp[i] = items[(head + i) & (items.length - 1)];
+    }
+    items = temp;
+    head = 0;
+    tail = size;
   }
 
   public static void main(String[] args) {

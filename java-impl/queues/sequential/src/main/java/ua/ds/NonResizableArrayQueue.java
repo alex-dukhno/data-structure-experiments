@@ -6,17 +6,17 @@ import org.openjdk.jol.datamodel.X86_64_DataModel;
 import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.layouters.HotSpotLayouter;
 
-public class ArrayQueue {
+public class NonResizableArrayQueue {
   private final Integer[] items;
   private int head;
   private int tail;
   private final int mask;
 
-  public ArrayQueue() {
+  public NonResizableArrayQueue() {
     this(16);
   }
 
-  public ArrayQueue(int capacity) {
+  public NonResizableArrayQueue(int capacity) {
     items = new Integer[capacity];
     head = 0;
     tail = capacity - 1;
@@ -40,13 +40,13 @@ public class ArrayQueue {
   }
 
   public static void main(String[] args) {
-    System.out.println("ArrayQueue Object Layout");
+    System.out.println("NonResizableArrayQueue Object Layout");
     HotSpotLayouter x32layouter = new HotSpotLayouter(new X86_32_DataModel());
     HotSpotLayouter x64_coops_layouter = new HotSpotLayouter(new X86_64_COOPS_DataModel());
     HotSpotLayouter x64layouter = new HotSpotLayouter(new X86_64_DataModel());
-    System.out.println(ClassLayout.parseClass(ArrayQueue.class, x32layouter).toPrintable());
-    System.out.println(ClassLayout.parseClass(ArrayQueue.class, x64_coops_layouter).toPrintable());
-    System.out.println(ClassLayout.parseClass(ArrayQueue.class, x64layouter).toPrintable());
+    System.out.println(ClassLayout.parseClass(NonResizableArrayQueue.class, x32layouter).toPrintable());
+    System.out.println(ClassLayout.parseClass(NonResizableArrayQueue.class, x64_coops_layouter).toPrintable());
+    System.out.println(ClassLayout.parseClass(NonResizableArrayQueue.class, x64layouter).toPrintable());
     System.out.println(ClassLayout.parseClass(int[].class, x32layouter).toPrintable());
     System.out.println(ClassLayout.parseClass(Integer[].class, x32layouter).toPrintable());
     System.out.println(ClassLayout.parseClass(int[].class, x64_coops_layouter).toPrintable());

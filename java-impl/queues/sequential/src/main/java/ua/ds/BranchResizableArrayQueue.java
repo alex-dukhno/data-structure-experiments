@@ -3,7 +3,7 @@ package ua.ds;
 import org.openjdk.jol.info.ClassLayout;
 
 public class BranchResizableArrayQueue {
-  private Integer[] items;
+  private int[] items;
   private int size;
   private int first;
   private int last;
@@ -13,7 +13,7 @@ public class BranchResizableArrayQueue {
   }
 
   public BranchResizableArrayQueue(int capacity) {
-    items = new Integer[capacity];
+    items = new int[capacity];
     size = 0;
     first = 0;
     last = 0;
@@ -41,7 +41,7 @@ public class BranchResizableArrayQueue {
   }
 
   private void resize(int capacity) {
-    Integer[] temp = new Integer[capacity];
+    int[] temp = new int[capacity];
     for (int i = 0; i < size; i++) {
       temp[i] = items[(first + i) & (items.length - 1)];
     }
