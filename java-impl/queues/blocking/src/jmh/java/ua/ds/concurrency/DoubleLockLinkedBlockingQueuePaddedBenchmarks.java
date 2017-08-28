@@ -8,17 +8,17 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
-public class DoubleLockLinkedBlockingQueueBenchmarks {
+public class DoubleLockLinkedBlockingQueuePaddedBenchmarks {
   static final int ITEM = 10;
   static final int SIZE = 32_768;
 
   @State(Scope.Group)
   public static class SWSRSamePace {
-    private DoubleLockLinkedBlockingQueue queue;
+    private DoubleLockLinkedBlockingQueuePadded queue;
 
     @Setup
     public void createQueue() {
-      queue = new DoubleLockLinkedBlockingQueue();
+      queue = new DoubleLockLinkedBlockingQueuePadded();
     }
 
     @Benchmark
@@ -38,11 +38,11 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
 
   @State(Scope.Group)
   public static class SWSRReaderLegBehind {
-    private DoubleLockLinkedBlockingQueue queue;
+    private DoubleLockLinkedBlockingQueuePadded queue;
 
     @Setup
     public void createQueue() throws InterruptedException {
-      queue = new DoubleLockLinkedBlockingQueue();
+      queue = new DoubleLockLinkedBlockingQueuePadded();
       for (int i = 0; i < SIZE; i++) {
         queue.enqueue(ITEM);
       }
@@ -65,11 +65,11 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
 
   @State(Scope.Group)
   public static class MWMRReaderSamePace {
-    private DoubleLockLinkedBlockingQueue queue;
+    private DoubleLockLinkedBlockingQueuePadded queue;
 
     @Setup
     public void createQueue() {
-      queue = new DoubleLockLinkedBlockingQueue();
+      queue = new DoubleLockLinkedBlockingQueuePadded();
     }
 
     @Benchmark
@@ -86,6 +86,7 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
+
 
     @Benchmark
     @Group("FourWritersFourReaders")
@@ -106,11 +107,11 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
 
   @State(Scope.Group)
   public static class MWMRReadersLegBehind {
-    private DoubleLockLinkedBlockingQueue queue;
+    private DoubleLockLinkedBlockingQueuePadded queue;
 
     @Setup
     public void createQueue() throws InterruptedException {
-      queue = new DoubleLockLinkedBlockingQueue();
+      queue = new DoubleLockLinkedBlockingQueuePadded();
       for (int i = 0; i < SIZE; i++) {
         queue.enqueue(ITEM);
       }

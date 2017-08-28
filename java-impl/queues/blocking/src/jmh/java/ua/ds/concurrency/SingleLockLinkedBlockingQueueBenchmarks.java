@@ -9,10 +9,11 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 public class SingleLockLinkedBlockingQueueBenchmarks {
+  static final int ITEM = 10;
+  static final int SIZE = 32_768;
 
   @State(Scope.Group)
-  public static class SingleWriterSingleReaderSamePace {
-
+  public static class SWSRSamePace {
     private SingleLockLinkedBlockingQueue queue;
 
     @Setup
@@ -22,68 +23,48 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
 
     @Benchmark
     @Group("SingleWriterSingleReader")
-    @GroupThreads(1)
-    @OperationsPerInvocation(256)
-    public SingleLockLinkedBlockingQueue enqueue() {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    @GroupThreads()
+    public void enqueue() {
+      queue.enqueue(ITEM);
     }
 
     @Benchmark
     @Group("SingleWriterSingleReader")
-    @GroupThreads(1)
-    @OperationsPerInvocation(256)
+    @GroupThreads()
     public int deque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
+      return queue.deque();
     }
   }
 
   @State(Scope.Group)
-  public static class SingleWriterSingleReaderReaderLegBehind {
-
+  public static class SWSRReaderLegBehind {
     private SingleLockLinkedBlockingQueue queue;
 
     @Setup
     public void createQueue() {
       queue = new SingleLockLinkedBlockingQueue();
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
+      for (int i = 0; i < SIZE; i++) {
+        queue.enqueue(ITEM);
       }
     }
 
     @Benchmark
     @Group("SingleWriterSingleReader")
-    @GroupThreads(1)
-    @OperationsPerInvocation(256)
-    public SingleLockLinkedBlockingQueue enqueue() {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    @GroupThreads()
+    public void enqueue() {
+      queue.enqueue(ITEM);
     }
 
     @Benchmark
     @Group("SingleWriterSingleReader")
-    @GroupThreads(1)
-    @OperationsPerInvocation(256)
+    @GroupThreads()
     public int deque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
+      return queue.deque();
     }
   }
 
   @State(Scope.Group)
-  public static class MultipleWriterMultipleReaderSamePace {
-
+  public static class MWMRReaderSamePace {
     private SingleLockLinkedBlockingQueue queue;
 
     @Setup
@@ -94,12 +75,8 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
-    public SingleLockLinkedBlockingQueue twoWritersEnqueue() {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    public void twoWritersEnqueue() {
+      queue.enqueue(ITEM);
     }
 
     @Benchmark
@@ -107,23 +84,15 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @GroupThreads(2)
     @OperationsPerInvocation(256)
     public int twoReadersDeque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
+      return queue.deque();
     }
-
 
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
     @OperationsPerInvocation(256)
-    public SingleLockLinkedBlockingQueue fourWritersEnqueue() {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    public void fourWritersEnqueue() {
+      queue.enqueue(ITEM);
     }
 
     @Benchmark
@@ -131,24 +100,19 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @GroupThreads(4)
     @OperationsPerInvocation(256)
     public int fourReadersDeque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
+      return queue.deque();
     }
   }
 
   @State(Scope.Group)
-  public static class MultipleWriterMultipleReaderReadersLegBehind {
-
+  public static class MWMRReadersLegBehind {
     private SingleLockLinkedBlockingQueue queue;
 
     @Setup
     public void createQueue() {
       queue = new SingleLockLinkedBlockingQueue();
-      for (int i = 0; i < 512; i++) {
-        queue.enqueue(i);
+      for (int i = 0; i < SIZE; i++) {
+        queue.enqueue(ITEM);
       }
     }
 
@@ -156,11 +120,8 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
     @OperationsPerInvocation(256)
-    public SingleLockLinkedBlockingQueue twoWritersEnqueue() {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    public void twoWritersEnqueue() {
+      queue.enqueue(ITEM);
     }
 
     @Benchmark
@@ -168,23 +129,15 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @GroupThreads(2)
     @OperationsPerInvocation(256)
     public int twoReadersDeque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
+      return queue.deque();
     }
-
 
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
     @OperationsPerInvocation(256)
-    public SingleLockLinkedBlockingQueue fourWritersEnqueue() {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    public void fourWritersEnqueue() {
+      queue.enqueue(ITEM);
     }
 
     @Benchmark
@@ -192,11 +145,7 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @GroupThreads(4)
     @OperationsPerInvocation(256)
     public int fourReadersDeque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
+      return queue.deque();
     }
   }
 }
