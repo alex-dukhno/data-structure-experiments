@@ -3,16 +3,16 @@ package ua.ds.concurrency;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Group;
 import org.openjdk.jmh.annotations.GroupThreads;
-import org.openjdk.jmh.annotations.OperationsPerInvocation;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 public class ArrayBlockingQueueBenchmarks {
+  static final int ITEM = 10;
+  static final int SIZE = 32_768;
 
   @State(Scope.Group)
-  public static class SingleWriterSingleReaderSamePace {
-
+  public static class SWSRSamePace {
     private ArrayBlockingQueue queue;
 
     @Setup
@@ -22,68 +22,48 @@ public class ArrayBlockingQueueBenchmarks {
 
     @Benchmark
     @Group("SingleWriterSingleReader")
-    @GroupThreads(1)
-    @OperationsPerInvocation(256)
-    public ArrayBlockingQueue enqueue() throws InterruptedException {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    @GroupThreads()
+    public void enqueue() throws InterruptedException {
+      queue.enqueue(ITEM);
     }
 
     @Benchmark
     @Group("SingleWriterSingleReader")
-    @GroupThreads(1)
-    @OperationsPerInvocation(256)
+    @GroupThreads()
     public int deque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
+      return queue.deque();
     }
   }
 
   @State(Scope.Group)
-  public static class SingleWriterSingleReaderReaderLegBehind {
-
+  public static class SWSRReaderLegBehind {
     private ArrayBlockingQueue queue;
 
     @Setup
     public void createQueue() throws InterruptedException {
-      queue = new ArrayBlockingQueue();
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
+      queue = new ArrayBlockingQueue(SIZE);
+      for (int i = 0; i < SIZE; i++) {
+        queue.enqueue(ITEM);
       }
     }
 
     @Benchmark
     @Group("SingleWriterSingleReader")
-    @GroupThreads(1)
-    @OperationsPerInvocation(256)
-    public ArrayBlockingQueue enqueue() throws InterruptedException {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    @GroupThreads()
+    public void enqueue() throws InterruptedException {
+      queue.enqueue(ITEM);
     }
 
     @Benchmark
     @Group("SingleWriterSingleReader")
-    @GroupThreads(1)
-    @OperationsPerInvocation(256)
+    @GroupThreads()
     public int deque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
+      return queue.deque();
     }
   }
 
   @State(Scope.Group)
-  public static class MultipleWriterMultipleReaderSamePace {
-
+  public static class MWMRReaderSamePace {
     private ArrayBlockingQueue queue;
 
     @Setup
@@ -94,109 +74,70 @@ public class ArrayBlockingQueueBenchmarks {
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
-    public ArrayBlockingQueue twoWritersEnqueue() throws InterruptedException {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    public void twoWritersEnqueue() throws InterruptedException {
+      queue.enqueue(ITEM);
     }
 
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
     public int twoReadersDeque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
-    }
-
-
-    @Benchmark
-    @Group("FourWritersFourReaders")
-    @GroupThreads(4)
-    @OperationsPerInvocation(256)
-    public ArrayBlockingQueue fourWritersEnqueue() throws InterruptedException {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+      return queue.deque();
     }
 
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
-    @OperationsPerInvocation(256)
+    public void fourWritersEnqueue() throws InterruptedException {
+      queue.enqueue(ITEM);
+    }
+
+    @Benchmark
+    @Group("FourWritersFourReaders")
+    @GroupThreads(4)
     public int fourReadersDeque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
+      return queue.deque();
     }
   }
 
   @State(Scope.Group)
-  public static class MultipleWriterMultipleReaderReadersLegBehind {
-
+  public static class MWMRReadersLegBehind {
     private ArrayBlockingQueue queue;
 
     @Setup
     public void createQueue() throws InterruptedException {
-      queue = new ArrayBlockingQueue();
-      for (int i = 0; i < 512; i++) {
-        queue.enqueue(i);
+      queue = new ArrayBlockingQueue(SIZE);
+      for (int i = 0; i < SIZE; i++) {
+        queue.enqueue(ITEM);
       }
     }
 
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
-    public ArrayBlockingQueue twoWritersEnqueue() throws InterruptedException {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+    public void twoWritersEnqueue() throws InterruptedException {
+      queue.enqueue(ITEM);
     }
 
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
     public int twoReadersDeque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
-    }
-
-
-    @Benchmark
-    @Group("FourWritersFourReaders")
-    @GroupThreads(4)
-    @OperationsPerInvocation(256)
-    public ArrayBlockingQueue fourWritersEnqueue() throws InterruptedException {
-      for (int i = 0; i < 256; i++) {
-        queue.enqueue(i);
-      }
-      return queue;
+      return queue.deque();
     }
 
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
-    @OperationsPerInvocation(256)
+    public void fourWritersEnqueue() throws InterruptedException {
+      queue.enqueue(ITEM);
+    }
+
+    @Benchmark
+    @Group("FourWritersFourReaders")
+    @GroupThreads(4)
     public int fourReadersDeque() throws InterruptedException {
-      int sum = 0;
-      for (int i = 0; i < 256; i++) {
-        sum += queue.deque();
-      }
-      return sum;
+      return queue.deque();
     }
   }
 }

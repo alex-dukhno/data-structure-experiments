@@ -5,9 +5,8 @@ plugins {
 
 jmh {
   forceGC = true
-  iterations = 5
-  warmupIterations = 5
-  benchmarkMode = ['thrpt']
+  iterations = 10
+  warmupIterations = 10
   fork = 1
   resultsFile = project.file("${project.buildDir}/reports/jmh/results.json")
   resultFormat = 'JSON'

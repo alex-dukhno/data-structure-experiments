@@ -82,7 +82,6 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
@@ -90,7 +89,6 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
-    @OperationsPerInvocation(256)
     public void fourWritersEnqueue() throws InterruptedException {
       queue.enqueue(ITEM);
     }
@@ -98,7 +96,6 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
-    @OperationsPerInvocation(256)
     public int fourReadersDeque() throws InterruptedException {
       return queue.deque();
     }
@@ -119,7 +116,6 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
     public void twoWritersEnqueue() throws InterruptedException {
       queue.enqueue(ITEM);
     }
@@ -127,7 +123,6 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
@@ -135,7 +130,6 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
-    @OperationsPerInvocation(256)
     public void fourWritersEnqueue() throws InterruptedException {
       queue.enqueue(ITEM);
     }
@@ -143,7 +137,6 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
-    @OperationsPerInvocation(256)
     public int fourReadersDeque() throws InterruptedException {
       return queue.deque();
     }

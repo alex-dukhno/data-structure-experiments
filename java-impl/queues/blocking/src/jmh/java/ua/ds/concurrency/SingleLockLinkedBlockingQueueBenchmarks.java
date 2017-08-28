@@ -3,7 +3,6 @@ package ua.ds.concurrency;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Group;
 import org.openjdk.jmh.annotations.GroupThreads;
-import org.openjdk.jmh.annotations.OperationsPerInvocation;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -82,7 +81,6 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
@@ -90,7 +88,6 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
-    @OperationsPerInvocation(256)
     public void fourWritersEnqueue() {
       queue.enqueue(ITEM);
     }
@@ -98,7 +95,6 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
-    @OperationsPerInvocation(256)
     public int fourReadersDeque() throws InterruptedException {
       return queue.deque();
     }
@@ -119,7 +115,6 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
     public void twoWritersEnqueue() {
       queue.enqueue(ITEM);
     }
@@ -127,7 +122,6 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("TwoWritersTwoReaders")
     @GroupThreads(2)
-    @OperationsPerInvocation(256)
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
@@ -135,7 +129,6 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
-    @OperationsPerInvocation(256)
     public void fourWritersEnqueue() {
       queue.enqueue(ITEM);
     }
@@ -143,7 +136,6 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
-    @OperationsPerInvocation(256)
     public int fourReadersDeque() throws InterruptedException {
       return queue.deque();
     }

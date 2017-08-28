@@ -4,15 +4,11 @@ plugins {
 }
 
 jmh {
-  exclude = '.*Linked.*'
-  forceGC = true
   iterations = 10
   warmupIterations = 10
-  benchmarkMode = ['thrpt']
   fork = 1
   resultsFile = project.file("${project.buildDir}/reports/jmh/results.json")
   resultFormat = 'JSON'
-  timeUnit = 'ms'
   timeout = '10s'
   verbosity = 'NORMAL'
   warmup = '1s'

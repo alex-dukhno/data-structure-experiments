@@ -9,13 +9,11 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
-
   static final int ITEM = 10;
   static final int SIZE = 32_768;
 
   @State(Scope.Group)
   public static class SWSRSamePace {
-
     private SingleLockLinkedBlockingQueuePadded queue;
 
     @Setup
@@ -40,7 +38,6 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
 
   @State(Scope.Group)
   public static class SWSRReaderLegBehind {
-
     private SingleLockLinkedBlockingQueuePadded queue;
 
     @Setup
@@ -68,7 +65,6 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
 
   @State(Scope.Group)
   public static class MWMRReaderSamePace {
-
     private SingleLockLinkedBlockingQueuePadded queue;
 
     @Setup
@@ -91,7 +87,6 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
       return queue.deque();
     }
 
-
     @Benchmark
     @Group("FourWritersFourReaders")
     @GroupThreads(4)
@@ -111,7 +106,6 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
 
   @State(Scope.Group)
   public static class MWMRReadersLegBehind {
-
     private SingleLockLinkedBlockingQueuePadded queue;
 
     @Setup
@@ -137,7 +131,6 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
-
 
     @Benchmark
     @Group("FourWritersFourReaders")
