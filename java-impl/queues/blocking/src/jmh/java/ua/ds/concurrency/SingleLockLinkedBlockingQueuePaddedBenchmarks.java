@@ -13,7 +13,7 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
   static final int SIZE = 32_768;
 
   @State(Scope.Group)
-  public static class SWSRSamePace {
+  public static class SingleLockLinkedBlockingQueuePaddedSWSRSamePace {
     private SingleLockLinkedBlockingQueuePadded queue;
 
     @Setup
@@ -37,7 +37,7 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
   }
 
   @State(Scope.Group)
-  public static class SWSRReaderLegBehind {
+  public static class SingleLockLinkedBlockingQueuePaddedSWSRReaderLegBehind {
     private SingleLockLinkedBlockingQueuePadded queue;
 
     @Setup
@@ -64,7 +64,7 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
   }
 
   @State(Scope.Group)
-  public static class MWMRReaderSamePace {
+  public static class SingleLockLinkedBlockingQueuePaddedMWMRReaderSamePace {
     private SingleLockLinkedBlockingQueuePadded queue;
 
     @Setup
@@ -105,7 +105,7 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
   }
 
   @State(Scope.Group)
-  public static class MWMRReadersLegBehind {
+  public static class SingleLockLinkedBlockingQueuePaddedMWMRReadersLegBehind {
     private SingleLockLinkedBlockingQueuePadded queue;
 
     @Setup

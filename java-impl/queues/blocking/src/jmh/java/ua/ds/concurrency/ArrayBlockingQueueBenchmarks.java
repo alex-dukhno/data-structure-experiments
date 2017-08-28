@@ -12,7 +12,7 @@ public class ArrayBlockingQueueBenchmarks {
   static final int SIZE = 32_768;
 
   @State(Scope.Group)
-  public static class SWSRSamePace {
+  public static class ArrayBlockingQueueSWSRSamePace {
     private ArrayBlockingQueue queue;
 
     @Setup
@@ -36,7 +36,7 @@ public class ArrayBlockingQueueBenchmarks {
   }
 
   @State(Scope.Group)
-  public static class SWSRReaderLegBehind {
+  public static class ArrayBlockingQueueSWSRReaderLegBehind {
     private ArrayBlockingQueue queue;
 
     @Setup
@@ -63,7 +63,7 @@ public class ArrayBlockingQueueBenchmarks {
   }
 
   @State(Scope.Group)
-  public static class MWMRReaderSamePace {
+  public static class ArrayBlockingQueueMWMRReaderSamePace {
     private ArrayBlockingQueue queue;
 
     @Setup
@@ -101,7 +101,7 @@ public class ArrayBlockingQueueBenchmarks {
   }
 
   @State(Scope.Group)
-  public static class MWMRReadersLegBehind {
+  public static class ArrayBlockingQueueMWMRReadersLegBehind {
     private ArrayBlockingQueue queue;
 
     @Setup
