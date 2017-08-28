@@ -3,7 +3,7 @@
 gradle clean jmhJar \
 && cd queues/sequential \
 && mkdir -p build/reports/jmh/linked/ \
-&& java -jar build/libs/sequential-1.0-jmh.jar -e 'BitAndResizableArrayQueueBenchmark|BranchResizableArrayQueueBenchmark|LinkedArrayQueueBenchmark|NonResizableArrayQueueBenchmark' -f 1 -wi 10 -i 10 -gc true -tu us -bm ss -rf JSON -rff build/reports/jmh/linked/results.json \
+&& java -jar build/libs/sequential-1.0-jmh.jar -e 'BitAndResizableArrayQueueBenchmark|BranchResizableArrayQueueBenchmark|LinkedArrayQueueBenchmark|NonResizableArrayQueueBenchmark' -f 1 -wi 20 -i 50 -gc true -tu us -bm ss -rf JSON -rff build/reports/jmh/linked/results.json \
 && mkdir -p build/reports/jmh/array/ \
 && java -jar build/libs/sequential-1.0-jmh.jar -e 'LinkedArrayQueueBenchmark|LinkedQueueBenchmark|NonResizableArrayQueueBenchmark' -f 1 -wi 10 -i 10 -tu ms -bm thrpt -rf JSON -rff build/reports/jmh/array/results.json \
 && mkdir -p build/reports/jmh/linked-array/ \
