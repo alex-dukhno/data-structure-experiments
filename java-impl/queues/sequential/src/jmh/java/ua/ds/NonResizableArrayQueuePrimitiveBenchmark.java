@@ -19,7 +19,7 @@ import org.openjdk.jmh.annotations.State;
 public class NonResizableArrayQueuePrimitiveBenchmark {
 
   @State(Scope.Benchmark)
-  public static class NonResizableArrayQueueEnqueue {
+  public static class NonResizableArrayQueuePrimitiveEnqueue {
 
     @Benchmark
     public NonResizableArrayQueuePrimitive _00000512() {
@@ -83,7 +83,7 @@ public class NonResizableArrayQueuePrimitiveBenchmark {
   }
 
   @State(Scope.Benchmark)
-  public static class NonResizableArrayQueueEnqueueDeque {
+  public static class NonResizableArrayQueuePrimitiveEnqueueDeque {
 
     @Benchmark
     public int _00000512() {
