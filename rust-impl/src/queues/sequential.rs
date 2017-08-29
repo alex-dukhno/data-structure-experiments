@@ -2,7 +2,7 @@ extern crate alloc;
 
 use self::alloc::raw_vec::RawVec;
 
-use std::ptr;
+use std::ptr::{self, Shared};
 use std::rc::Rc;
 use std::cell::RefCell;
 
@@ -11,12 +11,12 @@ const MAX_CAPACITY: usize = usize::max_value();
 
 use super::Queue;
 
-type Link<T> = Option<Rc<RefCell<T>>>;
+type RcRefCellLink<T> = Option<Rc<RefCell<T>>>;
 
 pub struct LinkedArrayQueue {
     segment_capacity: usize,
-    head: Link<Segment>,
-    tail: Link<Segment>
+    head: RcRefCellLink<Segment>,
+    tail: RcRefCellLink<Segment>
 }
 
 impl LinkedArrayQueue {
@@ -72,7 +72,7 @@ impl Queue for LinkedArrayQueue {
 
 struct Segment {
     items: RawVec<i32>,
-    next: Link<Segment>,
+    next: RcRefCellLink<Segment>,
     first: usize,
     last: usize
 }
@@ -224,15 +224,15 @@ impl Queue for ArrayQueue {
     }
 }
 
-struct Node {
+struct RefCellNode {
     item: i32,
-    next: Link<Node>
+    next: RcRefCellLink<RefCellNode>
 }
 
-impl Node {
-    fn new(item: i32) -> Rc<RefCell<Node>> {
+impl RefCellNode {
+    fn new(item: i32) -> Rc<RefCell<RefCellNode>> {
         Rc::new(
-            RefCell::new(Node {
+            RefCell::new(RefCellNode {
                 item: item,
                 next: None
             })
@@ -241,21 +241,21 @@ impl Node {
 }
 
 #[derive(Default)]
-pub struct LinkedQueue {
-    head: Link<Node>,
-    tail: Link<Node>
+pub struct RcRefCellLinkedQueue {
+    head: RcRefCellLink<RefCellNode>,
+    tail: RcRefCellLink<RefCellNode>
 }
 
-impl LinkedQueue {
-    pub fn new() -> LinkedQueue {
-        LinkedQueue {
+impl RcRefCellLinkedQueue {
+    pub fn new() -> RcRefCellLinkedQueue {
+        RcRefCellLinkedQueue {
             head: None,
             tail: None
         }
     }
 }
 
-impl Queue for LinkedQueue {
+impl Queue for RcRefCellLinkedQueue {
     fn deque(&mut self) -> Option<i32> {
         self.head.take().map(|old_head| {
             match old_head.borrow_mut().next.take() {
@@ -267,7 +267,7 @@ impl Queue for LinkedQueue {
     }
 
     fn enqueue(&mut self, item: i32) {
-        let node = Node::new(item);
+        let node = RefCellNode::new(item);
         match self.tail.take() {
             Some(old_tail) => old_tail.borrow_mut().next = Some(node.clone()),
             None => self.head = Some(node.clone())
@@ -276,8 +276,130 @@ impl Queue for LinkedQueue {
     }
 }
 
+impl Drop for RcRefCellLinkedQueue {
+    fn drop(&mut self) {
+        while let Some(_) = self.deque() {
+        }
+    }
+}
+
+type SharedLink = Option<Shared<SharedNode>>;
+
+struct SharedNode {
+    item: i32,
+    next: SharedLink
+}
+
+impl SharedNode {
+    fn new(item: i32) -> SharedLink {
+        Shared::new(
+            Box::into_raw(Box::new(SharedNode {
+                item: item,
+                next: None
+            }))
+        )
+    }
+}
+
+pub struct SharedLinkedQueue {
+    head: SharedLink,
+    tail: SharedLink
+}
+
+impl SharedLinkedQueue {
+    pub fn new() -> SharedLinkedQueue {
+        SharedLinkedQueue {
+            head: None,
+            tail: None
+        }
+    }
+}
+
+impl Queue for SharedLinkedQueue {
+    fn deque(&mut self) -> Option<i32> {
+        self.head.take().map(|mut head| unsafe {
+            match head.as_mut().next.take() {
+                Some(new_head) => self.head = Some(new_head),
+                None => self.tail = None
+            }
+            head.as_ref().item
+        })
+    }
+
+    fn enqueue(&mut self, item: i32) {
+        let node = SharedNode::new(item);
+        match self.tail.take() {
+            Some(mut tail) => unsafe { tail.as_mut().next = node.clone(); },
+            None => self.head = node.clone()
+        }
+        self.tail = node
+    }
+}
+
+impl Drop for SharedLinkedQueue {
+    fn drop(&mut self) {
+        while let Some(_) = self.deque() {
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    mod linked_shared_queue {
+        use super::super::*;
+
+        #[test]
+        fn deque_item_from_empty_queue() {
+            let mut queue = SharedLinkedQueue::new();
+
+            assert_eq!(queue.deque(), None);
+        }
+
+        #[test]
+        fn enqueue_one_item() {
+            let mut queue = SharedLinkedQueue::new();
+
+            queue.enqueue(10);
+
+            assert_eq!(queue.deque(), Some(10));
+            assert_eq!(queue.deque(), None);
+        }
+
+        #[test]
+        fn enqueue_three_items_one_by_one() {
+            let mut queue = SharedLinkedQueue::new();
+
+            queue.enqueue(10);
+
+            assert_eq!(queue.deque(), Some(10));
+            assert_eq!(queue.deque(), None);
+
+            queue.enqueue(20);
+
+            assert_eq!(queue.deque(), Some(20));
+            assert_eq!(queue.deque(), None);
+
+            queue.enqueue(30);
+
+            assert_eq!(queue.deque(), Some(30));
+            assert_eq!(queue.deque(), None);
+        }
+
+        #[test]
+        fn enqueue_many_items_deque_many_items() {
+            let mut queue = SharedLinkedQueue::new();
+
+            queue.enqueue(10);
+            queue.enqueue(20);
+            queue.enqueue(30);
+
+            assert_eq!(queue.deque(), Some(10));
+            assert_eq!(queue.deque(), Some(20));
+            assert_eq!(queue.deque(), Some(30));
+            assert_eq!(queue.deque(), None);
+        }
+    }
+
     mod linked_array_queue {
         use super::super::*;
 
@@ -478,19 +600,19 @@ mod tests {
         }
     }
 
-    mod linked_queue {
+    mod linked_ref_cell_queue {
         use super::super::*;
 
         #[test]
         fn deque_item_from_empty_queue() {
-            let mut queue = LinkedQueue::new();
+            let mut queue = RcRefCellLinkedQueue::new();
 
             assert_eq!(queue.deque(), None);
         }
 
         #[test]
         fn enqueue_one_item() {
-            let mut queue = LinkedQueue::new();
+            let mut queue = RcRefCellLinkedQueue::new();
 
             queue.enqueue(10);
 
@@ -500,7 +622,7 @@ mod tests {
 
         #[test]
         fn enqueue_three_items_one_by_one() {
-            let mut queue = LinkedQueue::new();
+            let mut queue = RcRefCellLinkedQueue::new();
 
             queue.enqueue(10);
 
@@ -520,7 +642,7 @@ mod tests {
 
         #[test]
         fn enqueue_many_items_deque_many_items() {
-            let mut queue = LinkedQueue::new();
+            let mut queue = RcRefCellLinkedQueue::new();
 
             queue.enqueue(10);
             queue.enqueue(20);
@@ -538,14 +660,25 @@ mod tests {
 mod benchmarks {
     extern crate test;
 
-    use super::{LinkedQueue, Queue};
+    use super::{SharedLinkedQueue, RcRefCellLinkedQueue, Queue};
     use self::test::Bencher;
 
     #[bench]
-    fn bench_linked_queue(b: &mut Bencher) {
+    fn bench_rc_ref_cell_linked_queue(b: &mut Bencher) {
         b.iter(|| {
-            let mut queue = LinkedQueue::new();
-            for i in 0..1024 {
+            let mut queue = RcRefCellLinkedQueue::new();
+            for i in 0..1048576 {
+                queue.enqueue(i);
+            }
+            queue
+        });
+    }
+
+    #[bench]
+    fn bench_shared_linked_queue(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = SharedLinkedQueue::new();
+            for i in 0..1048576 {
                 queue.enqueue(i);
             }
             queue
