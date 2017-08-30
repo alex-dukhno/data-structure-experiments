@@ -3,17 +3,16 @@ package ua.ds.concurrency;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Group;
 import org.openjdk.jmh.annotations.GroupThreads;
-import org.openjdk.jmh.annotations.OperationsPerInvocation;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 
 public class DoubleLockLinkedBlockingQueueBenchmarks {
   static final int ITEM = 10;
-  static final int SIZE = 32_768;
+  static final int SIZE = Integer.MIN_VALUE >>> 2;
 
   @State(Scope.Group)
-  public static class DoubleLockLinkedBlockingQueueSWSRSamePace {
+  public static class SamePace {
     private DoubleLockLinkedBlockingQueue queue;
 
     @Setup
@@ -22,79 +21,42 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
     }
 
     @Benchmark
-    @Group("SingleWriterSingleReader")
+    @Group("1W1R")
     @GroupThreads()
     public void enqueue() throws InterruptedException {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("SingleWriterSingleReader")
+    @Group("1W1R")
     @GroupThreads()
     public int deque() throws InterruptedException {
       return queue.deque();
     }
-  }
-
-  @State(Scope.Group)
-  public static class DoubleLockLinkedBlockingQueueSWSRReaderLegBehind {
-    private DoubleLockLinkedBlockingQueue queue;
-
-    @Setup
-    public void createQueue() throws InterruptedException {
-      queue = new DoubleLockLinkedBlockingQueue();
-      for (int i = 0; i < SIZE; i++) {
-        queue.enqueue(ITEM);
-      }
-    }
 
     @Benchmark
-    @Group("SingleWriterSingleReader")
-    @GroupThreads()
-    public void enqueue() throws InterruptedException {
-      queue.enqueue(ITEM);
-    }
-
-    @Benchmark
-    @Group("SingleWriterSingleReader")
-    @GroupThreads()
-    public int deque() throws InterruptedException {
-      return queue.deque();
-    }
-  }
-
-  @State(Scope.Group)
-  public static class DoubleLockLinkedBlockingQueueMWMRReaderSamePace {
-    private DoubleLockLinkedBlockingQueue queue;
-
-    @Setup
-    public void createQueue() {
-      queue = new DoubleLockLinkedBlockingQueue();
-    }
-
-    @Benchmark
-    @Group("TwoWritersTwoReaders")
+    @Group("2W2R")
     @GroupThreads(2)
     public void twoWritersEnqueue() throws InterruptedException {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("TwoWritersTwoReaders")
+    @Group("2W2R")
     @GroupThreads(2)
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
 
     @Benchmark
-    @Group("FourWritersFourReaders")
+    @Group("4W4R")
     @GroupThreads(4)
     public void fourWritersEnqueue() throws InterruptedException {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("FourWritersFourReaders")
+    @Group("4W4R")
     @GroupThreads(4)
     public int fourReadersDeque() throws InterruptedException {
       return queue.deque();
@@ -102,7 +64,7 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
   }
 
   @State(Scope.Group)
-  public static class DoubleLockLinkedBlockingQueueMWMRReadersLegBehind {
+  public static class ReaderLegBehind {
     private DoubleLockLinkedBlockingQueue queue;
 
     @Setup
@@ -114,28 +76,42 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
     }
 
     @Benchmark
-    @Group("TwoWritersTwoReaders")
+    @Group("1W1R")
+    @GroupThreads()
+    public void enqueue() throws InterruptedException {
+      queue.enqueue(ITEM);
+    }
+
+    @Benchmark
+    @Group("1W1R")
+    @GroupThreads()
+    public int deque() throws InterruptedException {
+      return queue.deque();
+    }
+
+    @Benchmark
+    @Group("2W2R")
     @GroupThreads(2)
     public void twoWritersEnqueue() throws InterruptedException {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("TwoWritersTwoReaders")
+    @Group("2W2R")
     @GroupThreads(2)
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
 
     @Benchmark
-    @Group("FourWritersFourReaders")
+    @Group("4W4R")
     @GroupThreads(4)
     public void fourWritersEnqueue() throws InterruptedException {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("FourWritersFourReaders")
+    @Group("4W4R")
     @GroupThreads(4)
     public int fourReadersDeque() throws InterruptedException {
       return queue.deque();

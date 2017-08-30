@@ -4,6 +4,7 @@ import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.infra.Blackhole;
 
 //    Intel(R) Core(TM) i5-5257U CPU @ 2.70 GHz, 2 Core(s), 4 Logical Processor(s)
 //          cache sizes                 queue sizes
@@ -32,13 +33,11 @@ public class ConstantCapacityArrayQueueBenchmark {
   }
 
   @Benchmark
-  public int deque_primitive() {
+  public void deque_primitive(Blackhole blackhole) {
     NonResizableArrayQueuePrimitive queue = enqueue_primitive();
-    int sum = 0;
     for (int i = 0; i < iterations; i++) {
-      sum += queue.deque();
+      blackhole.consume(queue.deque());
     }
-    return sum;
   }
 
   @Benchmark
@@ -51,12 +50,10 @@ public class ConstantCapacityArrayQueueBenchmark {
   }
 
   @Benchmark
-  public int deque_boxed() {
+  public void deque_boxed(Blackhole blackhole) {
     NonResizableArrayQueueBoxed queue = enqueue_boxed();
-    int sum = 0;
     for (int i = 0; i < iterations; i++) {
-      sum += queue.deque();
+      blackhole.consume(queue.deque());
     }
-    return sum;
   }
 }

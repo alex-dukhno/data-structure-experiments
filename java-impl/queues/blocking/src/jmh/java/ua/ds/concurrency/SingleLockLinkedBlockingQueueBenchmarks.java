@@ -9,10 +9,10 @@ import org.openjdk.jmh.annotations.State;
 
 public class SingleLockLinkedBlockingQueueBenchmarks {
   static final int ITEM = 10;
-  static final int SIZE = 32_768;
+  static final int SIZE = Integer.MIN_VALUE >>> 2;
 
   @State(Scope.Group)
-  public static class SingleLockLinkedBlockingQueueSWSRSamePace {
+  public static class SamePace {
     private SingleLockLinkedBlockingQueue queue;
 
     @Setup
@@ -21,79 +21,42 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     }
 
     @Benchmark
-    @Group("SingleWriterSingleReader")
+    @Group("1W1R")
     @GroupThreads()
     public void enqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("SingleWriterSingleReader")
+    @Group("1W1R")
     @GroupThreads()
     public int deque() throws InterruptedException {
       return queue.deque();
     }
-  }
-
-  @State(Scope.Group)
-  public static class SingleLockLinkedBlockingQueueSWSRReaderLegBehind {
-    private SingleLockLinkedBlockingQueue queue;
-
-    @Setup
-    public void createQueue() {
-      queue = new SingleLockLinkedBlockingQueue();
-      for (int i = 0; i < SIZE; i++) {
-        queue.enqueue(ITEM);
-      }
-    }
 
     @Benchmark
-    @Group("SingleWriterSingleReader")
-    @GroupThreads()
-    public void enqueue() {
-      queue.enqueue(ITEM);
-    }
-
-    @Benchmark
-    @Group("SingleWriterSingleReader")
-    @GroupThreads()
-    public int deque() throws InterruptedException {
-      return queue.deque();
-    }
-  }
-
-  @State(Scope.Group)
-  public static class SingleLockLinkedBlockingQueueMWMRReaderSamePace {
-    private SingleLockLinkedBlockingQueue queue;
-
-    @Setup
-    public void createQueue() {
-      queue = new SingleLockLinkedBlockingQueue();
-    }
-
-    @Benchmark
-    @Group("TwoWritersTwoReaders")
+    @Group("2W2R")
     @GroupThreads(2)
     public void twoWritersEnqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("TwoWritersTwoReaders")
+    @Group("2W2R")
     @GroupThreads(2)
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
 
     @Benchmark
-    @Group("FourWritersFourReaders")
+    @Group("4W4R")
     @GroupThreads(4)
     public void fourWritersEnqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("FourWritersFourReaders")
+    @Group("4W4R")
     @GroupThreads(4)
     public int fourReadersDeque() throws InterruptedException {
       return queue.deque();
@@ -101,7 +64,7 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
   }
 
   @State(Scope.Group)
-  public static class SingleLockLinkedBlockingQueueMWMRReadersLegBehind {
+  public static class ReaderLegBehind {
     private SingleLockLinkedBlockingQueue queue;
 
     @Setup
@@ -113,28 +76,42 @@ public class SingleLockLinkedBlockingQueueBenchmarks {
     }
 
     @Benchmark
-    @Group("TwoWritersTwoReaders")
+    @Group("1W1R")
+    @GroupThreads()
+    public void enqueue() {
+      queue.enqueue(ITEM);
+    }
+
+    @Benchmark
+    @Group("1W1R")
+    @GroupThreads()
+    public int deque() throws InterruptedException {
+      return queue.deque();
+    }
+
+    @Benchmark
+    @Group("2W2R")
     @GroupThreads(2)
     public void twoWritersEnqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("TwoWritersTwoReaders")
+    @Group("2W2R")
     @GroupThreads(2)
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
 
     @Benchmark
-    @Group("FourWritersFourReaders")
+    @Group("4W4R")
     @GroupThreads(4)
     public void fourWritersEnqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("FourWritersFourReaders")
+    @Group("4W4R")
     @GroupThreads(4)
     public int fourReadersDeque() throws InterruptedException {
       return queue.deque();
