@@ -21,42 +21,42 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
     }
 
     @Benchmark
-    @Group("1W1R")
+    @Group("_1W1R")
     @GroupThreads()
     public void enqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("1W1R")
+    @Group("_1W1R")
     @GroupThreads()
     public int deque() throws InterruptedException {
       return queue.deque();
     }
 
     @Benchmark
-    @Group("2W2R")
+    @Group("_2W2R")
     @GroupThreads(2)
     public void twoWritersEnqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("2W2R")
+    @Group("_2W2R")
     @GroupThreads(2)
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
 
     @Benchmark
-    @Group("4W4R")
+    @Group("_4W4R")
     @GroupThreads(4)
     public void fourWritersEnqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("4W4R")
+    @Group("_4W4R")
     @GroupThreads(4)
     public int fourReadersDeque() throws InterruptedException {
       return queue.deque();
@@ -76,42 +76,42 @@ public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
     }
 
     @Benchmark
-    @Group("1W1R")
+    @Group("_1W1R")
     @GroupThreads()
     public void enqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("1W1R")
+    @Group("_1W1R")
     @GroupThreads()
     public int deque() throws InterruptedException {
       return queue.deque();
     }
 
     @Benchmark
-    @Group("2W2R")
+    @Group("_2W2R")
     @GroupThreads(2)
     public void twoWritersEnqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("2W2R")
+    @Group("_2W2R")
     @GroupThreads(2)
     public int twoReadersDeque() throws InterruptedException {
       return queue.deque();
     }
 
     @Benchmark
-    @Group("4W4R")
+    @Group("_4W4R")
     @GroupThreads(4)
     public void fourWritersEnqueue() {
       queue.enqueue(ITEM);
     }
 
     @Benchmark
-    @Group("4W4R")
+    @Group("_4W4R")
     @GroupThreads(4)
     public int fourReadersDeque() throws InterruptedException {
       return queue.deque();
