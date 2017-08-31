@@ -1,13 +1,11 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.OperationsPerInvocation;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
-
-import java.util.stream.IntStream;
+import org.openjdk.jmh.infra.Blackhole;
 
 //    Intel(R) Core(TM) i5-5257U CPU @ 2.70 GHz, 2 Core(s), 4 Logical Processor(s)
 //          cache sizes                 queue sizes
@@ -23,25 +21,29 @@ import java.util.stream.IntStream;
 @State(Scope.Benchmark)
 public class LinkedQueueBenchmark {
 
-  @Param({"512", "1024", "2048", "4096", "8192", "16384", "32768", "65536", "131072", "262144", "524288", "1048576"})
-  private int iterations;
+  @Param({"1024", "8192", "262144", "1048576"})
+  private int size;
 
   @Benchmark
   public LinkedQueue enqueue() {
     LinkedQueue queue = new LinkedQueue();
-    for (int i = 0; i < iterations; i++) {
+    for (int i = 0; i < size; i++) {
       queue.enqueue(i);
     }
     return queue;
   }
 
+  private LinkedQueue queue;
+
+  @Setup
+  public void createQueue() {
+    queue = enqueue();
+  }
+
   @Benchmark
-  public int deque() {
-    LinkedQueue queue = enqueue();
-    int sum = 0;
-    for (int i = 0; i < iterations; i++) {
-      sum += queue.deque();
+  public void deque(Blackhole blackhole) {
+    for (int i = 0; i < size; i++) {
+      blackhole.consume(queue.deque());
     }
-    return sum;
   }
 }
