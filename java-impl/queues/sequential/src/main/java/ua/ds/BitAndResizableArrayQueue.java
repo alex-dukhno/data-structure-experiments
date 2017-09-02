@@ -1,11 +1,6 @@
 package ua.ds;
 
-import org.openjdk.jol.info.ClassLayout;
-
-public class BitAndResizableArrayQueue {
-  private static final int MIN_CAPACITY = 16;
-  private static final int MAX_CAPACITY = Integer.MIN_VALUE >>> 1;
-
+public class BitAndResizableArrayQueue implements SequentialQueue {
   private int[] items;
   private int head;
   private int tail;
@@ -16,12 +11,14 @@ public class BitAndResizableArrayQueue {
   }
 
   public BitAndResizableArrayQueue(int capacity) {
+    capacity = SequentialQueue.nextPowerOfTwo(capacity);
     items = new int[capacity];
     size = 0;
     head = 0;
     tail = 0;
   }
 
+  @Override
   public int deque() {
     if (isEmpty()) return -1;
     int item = items[head];
@@ -35,6 +32,7 @@ public class BitAndResizableArrayQueue {
     return size == 0;
   }
 
+  @Override
   public void enqueue(int item) {
     if (size == items.length) resize(items.length << 1);
     items[tail] = item;
@@ -50,9 +48,5 @@ public class BitAndResizableArrayQueue {
     items = temp;
     head = 0;
     tail = size;
-  }
-
-  public static void main(String[] args) {
-    System.out.println(ClassLayout.parseClass(BitAndResizableArrayQueue.class).toPrintable());
   }
 }

@@ -1,4 +1,4 @@
-rootProject.name = 'data-sructures-parent'
+rootProject.name = 'data-structures-parent'
 
 include ':queues:sequential'
 include ':queues:blocking'

@@ -1,7 +1,5 @@
 package ua.ds.concurrency;
 
-import org.openjdk.jol.info.ClassLayout;
-
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -89,17 +87,5 @@ public class DoubleLockLinkedBlockingQueue {
       notify(enqueue, full);
     }
     return result;
-  }
-  class Node {
-    final int item;
-    Node next;
-
-    Node(int item) {
-      this.item = item;
-    }
-  }
-
-  public static void main(String[] args) {
-    System.out.println(ClassLayout.parseClass(DoubleLockLinkedBlockingQueue.class).toPrintable());
   }
 }

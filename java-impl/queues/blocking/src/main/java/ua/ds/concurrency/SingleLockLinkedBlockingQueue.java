@@ -1,7 +1,5 @@
 package ua.ds.concurrency;
 
-import org.openjdk.jol.info.ClassLayout;
-
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -51,18 +49,5 @@ public class SingleLockLinkedBlockingQueue {
     } finally {
       lock.unlock();
     }
-  }
-
-  class Node {
-    final int item;
-    Node next;
-
-    Node(int item) {
-      this.item = item;
-    }
-  }
-
-  public static void main(String[] args) {
-    System.out.println(ClassLayout.parseClass(SingleLockLinkedBlockingQueue.class).toPrintable());
   }
 }

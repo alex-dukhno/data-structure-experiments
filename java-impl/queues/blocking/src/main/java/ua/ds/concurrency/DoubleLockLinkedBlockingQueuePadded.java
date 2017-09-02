@@ -1,14 +1,12 @@
 package ua.ds.concurrency;
 
-import org.openjdk.jol.info.ClassLayout;
-
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 abstract class DoubleLockHead {
-  DoubleLockNode head;
+  Node head;
 }
 
 abstract class DoubleLockHeadPadding extends DoubleLockHead {
@@ -17,7 +15,7 @@ abstract class DoubleLockHeadPadding extends DoubleLockHead {
 }
 
 abstract class DoubleLockTail extends DoubleLockHeadPadding {
-  DoubleLockNode tail;
+  Node tail;
 }
 
 abstract class DoubleLockTailPadding extends DoubleLockTail {
@@ -41,13 +39,13 @@ public class DoubleLockLinkedBlockingQueuePadded extends DoubleLockTailPadding {
     deque = new ReentrantLock();
     empty = deque.newCondition();
     capacity = Integer.MIN_VALUE >>> 1;
-    head = tail = new DoubleLockNode(Integer.MIN_VALUE);
+    head = tail = new Node(Integer.MIN_VALUE);
     size = new AtomicInteger();
   }
 
   public void enqueue(int item) throws InterruptedException {
     int count;
-    DoubleLockNode node = new DoubleLockNode(item);
+    Node node = new Node(item);
     enqueue.lock();
     try {
       while (size.get() == capacity) {
@@ -85,7 +83,7 @@ public class DoubleLockLinkedBlockingQueuePadded extends DoubleLockTailPadding {
         // is it a safe-point ?
         empty.await();
       }
-      DoubleLockNode first = head.next;
+      Node first = head.next;
       // We need to cycle node to itself to be sure that GC would not follow the 'next' item in the
       // queue those iterating over all other references (again?)
       result = first.item;
@@ -105,18 +103,5 @@ public class DoubleLockLinkedBlockingQueuePadded extends DoubleLockTailPadding {
       notify(enqueue, full);
     }
     return result;
-  }
-
-  public static void main(String[] args) {
-    System.out.println(ClassLayout.parseClass(DoubleLockLinkedBlockingQueuePadded.class).toPrintable());
-  }
-}
-
-class DoubleLockNode {
-  final int item;
-  DoubleLockNode next;
-
-  DoubleLockNode(int item) {
-    this.item = item;
   }
 }

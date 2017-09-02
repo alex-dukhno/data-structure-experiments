@@ -1,8 +1,6 @@
 package ua.ds;
 
-import org.openjdk.jol.info.ClassLayout;
-
-public class LinkedArrayQueue {
+public class LinkedArrayQueue implements SequentialQueue {
   private final int segmentCapacity;
   private Segment head;
   private Segment tail;
@@ -15,6 +13,7 @@ public class LinkedArrayQueue {
     this.segmentCapacity = segmentCapacity;
   }
 
+  @Override
   public int deque() {
     if (head == null || (head == tail && head.first == head.last)) return -1;
     if (head.first == segmentCapacity - 1) {
@@ -29,6 +28,7 @@ public class LinkedArrayQueue {
     return head.items[++head.first];
   }
 
+  @Override
   public void enqueue(int item) {
     if (tail == null) {
       Segment segment = new Segment(segmentCapacity);
@@ -43,21 +43,15 @@ public class LinkedArrayQueue {
   }
 
   private static class Segment {
-    private final Integer[] items;
-    private Segment next;
-    private int first;
-    private int last;
+    final int[] items;
+    Segment next;
+    int first;
+    int last;
 
     Segment(int capacity) {
-      items = new Integer[capacity];
+      items = new int[capacity];
       first = -1;
       last = -1;
     }
-  }
-
-  public static void main(String[] args) {
-    System.out.println(ClassLayout.parseClass(LinkedArrayQueue.class).toPrintable());
-    System.out.println(ClassLayout.parseClass(LinkedArrayQueue.Segment.class).toPrintable());
-    System.out.println(ClassLayout.parseInstance(new Integer[16]).toPrintable());
   }
 }

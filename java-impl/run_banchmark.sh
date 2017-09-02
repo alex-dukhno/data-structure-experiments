@@ -2,17 +2,13 @@
 
 gradle clean jmhJar \
 && cd queues/sequential \
-&& mkdir -p build/reports/jmh/linked/ \
-&& java -jar build/libs/sequential-1.0-jmh.jar -e 'ConstantCapacityArrayQueueBenchmark|LinkedArrayQueueBenchmark|ResizableArrayQueueBenchmark' -f 1 -wi 10 -i 25 -gc true -tu us -bm ss -rf JSON -rff build/reports/jmh/linked/results.json \
-&& mkdir -p build/reports/jmh/non-resizable-array/ \
-&& java -jar build/libs/sequential-1.0-jmh.jar -e 'LinkedArrayQueueBenchmark|LinkedQueueBenchmark|ResizableArrayQueueBenchmark' -f 1 -wi 10 -i 25 -tu s -bm thrpt -rf JSON -rff build/reports/jmh/non-resizable-array/results.json \
-&& mkdir -p build/reports/jmh/resizable-array/ \
-&& java -jar build/libs/sequential-1.0-jmh.jar -e 'LinkedArrayQueueBenchmark|LinkedQueueBenchmark|ConstantCapacityArrayQueueBenchmark' -f 1 -wi 10 -i 25 -tu ms -bm thrpt -rf JSON -rff build/reports/jmh/resizable-array/results.json \
-&& mkdir -p build/reports/jmh/linked-array/ \
-&& java -jar build/libs/sequential-1.0-jmh.jar -e 'ResizableArrayQueueBenchmark|LinkedQueueBenchmark|ConstantCapacityArrayQueueBenchmark' -bm thrpt -f 1 -wi 10 -i 25 -tu s -rf JSON -rff build/reports/jmh/linked-array/results.json \
+&& mkdir -p build/reports/jmh/ \
+&& java -jar build/libs/sequential-1.0-jmh.jar -e 'ConditionVsBitMask|LinkedArrays|PrimitiveVsBoxed' -f 1 -wi 10 -i 10 -gc true -tu ns -bm avgt -rf JSON -rff build/reports/jmh/array-vs-linked-results.json \
+&& java -jar build/libs/sequential-1.0-jmh.jar -e 'ConditionVsBitMask|LinkedArrays|LinkedVsArray' -f 1 -wi 10 -i 10 -tu ns -bm thrpt -rf JSON -rff build/reports/jmh/primitive-vs-boxed-results.json \
+&& java -jar build/libs/sequential-1.0-jmh.jar -e 'LinkedArrays|LinkedVsArray|PrimitiveVsBoxed' -f 1 -wi 10 -i 10 -tu ns -bm thrpt -rf JSON -rff build/reports/jmh/mask-vs-condition-results.json \
+&& java -jar build/libs/sequential-1.0-jmh.jar -e 'ConditionVsBitMask|PrimitiveVsBoxed|LinkedVsArray' -f 1 -wi 10 -i 10 -tu ns -bm thrpt -rf JSON -rff build/reports/jmh/linked-arrays-results.json \
 && cd ../.. \
 && cd queues/blocking \
-&& mkdir -p build/reports/jmh/lock-thrpt \
-&& java -jar build/libs/blocking-1.0-jmh.jar -e 'DoubleLockLinkedBlockingQueuePaddedBenchmarks|SingleLockLinkedBlockingQueuePaddedBenchmarks' -f 1 -i 10 -wi 25  -gc true -tu s -bm thrpt -rf JSON -rff build/reports/jmh/lock-thrpt/results.json \
-&& mkdir -p build/reports/jmh/lock-padded \
-&& java -jar build/libs/blocking-1.0-jmh.jar -e 'ArrayBlockingQueueBenchmarks' -f 1 -i 10 -wi 25  -gc true -tu s -bm thrpt -rf JSON -rff build/reports/jmh/lock-padded/results.json
+&& mkdir -p build/reports/jmh/ \
+&& java -jar build/libs/blocking-1.0-jmh.jar -e 'DoubleLockLinkedBlockingQueuePaddedBenchmarks|SingleLockLinkedBlockingQueuePaddedBenchmarks' -f 1 -i 10 -wi 10  -gc true -tu s -bm thrpt -rf JSON -rff build/reports/jmh/lock-thrpt-results.json \
+&& java -jar build/libs/blocking-1.0-jmh.jar -e 'ArrayBlockingQueueBenchmarks' -f 1 -i 10 -wi 10  -gc true -tu s -bm thrpt -rf JSON -rff build/reports/jmh/lock-padded-results.json

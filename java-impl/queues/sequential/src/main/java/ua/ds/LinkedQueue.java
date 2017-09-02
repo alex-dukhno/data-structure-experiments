@@ -1,14 +1,11 @@
 package ua.ds;
 
-import org.openjdk.jol.info.ClassLayout;
-import org.openjdk.jol.info.GraphLayout;
-
-public class LinkedQueue {
+public class LinkedQueue implements SequentialQueue {
   private Node head;
   private Node tail;
-  int size;
 
-  public Integer deque() {
+  @Override
+  public int deque() {
     if (head == null) return -1;
     int item = head.item;
     if (head == tail) {
@@ -18,6 +15,7 @@ public class LinkedQueue {
     return item;
   }
 
+  @Override
   public void enqueue(int item) {
     Node node = new Node(item);
     if (head == null) {
@@ -26,20 +24,14 @@ public class LinkedQueue {
       tail.next = node;
     }
     tail = node;
-    size++;
   }
 
   private class Node {
-    private final int item;
-    private Node next;
+    final int item;
+    Node next;
 
     Node(int item) {
       this.item = item;
     }
-  }
-
-  public static void main(String[] args) {
-    System.out.println(ClassLayout.parseClass(LinkedQueue.class).toPrintable());
-    System.out.println(ClassLayout.parseClass(LinkedQueue.Node.class).toPrintable());
   }
 }

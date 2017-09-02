@@ -1,8 +1,6 @@
 package ua.ds;
 
-import org.openjdk.jol.info.ClassLayout;
-
-public class BranchResizableArrayQueue {
+public class BranchResizableArrayQueue implements SequentialQueue {
   private int[] items;
   private int size;
   private int first;
@@ -13,19 +11,21 @@ public class BranchResizableArrayQueue {
   }
 
   public BranchResizableArrayQueue(int capacity) {
+    capacity = SequentialQueue.nextPowerOfTwo(capacity);
     items = new int[capacity];
     size = 0;
     first = 0;
     last = 0;
   }
 
+  @Override
   public int deque() {
     if (isEmpty()) return -1;
     int item = items[first];
     size--;
     first++;
     if (first == items.length) first = 0;
-    if (size > 0 && size == items.length / 4) resize(items.length / 2);
+    if (size > MIN_CAPACITY && size == items.length / 4) resize(items.length / 2);
     return item;
   }
 
@@ -33,6 +33,7 @@ public class BranchResizableArrayQueue {
     return size == 0;
   }
 
+  @Override
   public void enqueue(int item) {
     if (size == items.length) resize(2 * items.length);
     items[last++] = item;
@@ -48,9 +49,5 @@ public class BranchResizableArrayQueue {
     items = temp;
     first = 0;
     last = size;
-  }
-
-  public static void main(String[] args) {
-    System.out.println(ClassLayout.parseClass(BranchResizableArrayQueue.class).toPrintable());
   }
 }

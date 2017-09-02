@@ -16,16 +16,10 @@ class ArrayBlockingQueueTest {
   }
 
   @Test
-  void dequeFromEmptyQueue() throws Exception {
-    assertThat(queue.deque(), is(-1));
-  }
-
-  @Test
   void enqueueItemIntoQueue() throws Exception {
     queue.enqueue(10);
 
     assertThat(queue.deque(), is(10));
-    assertThat(queue.deque(), is(-1));
   }
 
   @Test
@@ -50,7 +44,6 @@ class ArrayBlockingQueueTest {
     assertThat(queue.deque(), is(10));
     assertThat(queue.deque(), is(20));
     assertThat(queue.deque(), is(30));
-    assertThat(queue.deque(), is(-1));
   }
 
   @Test
@@ -62,7 +55,6 @@ class ArrayBlockingQueueTest {
     for (int i = 0; i < 20; i++) {
       assertThat(queue.deque(), is(i));
     }
-    assertThat(queue.deque(), is(-1));
   }
 
 
@@ -75,7 +67,6 @@ class ArrayBlockingQueueTest {
     for (int i = 0; i < 100; i++) {
       assertThat(queue.deque(), is(i));
     }
-    assertThat(queue.deque(), is(-1));
   }
 
   @Test
