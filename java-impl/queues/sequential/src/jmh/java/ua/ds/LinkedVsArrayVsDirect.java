@@ -2,7 +2,7 @@ package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
 
-public class LinkedVsArray extends QueueBenchmark {
+public class LinkedVsArrayVsDirect extends QueueBenchmark {
 
   @Benchmark
   public int linked() {
@@ -12,5 +12,10 @@ public class LinkedVsArray extends QueueBenchmark {
   @Benchmark
   public int arrayBase() {
     return dequeMany(enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+  }
+
+  @Benchmark
+  public int directMemory() {
+    return dequeMany(enqueueMany(new NonResizableDirectBufferQueue(size)));
   }
 }
