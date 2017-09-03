@@ -5,9 +5,3 @@ authors = ["Alex-Diez <alex.dukhno@icloud.com>"]
 
 [lib]
 name = "datasructures"
-
-[dependencies]
-clippy = {version = "*", optional = true}
-
-[features]
-default = []

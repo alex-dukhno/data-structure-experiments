@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-gradle clean jmhJar \
+cd rust-impl \
+&& RUST_TEST_THREADS=1 \
+&& cargo bench benchmarks > ../benchmarks-result/Intel-i7-3770-3.40GHz-Ivy-Bridge/rust-benchmarks.txt \
+&& cd .. \
+&& cd java-impl \
+&& gradle clean jmhJar \
 && cd queues/sequential \
 && mkdir -p build/reports/jmh/ \
 && java -jar build/libs/sequential-1.0-jmh.jar -e 'ConditionVsBitMask|LinkedArrays|PrimitiveVsBoxed' -f 1 -wi 10 -i 10 -gc true -tu ns -bm avgt -rf JSON -rff build/reports/jmh/array-vs-linked-results.json \
