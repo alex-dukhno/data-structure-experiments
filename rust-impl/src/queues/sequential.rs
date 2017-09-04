@@ -146,14 +146,16 @@ impl Queue for SharedLinkLinkedArrayQueue {
     fn deque(&mut self) -> Option<i32> {
         self.head.take().and_then(
             |mut head| unsafe {
-                if head.as_ref().is_empty() && self.tail.as_ref().map_or(true, |tail| tail.as_ref() == head.as_ref()) {
+                if head.as_ref().is_empty() && self.tail.as_ref().map_or(true, |tail| tail.as_ptr() == head.as_ptr()) {
                     self.head = Some(head);
                     None
                 } else if head.as_ref().is_exhausted() {
-                    head.as_mut().next.take().map(|mut next| {
+                    let ret = head.as_mut().next.take().map(|mut next| {
                         self.head = Some(next.clone());
                         next.as_mut().read_first()
-                    })
+                    });
+                    drop(Box::from_raw(head.as_ptr()));
+                    ret
                 } else {
                     self.head = Some(head.clone());
                     Some(head.as_mut().read_first())
@@ -182,6 +184,12 @@ impl Queue for SharedLinkLinkedArrayQueue {
             }
             self.tail.as_mut().map(|tail| tail.as_mut().write_last(item));
         }
+    }
+}
+
+impl Drop for SharedLinkLinkedArrayQueue {
+    fn drop(&mut self) {
+        while let Some(_) = self.deque() {}
     }
 }
 
@@ -238,6 +246,12 @@ impl SharedSegment {
 
     fn is_full(&self) -> bool {
         self.last == self.items.cap() - 1
+    }
+}
+
+impl Drop for SharedSegment {
+    fn drop(&mut self) {
+        self.items.
     }
 }
 
@@ -436,7 +450,9 @@ impl Queue for SharedLinkedQueue {
                 Some(new_head) => self.head = Some(new_head),
                 None => self.tail = None
             }
-            head.as_ref().item
+            let item = head.as_ref().item;
+            drop(Box::from_raw(head.as_ptr()));
+            item
         })
     }
 
@@ -1085,12 +1101,12 @@ mod benchmarks {
             });
         }
     }
-    
+
     mod non_resizable_array_queue {
         use super::test::Bencher;
         use super::super::ResizableArrayQueue;
         use super::*;
-        
+
         #[bench]
         fn size_0001k(b: &mut Bencher) {
             b.iter(|| {
