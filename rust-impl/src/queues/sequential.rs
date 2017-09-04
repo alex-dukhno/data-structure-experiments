@@ -862,8 +862,7 @@ mod tests {
 mod benchmarks {
     extern crate test;
 
-    use super::*;
-    use self::test::Bencher;
+    use super::Queue;
 
     const K: usize = 1024;
     const _2_K: usize = 2 * K;
@@ -877,301 +876,319 @@ mod benchmarks {
     const _512_K: usize = 512 * K;
     const M: usize = K * K;
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_0001k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        });
+    mod rc_ref_cell_linked_queue {
+        use super::test::Bencher;
+        use super::super::RcRefCellLinkedQueue;
+        use super::*;
+
+        #[bench]
+        fn size_0001k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_0002k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_0004k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_0008k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_0016k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_0032k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_0064k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_0128k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_0256k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_0512k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_1024k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkedQueue::new();
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            });
+        }
     }
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_0002k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        });
-    }
+    mod shared_linked_queue {
+        use super::test::Bencher;
+        use super::super::SharedLinkedQueue;
+        use super::*;
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_0004k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0001k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            });
+        }
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_0008k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0002k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            });
+        }
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_0016k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0004k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            });
+        }
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_0032k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0008k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            });
+        }
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_0064k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0016k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            });
+        }
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_0128k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0032k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            });
+        }
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_0256k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0064k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            });
+        }
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_0512k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0128k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            });
+        }
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_queue_1024k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkedQueue::new();
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0256k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            });
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_0001k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0512k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            });
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_0002k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        });
+        #[bench]
+        fn size_1024k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkedQueue::new();
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            });
+        }
     }
+    
+    mod non_resizable_array_queue {
+        use super::test::Bencher;
+        use super::super::ResizableArrayQueue;
+        use super::*;
+        
+        #[bench]
+        fn size_0001k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(K);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_0004k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0002k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(_2_K);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_0008k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0004k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(_4_K);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_0016k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0008k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(_8_K);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_0032k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0016k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(_16_K);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_0064k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0032k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(_32_K);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_0128k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0064k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(_64_K);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_0256k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0128k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(_128_K);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_0512k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0256k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(_256_K);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
 
-    #[bench]
-    fn bench_shared_linked_queue_1024k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkedQueue::new();
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        });
-    }
+        #[bench]
+        fn size_0512k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(_512_K);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
 
-    #[bench]
-    fn bench_array_queue_0001k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(K);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_array_queue_0002k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(_2_K);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_array_queue_0004k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(_4_K);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_array_queue_0008k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(_8_K);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_array_queue_0016k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(_16_K);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_array_queue_0032k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(_32_K);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_array_queue_0064k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(_64_K);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_array_queue_0128k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(_128_K);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_array_queue_0256k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(_256_K);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_array_queue_0512k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(_512_K);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_array_queue_1024k(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = ResizableArrayQueue::new(M);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
+        #[bench]
+        fn size_1024k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = ResizableArrayQueue::new(M);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
     }
 
     const SEGMENT_16_SIZE: usize = 16;
@@ -1181,1192 +1198,1204 @@ mod benchmarks {
     const SEGMENT_256_SIZE: usize = 256;
     const SEGMENT_512_SIZE: usize = 512;
 
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0001k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0002k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0004k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0008k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0016k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0032k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0064k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0128k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0256k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0512k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_1024k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0001k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0002k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0004k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0008k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0016k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0032k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0064k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0128k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0256k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0512k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_1024k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0001k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0002k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0004k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0008k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0016k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0032k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0064k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0128k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0256k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0512k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_1024k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0001k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0002k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0004k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0008k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0016k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0032k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0064k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0128k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0256k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0512k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_1024k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0001k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0002k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0004k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0008k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0016k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0032k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0064k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0128k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0256k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0512k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_1024k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0001k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0002k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0004k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0008k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0016k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0032k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0064k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0128k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0256k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_0512k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_rc_ref_cell_linked_array_queue_1024k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0001k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0002k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0004k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0008k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0016k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0032k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0064k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0128k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0256k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0512k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_1024k_s0016(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0001k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0002k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0004k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0008k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0016k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0032k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0064k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0128k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0256k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0512k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_1024k_s0032(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0001k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0002k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0004k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0008k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0016k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0032k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0064k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0128k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0256k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0512k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_1024k_s0064(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0001k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0002k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0004k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0008k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0016k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0032k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0064k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0128k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0256k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0512k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_1024k_s0128(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0001k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0002k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0004k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0008k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0016k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0032k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0064k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0128k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0256k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0512k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_1024k_s0256(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0001k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0002k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _2_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0004k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _4_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0008k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _8_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0016k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _16_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0032k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _32_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0064k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _64_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0128k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _128_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0256k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _256_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_0512k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, _512_K);
-            deque_many(&mut queue)
-        })
-    }
-
-    #[bench]
-    fn bench_shared_linked_array_queue_1024k_s0512(b: &mut Bencher) {
-        b.iter(|| {
-            let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
-            enqueue_many(&mut queue, M);
-            deque_many(&mut queue)
-        })
+    mod rc_ref_cell_linked_array_queue {
+        use super::test::Bencher;
+        use super::super::RcRefCellLinkLinkedArrayQueue;
+        use super::*;
+
+        #[bench]
+        fn size_0001k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0001k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0001k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0001k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0001k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0001k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = RcRefCellLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+    }
+
+    mod shared_linked_array_queue {
+        use super::test::Bencher;
+        use super::super::SharedLinkLinkedArrayQueue;
+        use super::*;
+
+        #[bench]
+        fn size_0001k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0016(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_16_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0001k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0032(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_32_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0001k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0064(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_64_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0001k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0128(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_128_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0001k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0256(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_256_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0001k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _2_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _4_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _8_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _16_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _32_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _64_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _128_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _256_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, _512_K);
+                deque_many(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k_segment_size_0512(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = SharedLinkLinkedArrayQueue::new(SEGMENT_512_SIZE);
+                enqueue_many(&mut queue, M);
+                deque_many(&mut queue)
+            })
+        }
     }
 
     fn enqueue_many<Q: Queue>(queue: &mut Q, size: usize) {

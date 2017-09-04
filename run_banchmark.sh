@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-cd rust-impl \
-&& RUST_TEST_THREADS=1 \
-&& cargo bench benchmarks > ../benchmarks-result/Intel-i7-3770-3.40GHz-Ivy-Bridge/rust-benchmarks.txt \
+mkdir -p benchmarks-result/Intel-i7-3770-3.40GHz-Ivy-Bridge \
+&& cd rust-impl \
+&& RUST_TEST_THREADS=1 cargo bench benchmarks::rc_ref_cell_linked_queue | tee ../benchmarks-result/Intel-i7-3770-3.40GHz-Ivy-Bridge/rc_ref_cell_linked_queue \
+&& RUST_TEST_THREADS=1 cargo bench benchmarks::shared_linked_queue | tee ../benchmarks-result/Intel-i7-3770-3.40GHz-Ivy-Bridge/shared_linked_queue \
+&& RUST_TEST_THREADS=1 cargo bench benchmarks::non_resizable_array_queue | tee ../benchmarks-result/Intel-i7-3770-3.40GHz-Ivy-Bridge/non_resizable_array_queue \
+&& RUST_TEST_THREADS=1 cargo bench benchmarks::rc_ref_cell_linked_array_queue | tee ../benchmarks-result/Intel-i7-3770-3.40GHz-Ivy-Bridge/rc_ref_cell_linked_array_queue \
+&& RUST_TEST_THREADS=1 cargo bench benchmarks::shared_linked_array_queue | tee ../benchmarks-result/Intel-i7-3770-3.40GHz-Ivy-Bridge/shared_linked_array_queue \
 && cd .. \
 && cd java-impl \
 && gradle clean jmhJar \
