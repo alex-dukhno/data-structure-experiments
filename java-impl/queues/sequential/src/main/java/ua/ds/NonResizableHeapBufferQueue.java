@@ -3,19 +3,19 @@ package ua.ds;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-public class NonResizableDirectBufferQueue implements SequentialQueue {
+public class NonResizableHeapBufferQueue implements SequentialQueue {
   private final IntBuffer items;
   private int head;
   private int tail;
   private final int mask;
 
-  public NonResizableDirectBufferQueue() {
+  public NonResizableHeapBufferQueue() {
     this(16);
   }
 
-  public NonResizableDirectBufferQueue(int capacity) {
+  public NonResizableHeapBufferQueue(int capacity) {
     capacity = SequentialQueue.nextPowerOfTwo(capacity);
-    items = ByteBuffer.allocateDirect(4 * capacity).asIntBuffer();
+    items = ByteBuffer.allocate(4 * capacity).asIntBuffer();
     head = 0;
     tail = capacity - 1;
     mask = capacity - 1;

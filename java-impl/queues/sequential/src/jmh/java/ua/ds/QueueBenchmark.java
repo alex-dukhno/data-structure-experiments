@@ -12,7 +12,7 @@ import java.util.Random;
 public abstract class QueueBenchmark {
   private static final int K = 1024;
 
-  @Param({""+K, ""+4*K, ""+16*K, ""+64*K, ""+248*K, ""+992*K})
+  @Param({""+K, ""+2*K, ""+4*K, ""+8*K, ""+16*K, ""+32*K, ""+64*K, ""+128*K, ""+256*K, ""+512*K, ""+K*K})
   protected int size;
 
   private int[] data;
