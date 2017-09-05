@@ -249,12 +249,6 @@ impl SharedSegment {
     }
 }
 
-impl Drop for SharedSegment {
-    fn drop(&mut self) {
-        self.items.
-    }
-}
-
 pub struct ResizableArrayQueue {
     head: usize,
     tail: usize,
