@@ -9,7 +9,7 @@ import org.openjdk.jmh.annotations.State;
 
 public class SingleLockLinkedBlockingQueuePaddedBenchmarks {
   static final int ITEM = 10;
-  static final int SIZE = Integer.MIN_VALUE >>> 4;
+  static final int SIZE = Integer.MIN_VALUE >>> 16;
 
   @State(Scope.Group)
   public static class SamePace {
