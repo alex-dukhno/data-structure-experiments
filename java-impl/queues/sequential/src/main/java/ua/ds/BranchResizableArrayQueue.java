@@ -3,8 +3,8 @@ package ua.ds;
 public class BranchResizableArrayQueue implements SequentialQueue {
   private int[] items;
   private int size;
-  private int first;
-  private int last;
+  private int head;
+  private int tail;
 
   public BranchResizableArrayQueue() {
     this(16);
@@ -14,17 +14,17 @@ public class BranchResizableArrayQueue implements SequentialQueue {
     capacity = SequentialQueue.nextPowerOfTwo(capacity);
     items = new int[capacity];
     size = 0;
-    first = 0;
-    last = 0;
+    head = 0;
+    tail = 0;
   }
 
   @Override
   public int deque() {
     if (isEmpty()) return -1;
-    int item = items[first];
+    int item = items[head];
     size--;
-    first++;
-    if (first == items.length) first = 0;
+    head++;
+    if (head == items.length) head = 0;
     if (size > MIN_CAPACITY && size == items.length / 4) resize(items.length / 2);
     return item;
   }
@@ -36,18 +36,18 @@ public class BranchResizableArrayQueue implements SequentialQueue {
   @Override
   public void enqueue(int item) {
     if (size == items.length) resize(2 * items.length);
-    items[last++] = item;
-    if (last == items.length) last = 0;
+    items[tail++] = item;
+    if (tail == items.length) tail = 0;
     size++;
   }
 
   private void resize(int capacity) {
     int[] temp = new int[capacity];
     for (int i = 0; i < size; i++) {
-      temp[i] = items[(first + i) & (items.length - 1)];
+      temp[i] = items[(head + i) & (items.length - 1)];
     }
     items = temp;
-    first = 0;
-    last = size;
+    head = 0;
+    tail = size;
   }
 }
