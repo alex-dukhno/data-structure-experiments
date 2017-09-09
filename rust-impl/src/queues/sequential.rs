@@ -252,98 +252,118 @@ impl SharedSegment {
 pub struct ResizableArrayQueue {
     head: usize,
     tail: usize,
-    mask: usize,
-    data: RawVec<i32>,
-    capacity: usize
+    size: usize,
+    data: RawVec<i32>
 }
 
 impl ResizableArrayQueue {
     pub fn new(capacity: usize) -> ResizableArrayQueue {
         ResizableArrayQueue {
             head: 0,
-            tail: capacity - 1,
-            mask: capacity - 1,
+            tail: 0,
+            size: 0,
             data: RawVec::with_capacity(capacity),
-            capacity: capacity
         }
     }
 
-    fn size(&self) -> usize {
-        self.mask - (self.tail.wrapping_sub(self.head) & self.mask)
-    }
-
-    fn quarter(&self) -> usize {
-        self.capacity >> 2
-    }
-
-    fn filled_by_quarter(&self) -> bool {
-        self.size() == self.quarter()
-    }
-
-    fn resize(&mut self) {
-        let new_capacity = self.capacity << 1;
-        self.data = self.copy_items(new_capacity);
-        self.update_cursor(new_capacity);
-    }
-
-    fn copy_items(&mut self, new_capacity: usize) -> RawVec<i32> {
+    fn resize(&mut self, new_capacity: usize) {
         let new_data = RawVec::with_capacity(new_capacity);
-        let new_mask = new_capacity - 1;
-        let mut new_item_index = (new_mask.wrapping_sub(self.mask).wrapping_add(self.tail) + 1) & new_mask;
-        let mut item_index = (self.tail + 1) & self.mask;
-        loop {
-            if item_index == self.head {
-                break;
-            }
+        let mask = self.data.cap() - 1;
+        for i in 0..self.size {
             unsafe {
-                let index_to_write = new_data.ptr().offset(new_item_index as isize);
-                let index_to_read = self.data.ptr().offset(item_index as isize);
-                ptr::write(index_to_write, ptr::read(index_to_read));
+                let to_write = new_data.ptr().offset(i as isize);
+                let to_read = self.data.ptr().offset(((self.head + i) & mask) as isize);
+                let item = ptr::read(to_read);
+                ptr::write(to_write, item);
             }
-            item_index = (item_index + 1) & self.mask;
-            new_item_index = (new_item_index + 1) & new_mask;
         }
-        new_data
+        self.data = new_data;
+        self.head = 0;
+        self.tail = self.size;
     }
 
-    fn update_cursor(&mut self, new_capacity: usize) {
-        let old_mask = self.mask;
-        self.mask = new_capacity - 1;
-        self.tail = (self.mask.wrapping_sub(old_mask).wrapping_add(self.tail)) & self.mask;
-        self.head &= new_capacity - 1;
-        self.capacity = new_capacity;
+    fn is_empty(&self) -> bool {
+        self.size == 0
     }
 }
 
 impl Queue for ResizableArrayQueue {
     fn deque(&mut self) -> Option<i32> {
-        if (self.tail.wrapping_sub(self.head) & self.mask) == self.mask {
+        if self.is_empty() {
             None
         } else {
-            self.tail = (self.tail + 1) & self.mask;
             let item = unsafe {
-                let item_index = self.data.ptr().offset(self.tail as isize);
-                ptr::read(item_index)
+                let to_read = self.data.ptr().offset(self.head as isize);
+                ptr::read(to_read)
             };
-            if self.filled_by_quarter() && self.capacity > MIN_CAPACITY {
-                let new_capacity = self.capacity >> 1;
-                self.data = self.copy_items(new_capacity);
-                self.update_cursor(new_capacity);
+            self.size -= 1;
+            self.head = (self.head + 1) & (self.data.cap() - 1);
+            let capacity = self.data.cap();
+            if self.size > MIN_CAPACITY && self.size == (capacity >> 2) {
+                self.resize(capacity >> 1);
             }
             Some(item)
         }
     }
 
     fn enqueue(&mut self, item: i32) {
-        if self.head == self.tail && self.capacity < MAX_CAPACITY {
-            self.resize();
+        let capacity = self.data.cap();
+        if self.size == capacity && capacity < MAX_CAPACITY {
+            self.resize(capacity << 1);
         }
-        let index = self.head;
-        self.head = (self.head + 1) & self.mask;
         unsafe {
-            let index_to_write = self.data.ptr().offset(index as isize);
-            ptr::write(index_to_write, item)
+            let to_write = self.data.ptr().offset(self.tail as isize);
+            ptr::write(to_write, item);
         }
+        self.tail = (self.tail + 1) & (self.data.cap() - 1);
+        self.size += 1;
+    }
+}
+
+pub struct NonResizableArrayQueue {
+    head: usize,
+    tail: usize,
+    size: usize,
+    data: RawVec<i32>
+}
+
+impl NonResizableArrayQueue {
+    pub fn new(capacity: usize) -> NonResizableArrayQueue {
+        NonResizableArrayQueue {
+            head: 0,
+            tail: 0,
+            size: 0,
+            data: RawVec::with_capacity(capacity),
+        }
+    }
+
+    fn is_empty(&self) -> bool {
+        self.size == 0
+    }
+}
+
+impl Queue for NonResizableArrayQueue {
+    fn deque(&mut self) -> Option<i32> {
+        if self.is_empty() {
+            None
+        } else {
+            let item = unsafe {
+                let to_read = self.data.ptr().offset(self.head as isize);
+                ptr::read(to_read)
+            };
+            self.size -= 1;
+            self.head = (self.head + 1) & (self.data.cap() - 1);
+            Some(item)
+        }
+    }
+
+    fn enqueue(&mut self, item: i32) {
+        unsafe {
+            let to_write = self.data.ptr().offset(self.tail as isize);
+            ptr::write(to_write, item);
+        }
+        self.tail = (self.tail + 1) & (self.data.cap() - 1);
+        self.size += 1;
     }
 }
 
@@ -701,7 +721,62 @@ mod tests {
         }
     }
 
-    mod array_queue {
+    mod non_resizable_array_queue {
+        use super::super::*;
+
+        #[test]
+        fn deque_from_empty_queue() {
+            let mut queue = NonResizableArrayQueue::new(16);
+
+            assert_eq!(queue.deque(), None);
+        }
+
+        #[test]
+        fn enqueue_one_item() {
+            let mut queue = NonResizableArrayQueue::new(16);
+
+            queue.enqueue(10);
+
+            assert_eq!(queue.deque(), Some(10));
+            assert_eq!(queue.deque(), None);
+        }
+
+        #[test]
+        fn enqueue_three_items_one_by_one() {
+            let mut queue = NonResizableArrayQueue::new(16);
+
+            queue.enqueue(10);
+
+            assert_eq!(queue.deque(), Some(10));
+            assert_eq!(queue.deque(), None);
+
+            queue.enqueue(20);
+
+            assert_eq!(queue.deque(), Some(20));
+            assert_eq!(queue.deque(), None);
+
+            queue.enqueue(30);
+
+            assert_eq!(queue.deque(), Some(30));
+            assert_eq!(queue.deque(), None);
+        }
+
+        #[test]
+        fn enqueue_many_items_deque_many_items() {
+            let mut queue = NonResizableArrayQueue::new(16);
+
+            queue.enqueue(10);
+            queue.enqueue(20);
+            queue.enqueue(30);
+
+            assert_eq!(queue.deque(), Some(10));
+            assert_eq!(queue.deque(), Some(20));
+            assert_eq!(queue.deque(), Some(30));
+            assert_eq!(queue.deque(), None);
+        }
+    }
+
+    mod resizable_array_queue {
         use super::super::*;
 
         #[test]
@@ -1096,15 +1171,239 @@ mod benchmarks {
         }
     }
 
+    mod std_resizable_array_queue {
+        use super::test::Bencher;
+        use super::*;
+        use std::collections::VecDeque;
+
+        #[bench]
+        fn size_0001k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(K);
+                enqueue_many_std(&mut queue, K);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0002k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(_2_K);
+                enqueue_many_std(&mut queue, _2_K);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0004k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(_4_K);
+                enqueue_many_std(&mut queue, _4_K);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0008k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(_8_K);
+                enqueue_many_std(&mut queue, _8_K);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0016k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(_16_K);
+                enqueue_many_std(&mut queue, _16_K);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0032k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(_32_K);
+                enqueue_many_std(&mut queue, _32_K);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0064k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(_64_K);
+                enqueue_many_std(&mut queue, _64_K);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0128k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(_128_K);
+                enqueue_many_std(&mut queue, _128_K);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0256k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(_256_K);
+                enqueue_many_std(&mut queue, _256_K);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_0512k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(_512_K);
+                enqueue_many_std(&mut queue, _512_K);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        #[bench]
+        fn size_1024k(b: &mut Bencher) {
+            b.iter(|| {
+                let mut queue = VecDeque::with_capacity(M);
+                enqueue_many_std(&mut queue, M);
+                deque_many_std(&mut queue)
+            })
+        }
+
+        fn enqueue_many_std(queue: &mut VecDeque<i32>, size: usize) {
+            for item in 0..size {
+                queue.push_back(item as i32);
+            }
+        }
+
+        fn deque_many_std(queue: &mut VecDeque<i32>) -> i32 {
+            let mut sum = 0;
+            while let Some(item) = queue.pop_front() {
+                sum += item;
+            }
+            sum
+        }
+    }
+
+    mod resizable_array_queue {
+    use super::test::Bencher;
+    use super::super::ResizableArrayQueue;
+    use super::*;
+
+    #[bench]
+    fn size_0001k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(K);
+            enqueue_many(&mut queue, K);
+            deque_many(&mut queue)
+        })
+    }
+
+    #[bench]
+    fn size_0002k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(_2_K);
+            enqueue_many(&mut queue, _2_K);
+            deque_many(&mut queue)
+        })
+    }
+
+    #[bench]
+    fn size_0004k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(_4_K);
+            enqueue_many(&mut queue, _4_K);
+            deque_many(&mut queue)
+        })
+    }
+
+    #[bench]
+    fn size_0008k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(_8_K);
+            enqueue_many(&mut queue, _8_K);
+            deque_many(&mut queue)
+        })
+    }
+
+    #[bench]
+    fn size_0016k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(_16_K);
+            enqueue_many(&mut queue, _16_K);
+            deque_many(&mut queue)
+        })
+    }
+
+    #[bench]
+    fn size_0032k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(_32_K);
+            enqueue_many(&mut queue, _32_K);
+            deque_many(&mut queue)
+        })
+    }
+
+    #[bench]
+    fn size_0064k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(_64_K);
+            enqueue_many(&mut queue, _64_K);
+            deque_many(&mut queue)
+        })
+    }
+
+    #[bench]
+    fn size_0128k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(_128_K);
+            enqueue_many(&mut queue, _128_K);
+            deque_many(&mut queue)
+        })
+    }
+
+    #[bench]
+    fn size_0256k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(_256_K);
+            enqueue_many(&mut queue, _256_K);
+            deque_many(&mut queue)
+        })
+    }
+
+    #[bench]
+    fn size_0512k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(_512_K);
+            enqueue_many(&mut queue, _512_K);
+            deque_many(&mut queue)
+        })
+    }
+
+    #[bench]
+    fn size_1024k(b: &mut Bencher) {
+        b.iter(|| {
+            let mut queue = ResizableArrayQueue::new(M);
+            enqueue_many(&mut queue, M);
+            deque_many(&mut queue)
+        })
+    }
+}
+
     mod non_resizable_array_queue {
         use super::test::Bencher;
-        use super::super::ResizableArrayQueue;
+        use super::super::NonResizableArrayQueue;
         use super::*;
 
         #[bench]
         fn size_0001k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(K);
+                let mut queue = NonResizableArrayQueue::new(K);
                 enqueue_many(&mut queue, K);
                 deque_many(&mut queue)
             })
@@ -1113,7 +1412,7 @@ mod benchmarks {
         #[bench]
         fn size_0002k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(_2_K);
+                let mut queue = NonResizableArrayQueue::new(_2_K);
                 enqueue_many(&mut queue, _2_K);
                 deque_many(&mut queue)
             })
@@ -1122,7 +1421,7 @@ mod benchmarks {
         #[bench]
         fn size_0004k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(_4_K);
+                let mut queue = NonResizableArrayQueue::new(_4_K);
                 enqueue_many(&mut queue, _4_K);
                 deque_many(&mut queue)
             })
@@ -1131,7 +1430,7 @@ mod benchmarks {
         #[bench]
         fn size_0008k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(_8_K);
+                let mut queue = NonResizableArrayQueue::new(_8_K);
                 enqueue_many(&mut queue, _8_K);
                 deque_many(&mut queue)
             })
@@ -1140,7 +1439,7 @@ mod benchmarks {
         #[bench]
         fn size_0016k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(_16_K);
+                let mut queue = NonResizableArrayQueue::new(_16_K);
                 enqueue_many(&mut queue, _16_K);
                 deque_many(&mut queue)
             })
@@ -1149,7 +1448,7 @@ mod benchmarks {
         #[bench]
         fn size_0032k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(_32_K);
+                let mut queue = NonResizableArrayQueue::new(_32_K);
                 enqueue_many(&mut queue, _32_K);
                 deque_many(&mut queue)
             })
@@ -1158,7 +1457,7 @@ mod benchmarks {
         #[bench]
         fn size_0064k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(_64_K);
+                let mut queue = NonResizableArrayQueue::new(_64_K);
                 enqueue_many(&mut queue, _64_K);
                 deque_many(&mut queue)
             })
@@ -1167,7 +1466,7 @@ mod benchmarks {
         #[bench]
         fn size_0128k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(_128_K);
+                let mut queue = NonResizableArrayQueue::new(_128_K);
                 enqueue_many(&mut queue, _128_K);
                 deque_many(&mut queue)
             })
@@ -1176,7 +1475,7 @@ mod benchmarks {
         #[bench]
         fn size_0256k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(_256_K);
+                let mut queue = NonResizableArrayQueue::new(_256_K);
                 enqueue_many(&mut queue, _256_K);
                 deque_many(&mut queue)
             })
@@ -1185,7 +1484,7 @@ mod benchmarks {
         #[bench]
         fn size_0512k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(_512_K);
+                let mut queue = NonResizableArrayQueue::new(_512_K);
                 enqueue_many(&mut queue, _512_K);
                 deque_many(&mut queue)
             })
@@ -1194,7 +1493,7 @@ mod benchmarks {
         #[bench]
         fn size_1024k(b: &mut Bencher) {
             b.iter(|| {
-                let mut queue = ResizableArrayQueue::new(M);
+                let mut queue = NonResizableArrayQueue::new(M);
                 enqueue_many(&mut queue, M);
                 deque_many(&mut queue)
             })
