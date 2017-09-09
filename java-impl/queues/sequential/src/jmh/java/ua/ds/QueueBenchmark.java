@@ -13,9 +13,9 @@ public abstract class QueueBenchmark {
   private static final int K = 1024;
 
   @Param({""+K, ""+2*K, ""+4*K, ""+8*K, ""+16*K, ""+32*K, ""+64*K, ""+128*K, ""+256*K, ""+512*K, ""+K*K})
-  protected int size;
+  int size;
 
-  private int[] data;
+  int[] data;
 
   @Setup(Level.Iteration)
   public void populateData() {
@@ -26,14 +26,14 @@ public abstract class QueueBenchmark {
     }
   }
 
-  protected final SequentialQueue enqueueMany(SequentialQueue queue) {
+  final SequentialQueue enqueueMany(SequentialQueue queue) {
     for (int i = 0; i < size; i++) {
       queue.enqueue(data[i]);
     }
     return queue;
   }
 
-  protected final int dequeMany(SequentialQueue queue) {
+  final int dequeMany(SequentialQueue queue) {
     int sum = 0;
     for (int i = 0; i < size; i++) {
       sum += queue.deque();

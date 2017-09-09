@@ -23,4 +23,13 @@ public class LinkedVsArrayVsDirectVsHeap extends QueueBenchmark {
   public int heapMemory() {
     return dequeMany(enqueueMany(new NonResizableHeapBufferQueue(size)));
   }
+
+  @Benchmark
+  public int baseline() {
+    int sum = 0;
+    for (int aData : data) {
+      sum += aData;
+    }
+    return sum;
+  }
 }
