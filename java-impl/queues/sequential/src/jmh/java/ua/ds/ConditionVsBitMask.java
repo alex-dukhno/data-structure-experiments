@@ -1,16 +1,17 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.infra.Blackhole;
 
 public class ConditionVsBitMask extends QueueBenchmark {
 
   @Benchmark
-  public int mask() {
-    return dequeMany(enqueueMany(new BitAndResizableArrayQueue()));
+  public void mask(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new BitAndResizableArrayQueue()));
   }
 
   @Benchmark
-  public int condition() {
-    return dequeMany(enqueueMany(new BranchResizableArrayQueue()));
+  public void condition(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new BranchResizableArrayQueue()));
   }
 }

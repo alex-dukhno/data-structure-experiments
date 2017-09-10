@@ -1,6 +1,8 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.OperationsPerInvocation;
+import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.ArrayDeque;
 import java.util.LinkedList;
@@ -8,65 +10,42 @@ import java.util.LinkedList;
 public class LinkedVsArrayVsDirectVsHeap extends QueueBenchmark {
 
   @Benchmark
-  public int linked() {
-    return dequeMany(enqueueMany(new LinkedQueue()));
+  public void linked(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new LinkedQueue()));
   }
 
   @Benchmark
-  public int linked_jdk() {
-    return dequeMany(enqueueMany(new LinkedList<>()));
+  public void linked_jdk(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new LinkedList<>()));
   }
 
   @Benchmark
-  public int arrayBase() {
-    return dequeMany(enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+  public void arrayBase(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new NonResizableArrayQueuePrimitive(size)));
   }
 
   @Benchmark
-  public int arrayBase_jdk() {
-    return dequeMany(enqueueMany(new ArrayDeque<>(size)));
+  public void arrayBase_jdk(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new ArrayDeque<>(size)));
   }
 
   @Benchmark
-  public int resizable_mask() {
-    return dequeMany(enqueueMany(new BitAndResizableArrayQueue(size)));
+  public void resizable_mask(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new BitAndResizableArrayQueue(size)));
   }
 
   @Benchmark
-  public int resizable_cond() {
-    return dequeMany(enqueueMany(new BranchResizableArrayQueue(size)));
+  public void resizable_cond(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new BranchResizableArrayQueue(size)));
   }
 
   @Benchmark
-  public void empty_baseline() {
+  public void directMemory(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new NonResizableDirectBufferQueue(size)));
   }
 
   @Benchmark
-  public int sum_baseline() {
-    return 1 + 1;
-  }
-
-  @Benchmark
-  public int const_baseline() {
-    return 1;
-  }
-
-  @Benchmark
-  public int directMemory() {
-    return dequeMany(enqueueMany(new NonResizableDirectBufferQueue(size)));
-  }
-
-  @Benchmark
-  public int heapMemory() {
-    return dequeMany(enqueueMany(new NonResizableHeapBufferQueue(size)));
-  }
-
-  @Benchmark
-  public int baseline() {
-    int sum = 0;
-    for (int aData : data) {
-      sum += aData;
-    }
-    return sum;
+  public void heapMemory(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new NonResizableHeapBufferQueue(size)));
   }
 }

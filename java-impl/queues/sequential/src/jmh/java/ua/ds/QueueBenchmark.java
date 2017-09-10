@@ -1,10 +1,12 @@
 package ua.ds;
 
+import org.openjdk.jmh.annotations.CompilerControl;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.Queue;
 import java.util.Random;
@@ -13,10 +15,10 @@ import java.util.Random;
 public abstract class QueueBenchmark {
   private static final int K = 1024;
 
-  @Param({""+K, ""+2*K/*, ""+4*K, ""+8*K, ""+16*K, ""+32*K, ""+64*K, ""+128*K, ""+256*K, ""+512*K, ""+K*K*/})
+  @Param({""+K, ""+2*K, ""+4*K, ""+8*K, ""+16*K, ""+32*K, ""+64*K, ""+128*K, ""+256*K, ""+512*K, ""+K*K})
   int size;
 
-  int[] data;
+  private int[] data;
 
   @Setup(Level.Iteration)
   public void populateData() {
@@ -34,12 +36,10 @@ public abstract class QueueBenchmark {
     return queue;
   }
 
-  final int dequeMany(SequentialQueue queue) {
-    int sum = 0;
+  final void dequeMany(Blackhole blackhole, SequentialQueue queue) {
     for (int i = 0; i < size; i++) {
-      sum += queue.deque();
+      blackhole.consume(queue.deque());
     }
-    return sum;
   }
 
   final Queue<Integer> enqueueMany(Queue<Integer> queue) {
@@ -49,11 +49,9 @@ public abstract class QueueBenchmark {
     return queue;
   }
 
-  final int dequeMany(Queue<Integer> queue) {
-    int sum = 0;
+  final void dequeMany(Blackhole blackhole, Queue<Integer> queue) {
     for (int i = 0; i < size; i++) {
-      sum += queue.poll();
+      blackhole.consume(queue.poll());
     }
-    return sum;
   }
 }
