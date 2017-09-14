@@ -1,18 +1,16 @@
 package ua.ds;
 
-import org.openjdk.jol.info.ClassLayout;
-
-public class NonResizableArrayQueuePrimitive implements SequentialQueue {
+public class NonResizableBitAndArrayQueuePrimitive implements SequentialQueue {
   private final int[] items;
   private int head;
   private int tail;
   private int size;
 
-  public NonResizableArrayQueuePrimitive() {
+  public NonResizableBitAndArrayQueuePrimitive() {
     this(16);
   }
 
-  public NonResizableArrayQueuePrimitive(int capacity) {
+  public NonResizableBitAndArrayQueuePrimitive(int capacity) {
     capacity = SequentialQueue.nextPowerOfTwo(capacity);
     items = new int[capacity];
     size = 0;
@@ -39,11 +37,5 @@ public class NonResizableArrayQueuePrimitive implements SequentialQueue {
 
   private boolean isEmpty() {
     return size == 0;
-  }
-
-  public static void main(String[] args) {
-    System.out
-        .println(ClassLayout.parseInstance(new NonResizableArrayQueuePrimitive()).toPrintable());
-    System.out.println(ClassLayout.parseClass(NonResizableArrayQueuePrimitive.class).toPrintable());
   }
 }

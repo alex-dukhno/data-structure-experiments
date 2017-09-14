@@ -26,7 +26,7 @@ public class LinkedQueue implements SequentialQueue {
     tail = node;
   }
 
-  private class Node {
+  private static class Node {
     final int item;
     Node next;
 

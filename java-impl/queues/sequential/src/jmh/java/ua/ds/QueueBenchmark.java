@@ -42,6 +42,23 @@ public abstract class QueueBenchmark {
     }
   }
 
+  final int dequeManySum(SequentialQueue queue) {
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+      sum += queue.deque();
+    }
+    return sum;
+  }
+
+  final int dequeManySumWhile(SequentialQueue queue) {
+    int sum = 0;
+    int item;
+    while ((item = queue.deque()) != -1) {
+      sum += item;
+    }
+    return sum;
+  }
+
   final Queue<Integer> enqueueMany(Queue<Integer> queue) {
     for (int i = 0; i < size; i++) {
       queue.add(data[i]);

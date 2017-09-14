@@ -1,17 +1,25 @@
 package ua.ds;
 
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.OperationsPerInvocation;
-import org.openjdk.jmh.infra.Blackhole;
-
 import java.util.ArrayDeque;
 import java.util.LinkedList;
+import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.infra.Blackhole;
 
-public class LinkedVsArrayVsDirectVsHeap extends QueueBenchmark {
+public class Experiments extends QueueBenchmark {
 
   @Benchmark
   public void linked(Blackhole blackhole) {
     dequeMany(blackhole, enqueueMany(new LinkedQueue()));
+  }
+
+  @Benchmark
+  public int linked_sum() {
+    return dequeManySum(enqueueMany(new LinkedQueue()));
+  }
+
+  @Benchmark
+  public int linked_sum_while() {
+    return dequeManySumWhile(enqueueMany(new LinkedQueue()));
   }
 
   @Benchmark
@@ -20,8 +28,33 @@ public class LinkedVsArrayVsDirectVsHeap extends QueueBenchmark {
   }
 
   @Benchmark
-  public void arrayBase(Blackhole blackhole) {
+  public void arrayBase_cond(Blackhole blackhole) {
     dequeMany(blackhole, enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+  }
+
+  @Benchmark
+  public int arrayBase_cond_sum() {
+    return dequeManySum(enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+  }
+
+  @Benchmark
+  public int arrayBase_cond_sum_while() {
+    return dequeManySumWhile(enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+  }
+
+  @Benchmark
+  public void arrayBase_mask(Blackhole blackhole) {
+    dequeMany(blackhole, enqueueMany(new NonResizableBitAndArrayQueuePrimitive(size)));
+  }
+
+  @Benchmark
+  public int arrayBase_mask_sum() {
+    return dequeManySum(enqueueMany(new NonResizableBitAndArrayQueuePrimitive(size)));
+  }
+
+  @Benchmark
+  public int arrayBase_mask_sum_while() {
+    return dequeManySumWhile(enqueueMany(new NonResizableBitAndArrayQueuePrimitive(size)));
   }
 
   @Benchmark
