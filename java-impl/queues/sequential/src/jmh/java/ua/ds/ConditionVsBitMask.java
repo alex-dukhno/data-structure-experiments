@@ -7,11 +7,11 @@ public class ConditionVsBitMask extends QueueBenchmark {
 
   @Benchmark
   public void mask(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new BitAndResizableArrayQueue()));
+    dequeMany(blackhole, enqueueMany(new BitMaskResizableArrayQueue()));
   }
 
   @Benchmark
   public void condition(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new BranchResizableArrayQueue()));
+    dequeMany(blackhole, enqueueMany(new ConditionalResizableArrayQueue()));
   }
 }

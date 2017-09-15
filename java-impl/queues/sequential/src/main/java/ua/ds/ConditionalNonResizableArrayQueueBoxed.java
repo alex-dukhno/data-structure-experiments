@@ -1,21 +1,21 @@
 package ua.ds;
 
-public class NonResizableBitAndArrayQueuePrimitive implements SequentialQueue {
-  private final int[] items;
+public class ConditionalNonResizableArrayQueueBoxed implements SequentialQueue {
+  private final Integer[] items;
   private int head;
   private int tail;
   private int size;
 
-  public NonResizableBitAndArrayQueuePrimitive() {
+  public ConditionalNonResizableArrayQueueBoxed() {
     this(16);
   }
 
-  public NonResizableBitAndArrayQueuePrimitive(int capacity) {
+  public ConditionalNonResizableArrayQueueBoxed(int capacity) {
     capacity = SequentialQueue.nextPowerOfTwo(capacity);
-    items = new int[capacity];
-    size = 0;
+    items = new Integer[capacity];
     head = 0;
     tail = 0;
+    size = 0;
   }
 
   @Override
@@ -28,9 +28,8 @@ public class NonResizableBitAndArrayQueuePrimitive implements SequentialQueue {
   @Override
   public int deque() {
     if (isEmpty()) return -1;
-    int item = items[head];
+    Integer item = items[head++];
     size--;
-    head++;
     if (head == items.length) head = 0;
     return item;
   }

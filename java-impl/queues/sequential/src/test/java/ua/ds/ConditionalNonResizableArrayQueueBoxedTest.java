@@ -3,16 +3,16 @@ package ua.ds;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
-class NonResizableBitAndArrayQueuePrimitiveTest {
+class ConditionalNonResizableArrayQueueBoxedTest {
 
-  private NonResizableBitAndArrayQueuePrimitive queue;
+  private ConditionalNonResizableArrayQueueBoxed queue;
 
   @BeforeEach
   void setUp() throws Exception {
-    queue = new NonResizableBitAndArrayQueuePrimitive();
+    queue = new ConditionalNonResizableArrayQueueBoxed();
   }
 
   @Test

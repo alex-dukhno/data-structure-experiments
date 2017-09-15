@@ -29,32 +29,32 @@ public class Experiments extends QueueBenchmark {
 
   @Benchmark
   public void arrayBase_cond(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+    dequeMany(blackhole, enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
   }
 
   @Benchmark
   public int arrayBase_cond_sum() {
-    return dequeManySum(enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+    return dequeManySum(enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
   }
 
   @Benchmark
   public int arrayBase_cond_sum_while() {
-    return dequeManySumWhile(enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+    return dequeManySumWhile(enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
   }
 
   @Benchmark
   public void arrayBase_mask(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new NonResizableBitAndArrayQueuePrimitive(size)));
+    dequeMany(blackhole, enqueueMany(new BitMaskNonResizableArrayQueuePrimitive(size)));
   }
 
   @Benchmark
   public int arrayBase_mask_sum() {
-    return dequeManySum(enqueueMany(new NonResizableBitAndArrayQueuePrimitive(size)));
+    return dequeManySum(enqueueMany(new BitMaskNonResizableArrayQueuePrimitive(size)));
   }
 
   @Benchmark
   public int arrayBase_mask_sum_while() {
-    return dequeManySumWhile(enqueueMany(new NonResizableBitAndArrayQueuePrimitive(size)));
+    return dequeManySumWhile(enqueueMany(new BitMaskNonResizableArrayQueuePrimitive(size)));
   }
 
   @Benchmark
@@ -64,12 +64,12 @@ public class Experiments extends QueueBenchmark {
 
   @Benchmark
   public void resizable_mask(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new BitAndResizableArrayQueue(size)));
+    dequeMany(blackhole, enqueueMany(new BitMaskResizableArrayQueue(size)));
   }
 
   @Benchmark
   public void resizable_cond(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new BranchResizableArrayQueue(size)));
+    dequeMany(blackhole, enqueueMany(new ConditionalResizableArrayQueue(size)));
   }
 
   @Benchmark
@@ -84,21 +84,21 @@ public class Experiments extends QueueBenchmark {
 
   @Benchmark
   public int mask_sum() {
-    return dequeManySum(enqueueMany(new BitAndResizableArrayQueue(size)));
+    return dequeManySum(enqueueMany(new BitMaskResizableArrayQueue(size)));
   }
 
   @Benchmark
   public int condition_sum() {
-    return dequeManySum(enqueueMany(new BranchResizableArrayQueue(size)));
+    return dequeManySum(enqueueMany(new ConditionalResizableArrayQueue(size)));
   }
 
   @Benchmark
   public int primitives_sum() {
-    return dequeManySum(enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+    return dequeManySum(enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
   }
 
   @Benchmark
   public int boxed_sum() {
-    return dequeManySum(enqueueMany(new NonResizableArrayQueueBoxed(size)));
+    return dequeManySum(enqueueMany(new ConditionalNonResizableArrayQueueBoxed(size)));
   }
 }

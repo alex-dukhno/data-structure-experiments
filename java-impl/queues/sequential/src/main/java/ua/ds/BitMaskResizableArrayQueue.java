@@ -1,16 +1,16 @@
 package ua.ds;
 
-public class BitAndResizableArrayQueue implements SequentialQueue {
+public class BitMaskResizableArrayQueue implements SequentialQueue {
   private int[] items;
   private int head;
   private int tail;
   private int size;
 
-  public BitAndResizableArrayQueue() {
+  public BitMaskResizableArrayQueue() {
     this(16);
   }
 
-  public BitAndResizableArrayQueue(int capacity) {
+  public BitMaskResizableArrayQueue(int capacity) {
     capacity = SequentialQueue.nextPowerOfTwo(capacity);
     items = new int[capacity];
     size = 0;

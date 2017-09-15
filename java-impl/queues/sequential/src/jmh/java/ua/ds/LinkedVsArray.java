@@ -12,6 +12,6 @@ public class LinkedVsArray extends QueueBenchmark {
 
   @Benchmark
   public void arrayBase(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+    dequeMany(blackhole, enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
   }
 }

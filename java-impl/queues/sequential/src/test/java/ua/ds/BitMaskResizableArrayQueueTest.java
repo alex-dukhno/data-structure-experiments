@@ -4,15 +4,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.is;
 
-class BitAndResizableArrayQueueTest {
+class BitMaskResizableArrayQueueTest {
 
-  private BitAndResizableArrayQueue queue;
+  private BitMaskResizableArrayQueue queue;
 
   @BeforeEach
   void setUp() throws Exception {
-    queue = new BitAndResizableArrayQueue();
+    queue = new BitMaskResizableArrayQueue();
   }
 
   @Test
