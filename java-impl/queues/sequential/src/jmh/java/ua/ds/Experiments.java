@@ -81,4 +81,24 @@ public class Experiments extends QueueBenchmark {
   public void heapMemory(Blackhole blackhole) {
     dequeMany(blackhole, enqueueMany(new NonResizableHeapBufferQueue(size)));
   }
+
+  @Benchmark
+  public int mask_sum() {
+    return dequeManySum(enqueueMany(new BitAndResizableArrayQueue(size)));
+  }
+
+  @Benchmark
+  public int condition_sum() {
+    return dequeManySum(enqueueMany(new BranchResizableArrayQueue(size)));
+  }
+
+  @Benchmark
+  public int primitives_sum() {
+    return dequeManySum(enqueueMany(new NonResizableArrayQueuePrimitive(size)));
+  }
+
+  @Benchmark
+  public int boxed_sum() {
+    return dequeManySum(enqueueMany(new NonResizableArrayQueueBoxed(size)));
+  }
 }

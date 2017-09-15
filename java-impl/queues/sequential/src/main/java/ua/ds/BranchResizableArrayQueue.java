@@ -44,7 +44,7 @@ public class BranchResizableArrayQueue implements SequentialQueue {
   private void resize(int capacity) {
     int[] temp = new int[capacity];
     for (int i = 0; i < size; i++) {
-      temp[i] = items[(head + i) & (items.length - 1)];
+      temp[i] = items[(head + i) % items.length];
     }
     items = temp;
     head = 0;
