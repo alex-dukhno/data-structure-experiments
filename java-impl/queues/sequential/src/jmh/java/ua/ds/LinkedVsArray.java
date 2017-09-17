@@ -1,17 +1,26 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.infra.Blackhole;
 
 public class LinkedVsArray extends QueueBenchmark {
 
   @Benchmark
-  public void linked(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new LinkedQueue()));
+  public int linked() {
+    return dequeManySum(enqueueMany(new LinkedQueuePrimitive()));
   }
 
   @Benchmark
-  public void arrayBase(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
+  public int array() {
+    return dequeManySum(enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
+  }
+
+  @Benchmark
+  public int linked_while() {
+    return dequeManySumWhile(enqueueMany(new LinkedQueuePrimitive()));
+  }
+
+  @Benchmark
+  public int array_while() {
+    return dequeManySumWhile(enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
   }
 }

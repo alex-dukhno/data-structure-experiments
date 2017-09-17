@@ -1,6 +1,6 @@
 package ua.ds;
 
-public class LinkedQueue implements SequentialQueue {
+public class LinkedQueueBoxed implements SequentialQueue {
   private Node head;
   private Node tail;
 
@@ -27,7 +27,7 @@ public class LinkedQueue implements SequentialQueue {
   }
 
   private static class Node {
-    final int item;
+    final Integer item;
     Node next;
 
     Node(int item) {

@@ -9,17 +9,17 @@ public class Experiments extends QueueBenchmark {
 
   @Benchmark
   public void linked(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new LinkedQueue()));
+    dequeMany(blackhole, enqueueMany(new LinkedQueuePrimitive()));
   }
 
   @Benchmark
   public int linked_sum() {
-    return dequeManySum(enqueueMany(new LinkedQueue()));
+    return dequeManySum(enqueueMany(new LinkedQueuePrimitive()));
   }
 
   @Benchmark
   public int linked_sum_while() {
-    return dequeManySumWhile(enqueueMany(new LinkedQueue()));
+    return dequeManySumWhile(enqueueMany(new LinkedQueuePrimitive()));
   }
 
   @Benchmark
