@@ -1,6 +1,5 @@
 package ua.ds;
 
-import org.openjdk.jmh.annotations.CompilerControl;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
@@ -18,7 +17,7 @@ public abstract class QueueBenchmark {
   @Param({""+K, ""+2*K, ""+4*K, ""+8*K, ""+16*K, ""+32*K, ""+64*K, ""+128*K, ""+256*K, ""+512*K, ""+K*K})
   int size;
 
-  private int[] data;
+  int[] data;
 
   @Setup(Level.Iteration)
   public void populateData() {
