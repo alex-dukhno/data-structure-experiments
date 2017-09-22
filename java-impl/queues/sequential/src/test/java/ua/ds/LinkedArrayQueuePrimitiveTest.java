@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-class LinkedArrayQueueTest {
+class LinkedArrayQueuePrimitiveTest {
 
-  private LinkedArrayQueue queue;
+  private LinkedArrayQueuePrimitive queue;
 
   @BeforeEach
   void setUp() throws Exception {
-    queue = new LinkedArrayQueue();
+    queue = new LinkedArrayQueuePrimitive();
   }
 
   @Test

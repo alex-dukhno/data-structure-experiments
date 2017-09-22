@@ -1,26 +1,26 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Setup;
 
 public class LinkedVsArray extends QueueBenchmark {
 
+  private LinkedQueuePrimitive linked;
+  private ConditionalNonResizableArrayQueuePrimitive array;
+
+  @Setup
+  public void setUp() {
+    linked = new LinkedQueuePrimitive();
+    array = new ConditionalNonResizableArrayQueuePrimitive(size);
+  }
+
   @Benchmark
   public int linked() {
-    return dequeManySum(enqueueMany(new LinkedQueuePrimitive()));
+    return dequeMany(enqueueMany(linked));
   }
 
   @Benchmark
   public int array() {
-    return dequeManySum(enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
-  }
-
-  @Benchmark
-  public int linked_while() {
-    return dequeManySumWhile(enqueueMany(new LinkedQueuePrimitive()));
-  }
-
-  @Benchmark
-  public int array_while() {
-    return dequeManySumWhile(enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
+    return dequeMany(enqueueMany(array));
   }
 }

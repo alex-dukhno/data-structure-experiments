@@ -6,39 +6,40 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 abstract class DoubleLockHead {
+
+  final Lock deque = new ReentrantLock();
+  final Condition empty = deque.newCondition();
   Node head;
 }
 
 abstract class DoubleLockHeadPadding extends DoubleLockHead {
+
   long p01, p02, p03, p04, p05, p06, p07;
   long p10, p11, p12, p13, p14, p15, p16, p17;
 }
 
 abstract class DoubleLockTail extends DoubleLockHeadPadding {
+
+  final Lock enqueue = new ReentrantLock();
+  final Condition full = enqueue.newCondition();
   Node tail;
 }
 
 abstract class DoubleLockTailPadding extends DoubleLockTail {
+
   long p01, p02, p03, p04, p05, p06, p07;
   long p10, p11, p12, p13, p14, p15, p16, p17;
 }
 
 public class DoubleLockLinkedBlockingQueuePadded extends DoubleLockTailPadding {
-  private final Lock enqueue;
-  private final Condition empty;
-  private final Lock deque;
-  private final Condition full;
-  private final int capacity;
+
+  private static final int MAX_CAPACITY = Integer.MIN_VALUE >>> 1;
   //size must be atomic to guarantee that 'Reader' will see changes made by 'Writer'
   //because 'Reader's and 'Writer's use different locks and different references
   private final AtomicInteger size;
 
   public DoubleLockLinkedBlockingQueuePadded() {
-    enqueue = new ReentrantLock();
-    full = enqueue.newCondition();
-    deque = new ReentrantLock();
-    empty = deque.newCondition();
-    capacity = Integer.MIN_VALUE >>> 1;
+    ;
     head = tail = new Node(Integer.MIN_VALUE);
     size = new AtomicInteger();
   }
@@ -48,28 +49,24 @@ public class DoubleLockLinkedBlockingQueuePadded extends DoubleLockTailPadding {
     Node node = new Node(item);
     enqueue.lock();
     try {
-      while (size.get() == capacity) {
+      while (size.get() == MAX_CAPACITY) {
         full.await();
       }
       tail = tail.next = node;
       count = size.getAndIncrement();
-      if (count + 1 < capacity) {
+      if (count + 1 < MAX_CAPACITY) {
         full.signalAll();
       }
     } finally {
       enqueue.unlock();
     }
     if (count == 0) {
-      notify(deque, empty);
-    }
-  }
-
-  private void notify(Lock lock, Condition condition) {
-    lock.lock();
-    try {
-      condition.signalAll();
-    } finally {
-      lock.unlock();
+      deque.lock();
+      try {
+        empty.signalAll();
+      } finally {
+        deque.unlock();
+      }
     }
   }
 
@@ -99,8 +96,13 @@ public class DoubleLockLinkedBlockingQueuePadded extends DoubleLockTailPadding {
       // is it a safe-point ?
       deque.unlock();
     }
-    if (count == capacity) {
-      notify(enqueue, full);
+    if (count == MAX_CAPACITY) {
+      enqueue.lock();
+      try {
+        full.signalAll();
+      } finally {
+        enqueue.unlock();
+      }
     }
     return result;
   }

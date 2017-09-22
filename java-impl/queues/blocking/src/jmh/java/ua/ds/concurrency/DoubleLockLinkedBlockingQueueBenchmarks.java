@@ -3,6 +3,7 @@ package ua.ds.concurrency;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Group;
 import org.openjdk.jmh.annotations.GroupThreads;
+import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
@@ -67,7 +68,7 @@ public class DoubleLockLinkedBlockingQueueBenchmarks {
   public static class ReaderLegBehind {
     private DoubleLockLinkedBlockingQueue queue;
 
-    @Setup
+    @Setup(Level.Iteration)
     public void createQueue() throws InterruptedException {
       queue = new DoubleLockLinkedBlockingQueue();
       for (int i = 0; i < SIZE; i++) {

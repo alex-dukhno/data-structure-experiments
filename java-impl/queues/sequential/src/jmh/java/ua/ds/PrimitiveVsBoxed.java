@@ -1,46 +1,54 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Setup;
 
 public class PrimitiveVsBoxed extends QueueBenchmark {
 
-  @Benchmark
-  public int primitives_array() {
-    return dequeManySum(enqueueMany(new BitMaskNonResizableArrayQueuePrimitive(size)));
+  private BitMaskResizableArrayQueuePrimitive primitiveResize;
+  private BitMaskNonResizableArrayQueuePrimitive primitiveNonResize;
+  private BitMaskResizableArrayQueueBoxed boxedResize;
+  private BitMaskNonResizableArrayQueueBoxed boxedNonResize;
+  private LinkedQueueBoxed linkedQueueBoxed;
+  private LinkedQueuePrimitive linkedQueuePrimitive;
+
+  @Setup
+  public void setUp() throws Exception {
+    boxedNonResize = new BitMaskNonResizableArrayQueueBoxed(size);
+    boxedResize = new BitMaskResizableArrayQueueBoxed();
+    primitiveNonResize = new BitMaskNonResizableArrayQueuePrimitive(size);
+    primitiveResize = new BitMaskResizableArrayQueuePrimitive();
+    linkedQueueBoxed = new LinkedQueueBoxed();
+    linkedQueuePrimitive = new LinkedQueuePrimitive();
   }
 
   @Benchmark
-  public int boxed_array() {
-    return dequeManySum(enqueueMany(new BitMaskNonResizableArrayQueueBoxed(size)));
+  public int primitives_non_resize() {
+    return dequeMany(enqueueMany(primitiveNonResize));
   }
 
   @Benchmark
-  public int primitives_array_while() {
-    return dequeManySumWhile(enqueueMany(new BitMaskNonResizableArrayQueuePrimitive(size)));
+  public int primitives_resize() {
+    return dequeMany(enqueueMany(primitiveResize));
   }
 
   @Benchmark
-  public int boxed_array_while() {
-    return dequeManySumWhile(enqueueMany(new BitMaskNonResizableArrayQueueBoxed(size)));
+  public int boxed_non_resize() {
+    return dequeMany(enqueueMany(boxedNonResize));
+  }
+
+  @Benchmark
+  public int boxed_resize() {
+    return dequeMany(enqueueMany(boxedResize));
   }
 
   @Benchmark
   public int primitives_linked() {
-    return dequeManySum(enqueueMany(new LinkedQueuePrimitive()));
+    return dequeMany(enqueueMany(linkedQueuePrimitive));
   }
 
   @Benchmark
   public int boxed_linked() {
-    return dequeManySum(enqueueMany(new LinkedQueueBoxed()));
-  }
-
-  @Benchmark
-  public int primitives_linked_while() {
-    return dequeManySumWhile(enqueueMany(new LinkedQueuePrimitive()));
-  }
-
-  @Benchmark
-  public int boxed_linked_while() {
-    return dequeManySumWhile(enqueueMany(new LinkedQueueBoxed()));
+    return dequeMany(enqueueMany(linkedQueueBoxed));
   }
 }

@@ -2,6 +2,7 @@ package ua.ds;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ class LinkedQueueBoxedTest {
 
   @Test
   void dequeFromEmptyQueue() throws Exception {
-    assertThat(queue.deque(), is(-1));
+    assertThat(queue.deque(), is(nullValue()));
   }
 
   @Test

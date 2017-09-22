@@ -2,15 +2,29 @@ package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Param;
-import org.openjdk.jmh.infra.Blackhole;
+import org.openjdk.jmh.annotations.Setup;
 
 public class LinkedArrays extends QueueBenchmark {
 
   @Param({"16", "32", "64", "128", "256", "512"})
   private int segmentSize;
 
+  private LinkedArrayQueuePrimitive primitive;
+  private LinkedArrayQueueBoxed boxed;
+
+  @Setup
+  public void setUp() throws Exception {
+    primitive = new LinkedArrayQueuePrimitive(segmentSize);
+    boxed = new LinkedArrayQueueBoxed(segmentSize);
+  }
+
   @Benchmark
-  public void linkedArrays(Blackhole blackhole) {
-     dequeMany(blackhole, enqueueMany(new LinkedArrayQueue(segmentSize)));
+  public int primitives() {
+    return dequeMany(enqueueMany(primitive));
+  }
+
+  @Benchmark
+  public int boxed() {
+    return dequeMany(enqueueMany(boxed));
   }
 }

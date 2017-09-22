@@ -1,13 +1,13 @@
 package ua.ds;
 
-public class LinkedQueueBoxed implements SequentialQueue {
+public class LinkedQueueBoxed implements SequentialQueueBoxed {
   private Node head;
   private Node tail;
 
   @Override
-  public int deque() {
-    if (head == null) return -1;
-    int item = head.item;
+  public Integer deque() {
+    if (head == null) return null;
+    Integer item = head.item;
     if (head == tail) {
       tail = null;
     }
@@ -16,7 +16,7 @@ public class LinkedQueueBoxed implements SequentialQueue {
   }
 
   @Override
-  public void enqueue(int item) {
+  public void enqueue(Integer item) {
     Node node = new Node(item);
     if (head == null) {
       head = node;

@@ -1,7 +1,8 @@
 package ua.ds.concurrency;
 
 class Node {
-  final int item;
+  //final really slows down padded queues
+  int item;
   Node next;
 
   Node(int item) {

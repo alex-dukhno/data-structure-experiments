@@ -1,104 +1,61 @@
 package ua.ds;
 
-import java.util.ArrayDeque;
-import java.util.LinkedList;
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.infra.Blackhole;
+import org.openjdk.jmh.annotations.Setup;
 
 public class Experiments extends QueueBenchmark {
 
-  @Benchmark
-  public void linked(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new LinkedQueuePrimitive()));
+  private LinkedQueuePrimitive linkedPrimitive;
+  private ConditionalNonResizableArrayQueuePrimitive conditionalNonResizablePrimitive;
+  private BitMaskNonResizableArrayQueuePrimitive bitMaskNonResizableArrayPrimitive;
+  private BitMaskResizableArrayQueuePrimitive bitMaskResizableArrayPrimitive;
+  private ConditionalResizableArrayQueuePrimitive conditionalResizableQueuePrimitive;
+  private BitMaskResizableArrayQueuePrimitive bitMaskResizableArrayPrimitivePredefSize;
+  private ConditionalResizableArrayQueuePrimitive conditionalResizableQueuePrimitivePredefSize;
+
+  @Setup
+  public void setUp() throws Exception {
+    linkedPrimitive = new LinkedQueuePrimitive();
+    conditionalNonResizablePrimitive = new ConditionalNonResizableArrayQueuePrimitive(size);
+    bitMaskNonResizableArrayPrimitive = new BitMaskNonResizableArrayQueuePrimitive(size);
+    bitMaskResizableArrayPrimitivePredefSize = new BitMaskResizableArrayQueuePrimitive(size);
+    bitMaskResizableArrayPrimitive = new BitMaskResizableArrayQueuePrimitive();
+    conditionalResizableQueuePrimitivePredefSize = new ConditionalResizableArrayQueuePrimitive(size);
+    conditionalResizableQueuePrimitive = new ConditionalResizableArrayQueuePrimitive();
   }
 
   @Benchmark
-  public int linked_sum() {
-    return dequeManySum(enqueueMany(new LinkedQueuePrimitive()));
+  public int linked() {
+    return dequeMany(enqueueMany(linkedPrimitive));
   }
 
   @Benchmark
-  public int linked_sum_while() {
-    return dequeManySumWhile(enqueueMany(new LinkedQueuePrimitive()));
+  public int array_non_resize_cond() {
+    return dequeMany(enqueueMany(conditionalNonResizablePrimitive));
   }
 
   @Benchmark
-  public void linked_jdk(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new LinkedList<>()));
+  public int array_non_resize_mask() {
+    return dequeMany(enqueueMany(bitMaskNonResizableArrayPrimitive));
   }
 
   @Benchmark
-  public void arrayBase_cond(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
+  public int array_resize_mask() {
+    return dequeMany(enqueueMany(bitMaskResizableArrayPrimitive));
   }
 
   @Benchmark
-  public int arrayBase_cond_sum() {
-    return dequeManySum(enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
+  public int array_resize_condition() {
+    return dequeMany(enqueueMany(conditionalResizableQueuePrimitive));
   }
 
   @Benchmark
-  public int arrayBase_cond_sum_while() {
-    return dequeManySumWhile(enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
+  public int array_resize_mask_predef_size() {
+    return dequeMany(enqueueMany(bitMaskResizableArrayPrimitivePredefSize));
   }
 
   @Benchmark
-  public void arrayBase_mask(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new BitMaskNonResizableArrayQueuePrimitive(size)));
-  }
-
-  @Benchmark
-  public int arrayBase_mask_sum() {
-    return dequeManySum(enqueueMany(new BitMaskNonResizableArrayQueuePrimitive(size)));
-  }
-
-  @Benchmark
-  public int arrayBase_mask_sum_while() {
-    return dequeManySumWhile(enqueueMany(new BitMaskNonResizableArrayQueuePrimitive(size)));
-  }
-
-  @Benchmark
-  public void arrayBase_jdk(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new ArrayDeque<>(size)));
-  }
-
-  @Benchmark
-  public void resizable_mask(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new BitMaskResizableArrayQueue(size)));
-  }
-
-  @Benchmark
-  public void resizable_cond(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new ConditionalResizableArrayQueue(size)));
-  }
-
-  @Benchmark
-  public void directMemory(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new NonResizableDirectBufferQueue(size)));
-  }
-
-  @Benchmark
-  public void heapMemory(Blackhole blackhole) {
-    dequeMany(blackhole, enqueueMany(new NonResizableHeapBufferQueue(size)));
-  }
-
-  @Benchmark
-  public int mask_sum() {
-    return dequeManySum(enqueueMany(new BitMaskResizableArrayQueue(size)));
-  }
-
-  @Benchmark
-  public int condition_sum() {
-    return dequeManySum(enqueueMany(new ConditionalResizableArrayQueue(size)));
-  }
-
-  @Benchmark
-  public int primitives_sum() {
-    return dequeManySum(enqueueMany(new ConditionalNonResizableArrayQueuePrimitive(size)));
-  }
-
-  @Benchmark
-  public int boxed_sum() {
-    return dequeManySum(enqueueMany(new ConditionalNonResizableArrayQueueBoxed(size)));
+  public int array_resize_cond_predef_size() {
+    return dequeMany(enqueueMany(conditionalResizableQueuePrimitivePredefSize));
   }
 }

@@ -33,7 +33,7 @@ public class ArrayBlockingQueue {
   public int deque() throws InterruptedException {
     mutex.lock();
     try {
-      while (isEmpty()) {
+      while (size == 0) {
         empty.await();
       }
       int item = items[head];
@@ -47,22 +47,10 @@ public class ArrayBlockingQueue {
     }
   }
 
-  private boolean isEmpty() {
-    return size == 0;
-  }
-
-  private boolean isFullByQuarter() {
-    return size == quarterOfCapacity();
-  }
-
-  private int quarterOfCapacity() {
-    return items.length >> 2;
-  }
-
   public void enqueue(int item) throws InterruptedException {
     mutex.lock();
     try {
-      while (isCompletelyFull()) {
+      while (size == MAX_CAPACITY) {
         full.await();
       }
       if (size == items.length) resize(items.length << 1);
@@ -73,10 +61,6 @@ public class ArrayBlockingQueue {
       empty.signalAll();
       mutex.unlock();
     }
-  }
-
-  private boolean isCompletelyFull() {
-    return size == MAX_CAPACITY;
   }
 
   private void resize(int capacity) {

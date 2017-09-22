@@ -1,16 +1,16 @@
 package ua.ds;
 
-public class LinkedArrayQueue implements SequentialQueue {
+public class LinkedArrayQueuePrimitive implements SequentialQueue {
   private final int segmentCapacity;
   private Segment head;
   private Segment tail;
 
-  public LinkedArrayQueue() {
+  public LinkedArrayQueuePrimitive() {
     this(16);
   }
 
-  public LinkedArrayQueue(int segmentCapacity) {
-    this.segmentCapacity = segmentCapacity;
+  public LinkedArrayQueuePrimitive(int segmentCapacity) {
+    this.segmentCapacity = SequentialQueue.nextPowerOfTwo(segmentCapacity);
   }
 
   @Override
