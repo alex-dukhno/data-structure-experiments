@@ -6,11 +6,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class DoubleLockLinkedBlockingQueue {
+  private static final int MAX_CAPACITY = Integer.MIN_VALUE >>> 1;
   private final Lock enqueue;
   private final Condition empty;
   private final Lock deque;
   private final Condition full;
-  private final int capacity;
   //size must be atomic to guarantee that 'Reader' will see changes made by 'Writer'
   //because 'Reader's and 'Writer's use different locks and different references
   private final AtomicInteger size;
@@ -22,7 +22,6 @@ public class DoubleLockLinkedBlockingQueue {
     full = enqueue.newCondition();
     deque = new ReentrantLock();
     empty = deque.newCondition();
-    capacity = Integer.MIN_VALUE >>> 1;
     head = tail = new Node(Integer.MIN_VALUE);
     size = new AtomicInteger();
   }
@@ -32,28 +31,24 @@ public class DoubleLockLinkedBlockingQueue {
     Node node = new Node(item);
     enqueue.lockInterruptibly();
     try {
-      while (size.get() == capacity) {
+      while (size.get() == MAX_CAPACITY) {
         full.await();
       }
       tail = tail.next = node;
       count = size.getAndIncrement();
-      if (count + 1 < capacity) {
+      if (count + 1 < MAX_CAPACITY) {
         full.signalAll();
       }
     } finally {
       enqueue.unlock();
     }
     if (count == 0) {
-      notify(deque, empty);
-    }
-  }
-
-  private void notify(Lock lock, Condition condition) {
-    lock.lock();
-    try {
-      condition.signalAll();
-    } finally {
-      lock.unlock();
+      deque.lock();
+      try {
+        empty.signalAll();
+      } finally {
+        deque.unlock();
+      }
     }
   }
 
@@ -83,8 +78,13 @@ public class DoubleLockLinkedBlockingQueue {
       // is it a safe-point ?
       deque.unlock();
     }
-    if (count == capacity) {
-      notify(enqueue, full);
+    if (count == MAX_CAPACITY) {
+      enqueue.lock();
+      try {
+        full.signalAll();
+      } finally {
+        enqueue.unlock();
+      }
     }
     return result;
   }
