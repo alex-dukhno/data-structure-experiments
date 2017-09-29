@@ -1,5 +1,0 @@
-rootProject.name = 'data-structures-parent'
-
-include ':queues:sequential'
-include ':queues:blocking'
-include ':queues:lock-free'

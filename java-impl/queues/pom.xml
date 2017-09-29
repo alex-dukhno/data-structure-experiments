@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>ua.ds</groupId>
+    <artifactId>data-structures</artifactId>
+    <version>1.0</version>
+  </parent>
+
+  <artifactId>queues</artifactId>
+
+  <modules>
+    <module>blocking</module>
+    <module>blocking-benchmarks</module>
+    <module>lock-free</module>
+    <module>lock-free-benchmarks</module>
+    <module>sequential</module>
+    <module>sequential-benchmarks</module>
+  </modules>
+
+</project>
