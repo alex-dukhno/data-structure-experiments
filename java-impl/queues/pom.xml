@@ -8,6 +8,7 @@
     <version>1.0</version>
   </parent>
 
+  <packaging>pom</packaging>
   <artifactId>queues</artifactId>
 
   <modules>

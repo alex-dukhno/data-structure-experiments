@@ -1,21 +1,23 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Setup;
+import org.openjdk.jmh.annotations.Warmup;
 
+@Fork(3)
+@Warmup(iterations = 10)
+@Measurement(iterations = 10)
 public class ConditionVsBitMask extends QueueBenchmark {
 
   private BitMaskResizableArrayQueuePrimitive bitMaskResizable;
-  private BitMaskResizableArrayQueuePrimitive bitMaskResizablePredefSize;
   private ConditionalResizableArrayQueuePrimitive conditionalResizable;
-  private ConditionalResizableArrayQueuePrimitive conditionalResizablePredefSize;
 
   @Setup
   public void setUp() throws Exception {
     bitMaskResizable = new BitMaskResizableArrayQueuePrimitive();
-    bitMaskResizablePredefSize = new BitMaskResizableArrayQueuePrimitive(size);
     conditionalResizable = new ConditionalResizableArrayQueuePrimitive();
-    conditionalResizablePredefSize = new ConditionalResizableArrayQueuePrimitive(size);
   }
 
   @Benchmark
@@ -24,17 +26,7 @@ public class ConditionVsBitMask extends QueueBenchmark {
   }
 
   @Benchmark
-  public int bit_mask_predef_size() {
-    return dequeMany(enqueueMany(bitMaskResizablePredefSize));
-  }
-
-  @Benchmark
   public int condition() {
     return dequeMany(enqueueMany(conditionalResizable));
-  }
-
-  @Benchmark
-  public int condition_predef_size() {
-    return dequeMany(enqueueMany(conditionalResizablePredefSize));
   }
 }
