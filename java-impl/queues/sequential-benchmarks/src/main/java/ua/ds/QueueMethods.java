@@ -8,10 +8,20 @@ abstract class QueueMethods {
 
   int[] data;
 
+  final SequentialQueue enqueueOne(SequentialQueue queue) {
+    queue.enqueue(data[0]);
+    return queue;
+  }
+
   final SequentialQueue enqueueMany(SequentialQueue queue) {
     for (int item : data) {
       queue.enqueue(item);
     }
+    return queue;
+  }
+
+  final SequentialQueueBoxed enqueueOne(SequentialQueueBoxed queue) {
+    queue.enqueue(data[0]);
     return queue;
   }
 

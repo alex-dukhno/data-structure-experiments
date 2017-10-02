@@ -16,10 +16,12 @@ import org.openjdk.jmh.annotations.Warmup;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-@State(Scope.Benchmark)
 @Fork(3)
 @Warmup(iterations = 10)
 @Measurement(iterations = 10)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
+@State(Scope.Benchmark)
 public abstract class LinkedVsArrayPerOp extends QueueMethods {
   @Setup(Level.Invocation)
   public void populateData() {
@@ -33,119 +35,83 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
 
   abstract int size();
 
-  public static class Small extends LinkedVsArrayPerOp {
+  public static abstract class GeneralSetup extends LinkedVsArrayPerOp {
+
+    LinkedQueuePrimitive linked;
+    ConditionalNonResizableArrayQueuePrimitive array;
+
+    @Setup
+    public void setUp() {
+      linked = new LinkedQueuePrimitive();
+      array = new ConditionalNonResizableArrayQueuePrimitive(size());
+    }
+  }
+
+  public static class Small extends GeneralSetup {
     static final int SIZE = K;
 
-    private LinkedQueuePrimitive linked;
-    private ConditionalNonResizableArrayQueuePrimitive array;
-
-    @Setup
-    public void setUp() {
-      linked = new LinkedQueuePrimitive();
-      array = new ConditionalNonResizableArrayQueuePrimitive(SIZE);
-    }
-
     @Override
     int size() {
       return SIZE;
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @OperationsPerInvocation(SIZE)
     public int linked() {
       return dequeMany(enqueueMany(linked));
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @OperationsPerInvocation(SIZE)
     public int array() {
       return dequeMany(enqueueMany(array));
     }
   }
 
-  public static class Medium extends LinkedVsArrayPerOp {
+  public static class Medium extends GeneralSetup {
     static final int SIZE = 32 * K;
 
-    private LinkedQueuePrimitive linked;
-    private ConditionalNonResizableArrayQueuePrimitive array;
-
-    @Setup
-    public void setUp() {
-      linked = new LinkedQueuePrimitive();
-      array = new ConditionalNonResizableArrayQueuePrimitive(SIZE);
-    }
-
     @Override
     int size() {
       return SIZE;
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @OperationsPerInvocation(SIZE)
     public int linked() {
       return dequeMany(enqueueMany(linked));
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @OperationsPerInvocation(SIZE)
     public int array() {
       return dequeMany(enqueueMany(array));
     }
   }
 
-  public static class Large extends LinkedVsArrayPerOp {
+  public static class Large extends GeneralSetup {
     static final int SIZE = M;
 
-    private LinkedQueuePrimitive linked;
-    private ConditionalNonResizableArrayQueuePrimitive array;
-
-    @Setup
-    public void setUp() {
-      linked = new LinkedQueuePrimitive();
-      array = new ConditionalNonResizableArrayQueuePrimitive(SIZE);
-    }
-
     @Override
     int size() {
       return SIZE;
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @OperationsPerInvocation(SIZE)
     public int linked() {
       return dequeMany(enqueueMany(linked));
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @OperationsPerInvocation(SIZE)
     public int array() {
       return dequeMany(enqueueMany(array));
     }
   }
 
-  public static class ExtraLarge extends LinkedVsArrayPerOp {
-    static final int SIZE = 32 * M;
-
-    private LinkedQueuePrimitive linked;
-    private ConditionalNonResizableArrayQueuePrimitive array;
-
-    @Setup
-    public void setUp() {
-      linked = new LinkedQueuePrimitive();
-      array = new ConditionalNonResizableArrayQueuePrimitive(SIZE);
-    }
+  public static class Large2 extends GeneralSetup {
+    static final int SIZE = 2 * M;
 
     @Override
     int size() {
@@ -153,16 +119,96 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @OperationsPerInvocation(SIZE)
     public int linked() {
       return dequeMany(enqueueMany(linked));
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @OperationsPerInvocation(SIZE)
+    public int array() {
+      return dequeMany(enqueueMany(array));
+    }
+  }
+
+  public static class Large4 extends GeneralSetup {
+    static final int SIZE = 4 * M;
+
+    @Override
+    int size() {
+      return SIZE;
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(SIZE)
+    public int linked() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(SIZE)
+    public int array() {
+      return dequeMany(enqueueMany(array));
+    }
+  }
+
+  public static class Large8 extends GeneralSetup {
+    static final int SIZE = 8 * M;
+
+    @Override
+    int size() {
+      return SIZE;
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(SIZE)
+    public int linked() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(SIZE)
+    public int array() {
+      return dequeMany(enqueueMany(array));
+    }
+  }
+
+  public static class Large16 extends GeneralSetup {
+    static final int SIZE = 16 * M;
+
+    @Override
+    int size() {
+      return SIZE;
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(SIZE)
+    public int linked() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(SIZE)
+    public int array() {
+      return dequeMany(enqueueMany(array));
+    }
+  }
+
+  public static class Large32 extends GeneralSetup {
+    static final int SIZE = 32 * M;
+
+    @Override
+    int size() {
+      return SIZE;
+    }
+
+    @Benchmark
+    @OperationsPerInvocation(SIZE)
+    public int linked() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
     @OperationsPerInvocation(SIZE)
     public int array() {
       return dequeMany(enqueueMany(array));

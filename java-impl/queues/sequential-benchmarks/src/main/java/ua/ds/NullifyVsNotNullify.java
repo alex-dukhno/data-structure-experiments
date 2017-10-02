@@ -5,7 +5,6 @@ import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.OperationsPerInvocation;
 import org.openjdk.jmh.annotations.Setup;
 
-@Fork(3)
 public class NullifyVsNotNullify extends QueueBenchmark {
 
   private LinkedQueuePrimitive notNullify;
@@ -28,13 +27,11 @@ public class NullifyVsNotNullify extends QueueBenchmark {
   }
 
   @Benchmark
-  @OperationsPerInvocation(16 * M)
   public int notNullify_per_op() {
     return dequeMany(enqueueMany(notNullify));
   }
 
   @Benchmark
-  @OperationsPerInvocation(16 * M)
   public int nullify_per_op() {
     return dequeMany(enqueueMany(nullify));
   }

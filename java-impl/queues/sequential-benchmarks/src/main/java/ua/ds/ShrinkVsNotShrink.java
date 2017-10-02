@@ -6,9 +6,6 @@ import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.Warmup;
 
-@Fork(1)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5)
 public class ShrinkVsNotShrink extends QueueBenchmark {
 
   private BitMaskResizableArrayQueuePrimitive bitMaskShrink;
