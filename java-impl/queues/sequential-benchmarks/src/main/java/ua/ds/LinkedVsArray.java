@@ -1,6 +1,7 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
+import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Setup;
 
 public class LinkedVsArray extends QueueBenchmark {
@@ -16,6 +17,12 @@ public class LinkedVsArray extends QueueBenchmark {
 
   @Benchmark
   public int linked() {
+    return dequeMany(enqueueMany(linked));
+  }
+
+  @Benchmark
+  @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+  public int linked_parallel() {
     return dequeMany(enqueueMany(linked));
   }
 

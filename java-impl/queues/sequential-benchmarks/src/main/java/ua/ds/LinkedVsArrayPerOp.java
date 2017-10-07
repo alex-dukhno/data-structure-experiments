@@ -38,11 +38,13 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
   public static abstract class GeneralSetup extends LinkedVsArrayPerOp {
 
     LinkedQueuePrimitive linked;
+    LinkedQueuePrimitive linked_parallel;
     ConditionalNonResizableArrayQueuePrimitive array;
 
     @Setup
     public void setUp() {
       linked = new LinkedQueuePrimitive();
+      linked_parallel = new LinkedQueuePrimitive();
       array = new ConditionalNonResizableArrayQueuePrimitive(size());
     }
   }
@@ -58,6 +60,13 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     @Benchmark
     @OperationsPerInvocation(SIZE)
     public int linked() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_parallel() {
       return dequeMany(enqueueMany(linked));
     }
 
@@ -83,6 +92,13 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_parallel() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
     @OperationsPerInvocation(SIZE)
     public int array() {
       return dequeMany(enqueueMany(array));
@@ -100,6 +116,13 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     @Benchmark
     @OperationsPerInvocation(SIZE)
     public int linked() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_parallel() {
       return dequeMany(enqueueMany(linked));
     }
 
@@ -125,6 +148,13 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_parallel() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
     @OperationsPerInvocation(SIZE)
     public int array() {
       return dequeMany(enqueueMany(array));
@@ -142,6 +172,13 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     @Benchmark
     @OperationsPerInvocation(SIZE)
     public int linked() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_parallel() {
       return dequeMany(enqueueMany(linked));
     }
 
@@ -167,6 +204,13 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_parallel() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
     @OperationsPerInvocation(SIZE)
     public int array() {
       return dequeMany(enqueueMany(array));
@@ -188,6 +232,13 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_parallel() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
     @OperationsPerInvocation(SIZE)
     public int array() {
       return dequeMany(enqueueMany(array));
@@ -205,6 +256,13 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     @Benchmark
     @OperationsPerInvocation(SIZE)
     public int linked() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_parallel() {
       return dequeMany(enqueueMany(linked));
     }
 

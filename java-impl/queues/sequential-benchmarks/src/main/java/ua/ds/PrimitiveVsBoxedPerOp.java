@@ -39,14 +39,14 @@ public abstract class PrimitiveVsBoxedPerOp extends QueueMethods {
     BitMaskResizableNotShrinkArrayQueuePrimitive primitiveArray;
     BitMaskResizableNotShrinkArrayQueueBoxed boxedArray;
     LinkedQueueBoxed boxedLinked;
-    LinkedQueuePrimitive primitiveLinked;
+    LinkedQueueBoxed boxedLinkedParallel;
 
     @Setup
     public void createQueues() {
       boxedArray = new BitMaskResizableNotShrinkArrayQueueBoxed();
       primitiveArray = new BitMaskResizableNotShrinkArrayQueuePrimitive();
       boxedLinked = new LinkedQueueBoxed();
-      primitiveLinked = new LinkedQueuePrimitive();
+      boxedLinkedParallel = new LinkedQueueBoxed();
     }
   }
 
@@ -71,9 +71,10 @@ public abstract class PrimitiveVsBoxedPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
-    public int primitives_linked() {
-      return dequeMany(enqueueMany(primitiveLinked));
+    public int linked_parallel_gc() {
+      return dequeMany(enqueueMany(boxedLinkedParallel));
     }
 
     @Benchmark
@@ -104,9 +105,10 @@ public abstract class PrimitiveVsBoxedPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
-    public int primitives_linked() {
-      return dequeMany(enqueueMany(primitiveLinked));
+    public int linked_parallel_gc() {
+      return dequeMany(enqueueMany(boxedLinkedParallel));
     }
 
     @Benchmark
@@ -137,9 +139,10 @@ public abstract class PrimitiveVsBoxedPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
-    public int primitives_linked() {
-      return dequeMany(enqueueMany(primitiveLinked));
+    public int linked_parallel_gc() {
+      return dequeMany(enqueueMany(boxedLinkedParallel));
     }
 
     @Benchmark
@@ -170,9 +173,10 @@ public abstract class PrimitiveVsBoxedPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
-    public int primitives_linked() {
-      return dequeMany(enqueueMany(primitiveLinked));
+    public int linked_parallel_gc() {
+      return dequeMany(enqueueMany(boxedLinkedParallel));
     }
 
     @Benchmark
@@ -203,9 +207,10 @@ public abstract class PrimitiveVsBoxedPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
-    public int primitives_linked() {
-      return dequeMany(enqueueMany(primitiveLinked));
+    public int linked_parallel_gc() {
+      return dequeMany(enqueueMany(boxedLinkedParallel));
     }
 
     @Benchmark
@@ -236,9 +241,10 @@ public abstract class PrimitiveVsBoxedPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
-    public int primitives_linked() {
-      return dequeMany(enqueueMany(primitiveLinked));
+    public int linked_parallel_gc() {
+      return dequeMany(enqueueMany(boxedLinkedParallel));
     }
 
     @Benchmark
@@ -269,9 +275,10 @@ public abstract class PrimitiveVsBoxedPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
-    public int primitives_linked() {
-      return dequeMany(enqueueMany(primitiveLinked));
+    public int linked_parallel_gc() {
+      return dequeMany(enqueueMany(boxedLinkedParallel));
     }
 
     @Benchmark
@@ -302,9 +309,10 @@ public abstract class PrimitiveVsBoxedPerOp extends QueueMethods {
     }
 
     @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
-    public int primitives_linked() {
-      return dequeMany(enqueueMany(primitiveLinked));
+    public int linked_parallel_gc() {
+      return dequeMany(enqueueMany(boxedLinkedParallel));
     }
 
     @Benchmark
