@@ -12,6 +12,7 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.annotations.Warmup;
 
 import java.util.Random;
@@ -48,6 +49,12 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
       pool = new SimplePool(size());
     }
     linked = new LinkedQueuePrimitivePooled(pool);
+  }
+
+  @TearDown
+  public void tearDown() {
+    linked = null;
+    data = null;
   }
 
   abstract int size();
