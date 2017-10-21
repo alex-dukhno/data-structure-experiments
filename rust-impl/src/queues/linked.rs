@@ -556,6 +556,10 @@ mod benchmarks {
     const _8_M: usize = 8 * M;
     const _16_M: usize = 16 * M;
     const _32_M: usize = 32 * M;
+    const _64_M: usize = 64 * M;
+    const _128_M: usize = 128 * M;
+    const _256_M: usize = 256 * M;
+    const _512_M: usize = 512 * M;
 
     mod rc_ref_cell_linked_queue_small {
         use super::test::Bencher;
@@ -1182,6 +1186,48 @@ mod benchmarks {
             let mut queue = RcRefCellLinkedQueue::new();
             b.iter(|| {
                 enqueue_many(&mut queue, _64_K + _32_K + _16_K + _8_K + _4_K + _2_K + K);
+                deque_many(&mut queue)
+            });
+        }
+    }
+
+    mod extra_large_rc_ref_cell_linked_queue {
+        use super::test::Bencher;
+        use super::super::RcRefCellLinkedQueue;
+        use super::*;
+
+        #[bench]
+        fn size_064m(b: &mut Bencher) {
+            let mut queue = RcRefCellLinkedQueue::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _64_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_128m(b: &mut Bencher) {
+            let mut queue = RcRefCellLinkedQueue::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _128_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_256m(b: &mut Bencher) {
+            let mut queue = RcRefCellLinkedQueue::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _256_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_512m(b: &mut Bencher) {
+            let mut queue = RcRefCellLinkedQueue::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _512_M);
                 deque_many(&mut queue)
             });
         }
@@ -2027,6 +2073,48 @@ mod benchmarks {
         }
     }
 
+    mod extra_large_shared_linked_queue {
+        use super::test::Bencher;
+        use super::super::SharedLinkedQueue;
+        use super::*;
+
+        #[bench]
+        fn size_064m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueue::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _64_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_128m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueue::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _128_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_256m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueue::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _256_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_512m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueue::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _512_M);
+                deque_many(&mut queue)
+            });
+        }
+    }
+
     mod l3_cache_check_3m_shared_linked_queue {
         use super::test::Bencher;
         use super::super::SharedLinkedQueue;
@@ -2585,6 +2673,48 @@ mod benchmarks {
         }
     }
 
+    mod extra_large_padded_32_shared_linked_queue {
+        use super::test::Bencher;
+        use super::super::SharedLinkedQueuePadded32;
+        use super::*;
+
+        #[bench]
+        fn size_064m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueuePadded32::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _64_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_128m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueuePadded32::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _128_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_256m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueuePadded32::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _256_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_512m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueuePadded32::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _512_M);
+                deque_many(&mut queue)
+            });
+        }
+    }
+
     mod l3_cache_check_3m_padded_32_shared_linked_queue {
         use super::test::Bencher;
         use super::super::SharedLinkedQueuePadded32;
@@ -2886,6 +3016,48 @@ mod benchmarks {
     }
 
     mod padded_64_shared_linked_queue {
+        use super::test::Bencher;
+        use super::super::SharedLinkedQueuePadded64;
+        use super::*;
+
+        #[bench]
+        fn size_064m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueuePadded64::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _64_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_128m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueuePadded64::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _128_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_256m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueuePadded64::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _256_M);
+                deque_many(&mut queue)
+            });
+        }
+
+        #[bench]
+        fn size_512m(b: &mut Bencher) {
+            let mut queue = SharedLinkedQueuePadded64::new();
+            b.iter(|| {
+                enqueue_many(&mut queue, _512_M);
+                deque_many(&mut queue)
+            });
+        }
+    }
+
+    mod extra_large_padded_64_shared_linked_queue {
         use super::test::Bencher;
         use super::super::SharedLinkedQueuePadded64;
         use super::*;
