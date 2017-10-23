@@ -1,3 +1,5 @@
+pub mod linked;
+
 extern crate alloc;
 
 use self::alloc::raw_vec::RawVec;
@@ -31,7 +33,7 @@ impl RcRefCellLinkLinkedArrayQueue {
     }
 }
 
-impl Queue for RcRefCellLinkLinkedArrayQueue {
+impl Queue<i32> for RcRefCellLinkLinkedArrayQueue {
     fn deque(&mut self) -> Option<i32> {
         self.head.take().and_then(
             |head| {
@@ -144,7 +146,7 @@ impl SharedLinkLinkedArrayQueue {
     }
 }
 
-impl Queue for SharedLinkLinkedArrayQueue {
+impl Queue<i32> for SharedLinkLinkedArrayQueue {
     fn deque(&mut self) -> Option<i32> {
         self.head.take().and_then(
             |mut head| unsafe {
@@ -289,7 +291,7 @@ impl ResizableArrayQueue {
     }
 }
 
-impl Queue for ResizableArrayQueue {
+impl Queue<i32> for ResizableArrayQueue {
     fn deque(&mut self) -> Option<i32> {
         if self.is_empty() {
             None
@@ -350,7 +352,7 @@ impl NonResizableArrayQueue {
     }
 }
 
-impl Queue for NonResizableArrayQueue {
+impl Queue<i32> for NonResizableArrayQueue {
     fn deque(&mut self) -> Option<i32> {
         if self.is_empty() {
             None
@@ -2406,13 +2408,13 @@ mod benchmarks {
         }
     }
 
-    fn enqueue_many<Q: Queue>(queue: &mut Q, size: usize) {
+    fn enqueue_many<Q: Queue<i32>>(queue: &mut Q, size: usize) {
         for item in 0..size {
             queue.enqueue(item as i32);
         }
     }
 
-    fn deque_many<Q: Queue>(queue: &mut Q) -> i32 {
+    fn deque_many<Q: Queue<i32>>(queue: &mut Q) -> i32 {
         let mut sum = 0;
         while let Some(item) = queue.deque() {
             sum += item;

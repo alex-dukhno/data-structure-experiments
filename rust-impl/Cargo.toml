@@ -4,4 +4,9 @@ version = "1.0.0"
 authors = ["Alex-Diez <alex.dukhno@icloud.com>"]
 
 [lib]
-name = "datasructures"
+name = "datastructures"
+path = "src/datastructures/lib.rs"
+
+[dev-dependencies]
+num = "0.1.40"
+criterion = { git = "https://github.com/japaric/criterion.rs.git" }
