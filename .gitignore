@@ -78,4 +78,4 @@ Cargo.lock
 #data
 *.json
 benchmark-results/
-
+.criterion

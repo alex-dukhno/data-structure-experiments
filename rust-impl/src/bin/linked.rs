@@ -21,1512 +21,2002 @@ const MEGA: usize = KILO * KILO;
 fn padded_048_rc_ref_cell_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 48, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-048-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_2,
-                    generate_next_tuple_2
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0));
-                    queue_consumer.deque_all((0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-048-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_rc_ref_cell_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 64, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-064-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_4,
-                    generate_next_tuple_4
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-064-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_4,
+                        generate_next_tuple_4
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_rc_ref_cell_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 80, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-080-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_6,
-                    generate_next_tuple_6
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-080-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_6,
+                        generate_next_tuple_6
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_rc_ref_cell_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 96, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-096-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_8,
-                    generate_next_tuple_8
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-096-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_8,
+                        generate_next_tuple_8
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_rc_ref_cell_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 112, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-112-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_10,
-                    generate_next_tuple_10
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-112-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_10,
+                        generate_next_tuple_10
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_rc_ref_cell_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 128, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-128-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_12,
-                    generate_next_tuple_12
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-128-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_12,
+                        generate_next_tuple_12
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_016_shared_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 16, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-016-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_1,
-                    generate_next_tuple_1
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0));
-                    queue_consumer.deque_all((0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-016-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_1,
+                        generate_next_tuple_1
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0));
+                        queue_consumer.deque_all((0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_032_shared_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 32, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-032-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_3,
-                    generate_next_tuple_3
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-032-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_shared_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 48, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-048-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_5,
-                    generate_next_tuple_5
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-048-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_5,
+                        generate_next_tuple_5
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_shared_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 64, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-064-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_7,
-                    generate_next_tuple_7
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-064-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_7,
+                        generate_next_tuple_7
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_shared_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 80, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-080-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_9,
-                    generate_next_tuple_9
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-080-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_9,
+                        generate_next_tuple_9
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_shared_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 96, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-096-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_11,
-                    generate_next_tuple_11
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-096-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_11,
+                        generate_next_tuple_11
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_shared_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 112, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-112-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_13,
-                    generate_next_tuple_13
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-112-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_13,
+                        generate_next_tuple_13
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_shared_linked_queue_l1_32k_cache() {
     let input = generate_input(KILO, 128, SMALL_STEP, 4 * 32 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-128-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_15,
-                    generate_next_tuple_15
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-128-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_15,
+                        generate_next_tuple_15
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_rc_ref_cell_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 48, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-048-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_2,
-                    generate_next_tuple_2
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0));
-                    queue_consumer.deque_all((0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-048-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_rc_ref_cell_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 64, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-064-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_4,
-                    generate_next_tuple_4
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-064-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_4,
+                        generate_next_tuple_4
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_rc_ref_cell_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 80, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-080-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_6,
-                    generate_next_tuple_6
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-080-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_6,
+                        generate_next_tuple_6
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_rc_ref_cell_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 96, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-096-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_8,
-                    generate_next_tuple_8
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-096-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_8,
+                        generate_next_tuple_8
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_rc_ref_cell_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 112, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-112-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_10,
-                    generate_next_tuple_10
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-112-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_10,
+                        generate_next_tuple_10
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_rc_ref_cell_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 128, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-128-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_12,
-                    generate_next_tuple_12
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-128-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_12,
+                        generate_next_tuple_12
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_016_shared_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 16, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-016-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_1,
-                    generate_next_tuple_1
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0));
-                    queue_consumer.deque_all((0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-016-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_1,
+                        generate_next_tuple_1
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0));
+                        queue_consumer.deque_all((0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_032_shared_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 32, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-032-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_3,
-                    generate_next_tuple_3
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-032-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_shared_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 48, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-048-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_5,
-                    generate_next_tuple_5
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-048-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_5,
+                        generate_next_tuple_5
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_shared_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 64, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-064-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_7,
-                    generate_next_tuple_7
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-064-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_7,
+                        generate_next_tuple_7
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_shared_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 80, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-080-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_9,
-                    generate_next_tuple_9
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-080-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_9,
+                        generate_next_tuple_9
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_shared_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 96, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-096-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_11,
-                    generate_next_tuple_11
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-096-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_11,
+                        generate_next_tuple_11
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_shared_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 112, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-112-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_13,
-                    generate_next_tuple_13
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-112-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_13,
+                        generate_next_tuple_13
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_shared_linked_queue_l2_256k_cache() {
     let input = generate_input(32 * KILO, 128, MEDIUM_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-128-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_15,
-                    generate_next_tuple_15
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-128-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_15,
+                        generate_next_tuple_15
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_rc_ref_cell_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 48, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-048-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_2,
-                    generate_next_tuple_2
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0));
-                    queue_consumer.deque_all((0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-048-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_rc_ref_cell_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 64, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-064-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_4,
-                    generate_next_tuple_4
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-064-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_4,
+                        generate_next_tuple_4
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_rc_ref_cell_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 80, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-080-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_6,
-                    generate_next_tuple_6
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-080-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_6,
+                        generate_next_tuple_6
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_rc_ref_cell_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 96, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-096-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_8,
-                    generate_next_tuple_8
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-096-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_8,
+                        generate_next_tuple_8
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_rc_ref_cell_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 112, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-112-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_10,
-                    generate_next_tuple_10
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-112-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_10,
+                        generate_next_tuple_10
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_rc_ref_cell_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 128, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-128-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_12,
-                    generate_next_tuple_12
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-128-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_12,
+                        generate_next_tuple_12
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_016_shared_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 16, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-016-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_1,
-                    generate_next_tuple_1
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0));
-                    queue_consumer.deque_all((0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-016-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_1,
+                        generate_next_tuple_1
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0));
+                        queue_consumer.deque_all((0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_032_shared_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 32, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-032-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_3,
-                    generate_next_tuple_3
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-032-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_shared_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 48, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-048-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_5,
-                    generate_next_tuple_5
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-048-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_5,
+                        generate_next_tuple_5
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_shared_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 64, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-064-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_7,
-                    generate_next_tuple_7
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-064-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_7,
+                        generate_next_tuple_7
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_shared_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 80, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-080-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_9,
-                    generate_next_tuple_9
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-080-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_9,
+                        generate_next_tuple_9
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_shared_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 96, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-096-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_11,
-                    generate_next_tuple_11
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-096-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_11,
+                        generate_next_tuple_11
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_shared_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 112, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-112-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_13,
-                    generate_next_tuple_13
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-112-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_13,
+                        generate_next_tuple_13
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_shared_linked_queue_l3_3m_cache() {
     let input = generate_input(256 * KILO, 128, LARGE_STEP, 4 * 3 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-128-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_15,
-                    generate_next_tuple_15
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-128-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_15,
+                        generate_next_tuple_15
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_rc_ref_cell_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 48, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-048-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_2,
-                    generate_next_tuple_2
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0));
-                    queue_consumer.deque_all((0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-048-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_rc_ref_cell_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 64, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-064-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_4,
-                    generate_next_tuple_4
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-064-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_4,
+                        generate_next_tuple_4
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_rc_ref_cell_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 80, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-080-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_6,
-                    generate_next_tuple_6
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-080-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_6,
+                        generate_next_tuple_6
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_rc_ref_cell_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 96, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-096-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_8,
-                    generate_next_tuple_8
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-096-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_8,
+                        generate_next_tuple_8
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_rc_ref_cell_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 112, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-112-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_10,
-                    generate_next_tuple_10
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-112-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_10,
+                        generate_next_tuple_10
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_rc_ref_cell_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 128, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-128-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_12,
-                    generate_next_tuple_12
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-128-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_12,
+                        generate_next_tuple_12
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_016_shared_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 16, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-016-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_1,
-                    generate_next_tuple_1
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0));
-                    queue_consumer.deque_all((0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-016-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_1,
+                        generate_next_tuple_1
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0));
+                        queue_consumer.deque_all((0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_032_shared_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 32, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-032-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_3,
-                    generate_next_tuple_3
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-032-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_shared_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 48, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-048-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_5,
-                    generate_next_tuple_5
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-048-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_5,
+                        generate_next_tuple_5
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_shared_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 64, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-064-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_7,
-                    generate_next_tuple_7
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-064-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_7,
+                        generate_next_tuple_7
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_shared_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 80, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-080-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_9,
-                    generate_next_tuple_9
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-080-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_9,
+                        generate_next_tuple_9
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_shared_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 96, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-096-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_11,
-                    generate_next_tuple_11
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-096-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_11,
+                        generate_next_tuple_11
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_shared_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 112, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-112-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_13,
-                    generate_next_tuple_13
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-112-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_13,
+                        generate_next_tuple_13
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_shared_linked_queue_l1_256k_cache() {
     let input = generate_input(KILO, 128, SMALL_STEP, 4 * 256 * KILO);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-128-bytes-node-l1-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_15,
-                    generate_next_tuple_15
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-128-bytes-node-l1-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_15,
+                        generate_next_tuple_15
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_rc_ref_cell_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 48, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-048-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_2,
-                    generate_next_tuple_2
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0));
-                    queue_consumer.deque_all((0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-048-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_rc_ref_cell_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 64, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-064-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_4,
-                    generate_next_tuple_4
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-064-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_4,
+                        generate_next_tuple_4
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_rc_ref_cell_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 80, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-080-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_6,
-                    generate_next_tuple_6
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-080-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_6,
+                        generate_next_tuple_6
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_rc_ref_cell_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 96, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-096-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_8,
-                    generate_next_tuple_8
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-096-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_8,
+                        generate_next_tuple_8
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_rc_ref_cell_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 112, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-112-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_10,
-                    generate_next_tuple_10
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-112-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_10,
+                        generate_next_tuple_10
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_rc_ref_cell_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 128, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-128-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_12,
-                    generate_next_tuple_12
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-128-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_12,
+                        generate_next_tuple_12
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_016_shared_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 16, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-016-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_1,
-                    generate_next_tuple_1
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0));
-                    queue_consumer.deque_all((0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-016-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_1,
+                        generate_next_tuple_1
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0));
+                        queue_consumer.deque_all((0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_032_shared_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 32, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-032-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_3,
-                    generate_next_tuple_3
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-032-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_shared_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 48, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-048-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_5,
-                    generate_next_tuple_5
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-048-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_5,
+                        generate_next_tuple_5
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_shared_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 64, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-064-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_7,
-                    generate_next_tuple_7
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-064-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_7,
+                        generate_next_tuple_7
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_shared_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 80, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-080-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_9,
-                    generate_next_tuple_9
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-080-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_9,
+                        generate_next_tuple_9
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_shared_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 96, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-096-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_11,
-                    generate_next_tuple_11
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-096-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_11,
+                        generate_next_tuple_11
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_shared_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 112, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-112-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_13,
-                    generate_next_tuple_13
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-112-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_13,
+                        generate_next_tuple_13
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_shared_linked_queue_l2_1m_cache() {
     let input = generate_input(32 * KILO, 128, MEDIUM_STEP, 4 * 1 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-128-bytes-node-l2-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_15,
-                    generate_next_tuple_15
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-128-bytes-node-l2-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_15,
+                        generate_next_tuple_15
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_rc_ref_cell_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 48, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-048-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_2,
-                    generate_next_tuple_2
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0));
-                    queue_consumer.deque_all((0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-048-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_rc_ref_cell_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 64, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-064-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_4,
-                    generate_next_tuple_4
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-064-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_4,
+                        generate_next_tuple_4
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_rc_ref_cell_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 80, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-080-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_6,
-                    generate_next_tuple_6
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-080-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_6,
+                        generate_next_tuple_6
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_rc_ref_cell_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 96, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-096-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_8,
-                    generate_next_tuple_8
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-096-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_8,
+                        generate_next_tuple_8
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_rc_ref_cell_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 112, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-112-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_10,
-                    generate_next_tuple_10
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-112-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_10,
+                        generate_next_tuple_10
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_rc_ref_cell_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 128, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("rc-enqueue-dequeue-128-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_12,
-                    generate_next_tuple_12
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "rc-enqueue-dequeue-128-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_12,
+                        generate_next_tuple_12
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_016_shared_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 16, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-016-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_1,
-                    generate_next_tuple_1
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0));
-                    queue_consumer.deque_all((0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-016-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_1,
+                        generate_next_tuple_1
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0));
+                        queue_consumer.deque_all((0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_032_shared_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 32, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-032-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_3,
-                    generate_next_tuple_3
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-032-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_048_shared_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 48, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-048-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_5,
-                    generate_next_tuple_5
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-048-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_5,
+                        generate_next_tuple_5
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_064_shared_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 64, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-064-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_7,
-                    generate_next_tuple_7
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-064-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_7,
+                        generate_next_tuple_7
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_080_shared_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 80, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-080-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_9,
-                    generate_next_tuple_9
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-080-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_9,
+                        generate_next_tuple_9
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_096_shared_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 96, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-096-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_11,
-                    generate_next_tuple_11
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-096-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_11,
+                        generate_next_tuple_11
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_112_shared_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 112, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-112-bytes-node-l3-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_13,
-                    generate_next_tuple_13
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-112-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_13,
+                        generate_next_tuple_13
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 #[test]
 fn padded_128_shared_linked_queue_l3_8m_cache() {
     let input = generate_input(256 * KILO, 128, LARGE_STEP, 4 * 8 * MEGA);
     Criterion::default()
-            .bench_function_over_inputs("shared-enqueue-dequeue-128-bytes-node-l3128-cache", |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_15,
-                    generate_next_tuple_15
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-                });
-            }, &input);
+            .bench_function_over_inputs(
+                "shared-enqueue-dequeue-128-bytes-node-l3-cache",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_15,
+                        generate_next_tuple_15
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_048_rc_linked_queue_small() {
+    let input = generate_input(48 * KILO, 48, KILO, 3 * MEGA);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "rc-linear-enqueue-deque-48-bytes-node-small",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_064_rc_linked_queue_small() {
+    let input = generate_input(64 * KILO, 64, KILO, 4 * MEGA);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "rc-linear-enqueue-deque-64-bytes-node-small",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_128_rc_linked_queue_small() {
+    let input = generate_input(128 * KILO, 128, KILO, 8 * MEGA);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "rc-linear-enqueue-deque-128-bytes-node-small",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_016_shared_linked_queue_small() {
+    let input = generate_input(16 * KILO, 16, KILO, MEGA);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "shared-linear-enqueue-dequeue-16-bytes-node-small",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_048_shared_linked_queue_small() {
+    let input = generate_input(48 * KILO, 48, KILO, 3 * MEGA);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "shared-linear-enqueue-dequeue-48-bytes-node-small",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_064_shared_linked_queue_small() {
+    let input = generate_input(64 * KILO, 64, KILO, 4 * MEGA);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "shared-linear-enqueue-dequeue-64-bytes-node-small",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_128_shared_linked_queue_small() {
+    let input = generate_input(128 * KILO, 128, KILO, 8 * MEGA);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "shared-linear-enqueue-dequeue-128-bytes-node-small",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
 }
 
 struct QueueConsumer<E, Q, C, G> where E: Copy, Q: Queue<E>, C: Fn(E, E) -> E, G: Fn(E) -> E {
