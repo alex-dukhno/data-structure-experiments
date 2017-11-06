@@ -2019,6 +2019,160 @@ fn padded_128_shared_linked_queue_small() {
             );
 }
 
+#[test]
+fn padded_048_rc_linked_queue_large() {
+    let input = generate_input(48 * KILO, 48, KILO, 8 * MEGA);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "rc-linear-enqueue-deque-48-bytes-node-large",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_064_rc_linked_queue_large() {
+    let input = generate_input(64 * KILO, 64, KILO, 4 * 8 * MEGA / 3);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "rc-linear-enqueue-deque-64-bytes-node-large",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_128_rc_linked_queue_large() {
+    let input = generate_input(128 * KILO, 128, KILO, 8 * 8 * MEGA / 3);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "rc-linear-enqueue-deque-128-bytes-node-large",
+                |b, &&size| {
+                    let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_2,
+                        generate_next_tuple_2
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0));
+                        queue_consumer.deque_all((0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_016_shared_linked_queue_large() {
+    let input = generate_input(16 * KILO, 16, KILO, 8 * MEGA / 3);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "shared-linear-enqueue-dequeue-16-bytes-node-large",
+                |b, &&size| {
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_048_shared_linked_queue_large() {
+    let input = generate_input(48 * KILO, 48, KILO, 8 * MEGA);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "shared-linear-enqueue-dequeue-48-bytes-node-large",
+                |b, &&size| {
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_064_shared_linked_queue_large() {
+    let input = generate_input(64 * KILO, 64, KILO, 4 * 8 * MEGA / 3);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "shared-linear-enqueue-dequeue-64-bytes-node-large",
+                |b, &&size| {
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
+}
+
+#[test]
+fn padded_128_shared_linked_queue_large() {
+    let input = generate_input(128 * KILO, 128, KILO, 8 * 8 * MEGA / 3);
+    Criterion::default()
+            .bench_function_over_inputs(
+                "shared-linear-enqueue-dequeue-128-bytes-node-large",
+                |b, &&size| {
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
+                    let mut queue_consumer = QueueConsumer::new(
+                        queue,
+                        accumulate_tuple_3,
+                        generate_next_tuple_3
+                    );
+                    b.iter(|| {
+                        queue_consumer.enqueue_many(size, (0, 0, 0));
+                        queue_consumer.deque_all((0, 0, 0))
+                    });
+                },
+                &input
+            );
+}
+
 struct QueueConsumer<E, Q, C, G> where E: Copy, Q: Queue<E>, C: Fn(E, E) -> E, G: Fn(E) -> E {
     _marker: PhantomData<E>,
     queue: Q,
