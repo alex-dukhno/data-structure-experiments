@@ -7,7 +7,7 @@ use std::marker::PhantomData;
 
 use criterion::Criterion;
 
-use datastructures::queues::sequential::linked::RcRefCellLinkedQueue;
+use datastructures::queues::sequential::linked::{RcRefCellLinkedQueue, SharedLinkedQueue};
 use datastructures::queues::Queue;
 
 const SMALL_STEP: usize = 64;
@@ -156,7 +156,7 @@ fn padded_016_shared_linked_queue_l1_32k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-016-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_1,
@@ -178,7 +178,7 @@ fn padded_032_shared_linked_queue_l1_32k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-032-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_3,
@@ -200,7 +200,7 @@ fn padded_048_shared_linked_queue_l1_32k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-048-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_5,
@@ -222,7 +222,7 @@ fn padded_064_shared_linked_queue_l1_32k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-064-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_7,
@@ -244,7 +244,7 @@ fn padded_080_shared_linked_queue_l1_32k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-080-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_9,
@@ -266,7 +266,7 @@ fn padded_096_shared_linked_queue_l1_32k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-096-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_11,
@@ -288,7 +288,7 @@ fn padded_112_shared_linked_queue_l1_32k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-112-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_13,
@@ -310,7 +310,7 @@ fn padded_128_shared_linked_queue_l1_32k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-128-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_15,
@@ -464,7 +464,7 @@ fn padded_016_shared_linked_queue_l2_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-016-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_1,
@@ -486,7 +486,7 @@ fn padded_032_shared_linked_queue_l2_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-032-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_3,
@@ -508,7 +508,7 @@ fn padded_048_shared_linked_queue_l2_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-048-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_5,
@@ -530,7 +530,7 @@ fn padded_064_shared_linked_queue_l2_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-064-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_7,
@@ -552,7 +552,7 @@ fn padded_080_shared_linked_queue_l2_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-080-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_9,
@@ -574,7 +574,7 @@ fn padded_096_shared_linked_queue_l2_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-096-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_11,
@@ -596,7 +596,7 @@ fn padded_112_shared_linked_queue_l2_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-112-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_13,
@@ -618,7 +618,7 @@ fn padded_128_shared_linked_queue_l2_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-128-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_15,
@@ -772,7 +772,7 @@ fn padded_016_shared_linked_queue_l3_3m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-016-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_1,
@@ -794,7 +794,7 @@ fn padded_032_shared_linked_queue_l3_3m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-032-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_3,
@@ -816,7 +816,7 @@ fn padded_048_shared_linked_queue_l3_3m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-048-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_5,
@@ -838,7 +838,7 @@ fn padded_064_shared_linked_queue_l3_3m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-064-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_7,
@@ -860,7 +860,7 @@ fn padded_080_shared_linked_queue_l3_3m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-080-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_9,
@@ -882,7 +882,7 @@ fn padded_096_shared_linked_queue_l3_3m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-096-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_11,
@@ -904,7 +904,7 @@ fn padded_112_shared_linked_queue_l3_3m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-112-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_13,
@@ -926,7 +926,7 @@ fn padded_128_shared_linked_queue_l3_3m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-128-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_15,
@@ -1080,7 +1080,7 @@ fn padded_016_shared_linked_queue_l1_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-016-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_1,
@@ -1102,7 +1102,7 @@ fn padded_032_shared_linked_queue_l1_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-032-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_3,
@@ -1124,7 +1124,7 @@ fn padded_048_shared_linked_queue_l1_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-048-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_5,
@@ -1146,7 +1146,7 @@ fn padded_064_shared_linked_queue_l1_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-064-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_7,
@@ -1168,7 +1168,7 @@ fn padded_080_shared_linked_queue_l1_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-080-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_9,
@@ -1190,7 +1190,7 @@ fn padded_096_shared_linked_queue_l1_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-096-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_11,
@@ -1212,7 +1212,7 @@ fn padded_112_shared_linked_queue_l1_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-112-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_13,
@@ -1234,7 +1234,7 @@ fn padded_128_shared_linked_queue_l1_256k_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-128-bytes-node-l1-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_15,
@@ -1388,7 +1388,7 @@ fn padded_016_shared_linked_queue_l2_1m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-016-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_1,
@@ -1410,7 +1410,7 @@ fn padded_032_shared_linked_queue_l2_1m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-032-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_3,
@@ -1432,7 +1432,7 @@ fn padded_048_shared_linked_queue_l2_1m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-048-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_5,
@@ -1454,7 +1454,7 @@ fn padded_064_shared_linked_queue_l2_1m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-064-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_7,
@@ -1476,7 +1476,7 @@ fn padded_080_shared_linked_queue_l2_1m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-080-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_9,
@@ -1498,7 +1498,7 @@ fn padded_096_shared_linked_queue_l2_1m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-096-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_11,
@@ -1520,7 +1520,7 @@ fn padded_112_shared_linked_queue_l2_1m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-112-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_13,
@@ -1542,7 +1542,7 @@ fn padded_128_shared_linked_queue_l2_1m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-128-bytes-node-l2-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_15,
@@ -1696,7 +1696,7 @@ fn padded_016_shared_linked_queue_l3_8m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-016-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_1,
@@ -1718,7 +1718,7 @@ fn padded_032_shared_linked_queue_l3_8m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-032-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_3,
@@ -1740,7 +1740,7 @@ fn padded_048_shared_linked_queue_l3_8m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-048-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_5,
@@ -1762,7 +1762,7 @@ fn padded_064_shared_linked_queue_l3_8m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-064-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_7,
@@ -1784,7 +1784,7 @@ fn padded_080_shared_linked_queue_l3_8m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-080-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_9,
@@ -1806,7 +1806,7 @@ fn padded_096_shared_linked_queue_l3_8m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-096-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_11,
@@ -1828,7 +1828,7 @@ fn padded_112_shared_linked_queue_l3_8m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-112-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_13,
@@ -1850,7 +1850,7 @@ fn padded_128_shared_linked_queue_l3_8m_cache() {
             .bench_function_over_inputs(
                 "shared-enqueue-dequeue-128-bytes-node-l3-cache",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_15,
@@ -1938,7 +1938,7 @@ fn padded_016_shared_linked_queue_small() {
             .bench_function_over_inputs(
                 "shared-linear-enqueue-dequeue-16-bytes-node-small",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_3,
@@ -1960,7 +1960,7 @@ fn padded_048_shared_linked_queue_small() {
             .bench_function_over_inputs(
                 "shared-linear-enqueue-dequeue-48-bytes-node-small",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_3,
@@ -1982,7 +1982,7 @@ fn padded_064_shared_linked_queue_small() {
             .bench_function_over_inputs(
                 "shared-linear-enqueue-dequeue-64-bytes-node-small",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_3,
@@ -2004,7 +2004,7 @@ fn padded_128_shared_linked_queue_small() {
             .bench_function_over_inputs(
                 "shared-linear-enqueue-dequeue-128-bytes-node-small",
                 |b, &&size| {
-                    let queue: RcRefCellLinkedQueue<(i64, i64, i64)> = RcRefCellLinkedQueue::new();
+                    let queue: SharedLinkedQueue<(i64, i64, i64)> = SharedLinkedQueue::new();
                     let mut queue_consumer = QueueConsumer::new(
                         queue,
                         accumulate_tuple_3,
