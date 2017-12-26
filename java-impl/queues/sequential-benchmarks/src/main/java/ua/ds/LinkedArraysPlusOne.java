@@ -37,7 +37,15 @@ public class LinkedArraysPlusOne extends QueueBenchmark {
 
   @Benchmark
   @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
-  public int boxed_parallel_gc() {
+  public int boxed_parallel() {
+    enqueueMany(boxedParallel);
+    enqueueOne(boxedParallel);
+    return dequeMany(boxedParallel);
+  }
+
+  @Benchmark
+  @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+  public int boxed_cms() {
     enqueueMany(boxedParallel);
     enqueueOne(boxedParallel);
     return dequeMany(boxedParallel);

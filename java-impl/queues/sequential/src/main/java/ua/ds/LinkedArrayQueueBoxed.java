@@ -1,5 +1,7 @@
 package ua.ds;
 
+import ua.ds.array.ArrayQueue;
+
 public class LinkedArrayQueueBoxed implements SequentialQueueBoxed {
   private final int segmentCapacity;
   private Segment head;
@@ -10,7 +12,7 @@ public class LinkedArrayQueueBoxed implements SequentialQueueBoxed {
   }
 
   public LinkedArrayQueueBoxed(int segmentCapacity) {
-    this.segmentCapacity = SequentialQueueBoxed.nextPowerOfTwo(segmentCapacity);
+    this.segmentCapacity = ArrayQueue.nextPowerOfTwo(segmentCapacity);
   }
 
   @Override
@@ -25,7 +27,9 @@ public class LinkedArrayQueueBoxed implements SequentialQueueBoxed {
         prev.next = null;
       }
     }
-    return head.items[++head.first];
+    Integer item = head.items[++head.first];
+    head.items[head.first] = null;
+    return item;
   }
 
   @Override

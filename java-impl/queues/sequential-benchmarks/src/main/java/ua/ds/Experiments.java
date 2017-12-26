@@ -3,6 +3,12 @@ package ua.ds;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
+import ua.ds.array.primitive.BitMaskNonResizableArrayQueuePrimitive;
+import ua.ds.array.primitive.BitMaskResizableArrayQueuePrimitive;
+import ua.ds.array.primitive.ConditionalNonResizableArrayQueuePrimitive;
+import ua.ds.array.primitive.ConditionalResizableArrayQueuePrimitive;
+import ua.ds.linked.primitive.LinkedQueuePrimitive;
+
 public class Experiments extends QueueBenchmark {
 
   private LinkedQueuePrimitive linkedPrimitive;

@@ -7,24 +7,32 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.TearDown;
 
-import ua.ds.LinkedQueuePrimitivePooled.Pool;
-import ua.ds.LinkedQueuePrimitivePooled.PreInitializedPool;
-import ua.ds.LinkedQueuePrimitivePooled.SimplePool;
+import ua.ds.linked.primitive.LinkedQueuePrimitivePooled;
+import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.Pool;
+import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.PreInitializedPool;
+import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.SimplePool;
+import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.UnsafePool;
 
 public class LinkedPooledQueues extends QueueBenchmark {
 
-  @Param({"true", "false"})
-  private boolean preInit;
+  @Param({"s", "p", "u"})
+  private char poolType;
 
   private LinkedQueuePrimitivePooled linked;
 
   @Setup(Level.Invocation)
   public void setUp() {
     final Pool pool;
-    if (preInit) {
-      pool = new PreInitializedPool(size);
-    } else {
-      pool = new SimplePool(size);
+    switch (poolType) {
+      case 'p':
+        pool = new PreInitializedPool(size);
+        break;
+      case 'u':
+        pool = new UnsafePool(size);
+        break;
+      default:
+        pool = new SimplePool(size);
+        break;
     }
     linked = new LinkedQueuePrimitivePooled(pool);
   }
@@ -42,6 +50,12 @@ public class LinkedPooledQueues extends QueueBenchmark {
   @Benchmark
   @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
   public int pooled_parallel() {
+    return dequeMany(enqueueMany(linked));
+  }
+
+  @Benchmark
+  @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
+  public int pooled_cms() {
     return dequeMany(enqueueMany(linked));
   }
 }

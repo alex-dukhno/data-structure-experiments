@@ -3,6 +3,9 @@ package ua.ds;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
+import ua.ds.array.primitive.BitMaskResizableArrayQueuePrimitive;
+import ua.ds.array.primitive.ConditionalResizableArrayQueuePrimitive;
+
 public class ConditionVsBitMask extends QueueBenchmark {
 
   private BitMaskResizableArrayQueuePrimitive bitMaskResizable;

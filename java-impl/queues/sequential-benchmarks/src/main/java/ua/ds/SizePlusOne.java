@@ -3,6 +3,9 @@ package ua.ds;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
+import ua.ds.array.boxed.BitMaskResizableNotShrinkArrayQueueBoxed;
+import ua.ds.array.primitive.BitMaskResizableNotShrinkArrayQueuePrimitive;
+
 public class SizePlusOne extends QueueBenchmark {
   private BitMaskResizableNotShrinkArrayQueueBoxed boxed;
   private BitMaskResizableNotShrinkArrayQueuePrimitive primitive;

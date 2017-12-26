@@ -18,9 +18,10 @@ import org.openjdk.jmh.annotations.Warmup;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import ua.ds.LinkedQueuePrimitivePooled.Pool;
-import ua.ds.LinkedQueuePrimitivePooled.PreInitializedPool;
-import ua.ds.LinkedQueuePrimitivePooled.SimplePool;
+import ua.ds.linked.primitive.LinkedQueuePrimitivePooled;
+import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.Pool;
+import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.PreInitializedPool;
+import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.SimplePool;
 
 @Fork(3)
 @Warmup(iterations = 10)
@@ -79,6 +80,13 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     public int linked_parallel() {
       return dequeMany(enqueueMany(linked));
     }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_cms() {
+      return dequeMany(enqueueMany(linked));
+    }
   }
 
   public static class Medium extends LinkedPooledQueuesPerOp {
@@ -99,6 +107,13 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
     public int linked_parallel() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_cms() {
       return dequeMany(enqueueMany(linked));
     }
   }
@@ -123,6 +138,13 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     public int linked_parallel() {
       return dequeMany(enqueueMany(linked));
     }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_cms() {
+      return dequeMany(enqueueMany(linked));
+    }
   }
 
   public static class Large2 extends LinkedPooledQueuesPerOp {
@@ -143,6 +165,13 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
     public int linked_parallel() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_cms() {
       return dequeMany(enqueueMany(linked));
     }
   }
@@ -167,6 +196,13 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     public int linked_parallel() {
       return dequeMany(enqueueMany(linked));
     }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_cms() {
+      return dequeMany(enqueueMany(linked));
+    }
   }
 
   public static class Large8 extends LinkedPooledQueuesPerOp {
@@ -187,6 +223,13 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
     public int linked_parallel() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_cms() {
       return dequeMany(enqueueMany(linked));
     }
   }
@@ -211,6 +254,13 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     public int linked_parallel() {
       return dequeMany(enqueueMany(linked));
     }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_cms() {
+      return dequeMany(enqueueMany(linked));
+    }
   }
 
   public static class Large32 extends LinkedPooledQueuesPerOp {
@@ -231,6 +281,13 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
     @OperationsPerInvocation(SIZE)
     public int linked_parallel() {
+      return dequeMany(enqueueMany(linked));
+    }
+
+    @Benchmark
+    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @OperationsPerInvocation(SIZE)
+    public int linked_cms() {
       return dequeMany(enqueueMany(linked));
     }
   }

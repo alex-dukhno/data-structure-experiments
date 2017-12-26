@@ -8,6 +8,10 @@ import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import ua.ds.array.boxed.BitMaskResizableNotShrinkArrayQueueBoxed;
+import ua.ds.array.boxed.ConditionalResizableArrayQueueBoxed;
+import ua.ds.array.boxed.ConditionalResizableNotShrinkArrayQueueBoxed;
+
 public class StdQueue extends QueueBenchmark {
 
   private Queue<Integer> arrayDeque;
@@ -19,8 +23,6 @@ public class StdQueue extends QueueBenchmark {
   private ConditionalResizableNotShrinkArrayQueueBoxed conditionalNotShrinkParallel;
   private BitMaskResizableNotShrinkArrayQueueBoxed bitMaskNotShrink;
   private BitMaskResizableNotShrinkArrayQueueBoxed bitMaskNotShrinkParallel;
-  private BitMaskResizableNotShrinkArrayQueueBoxedIntrinsic bitMaskNotShrinkIntrinsic;
-  private BitMaskResizableNotShrinkArrayQueueBoxedIntrinsic bitMaskNotShrinkParallelIntrinsic;
 
   @Setup
   public void setUp() {
@@ -33,8 +35,6 @@ public class StdQueue extends QueueBenchmark {
     conditionalNotShrinkParallel = new ConditionalResizableNotShrinkArrayQueueBoxed();
     bitMaskNotShrink = new BitMaskResizableNotShrinkArrayQueueBoxed();
     bitMaskNotShrinkParallel = new BitMaskResizableNotShrinkArrayQueueBoxed();
-    bitMaskNotShrinkIntrinsic = new BitMaskResizableNotShrinkArrayQueueBoxedIntrinsic();
-    bitMaskNotShrinkParallelIntrinsic = new BitMaskResizableNotShrinkArrayQueueBoxedIntrinsic();
   }
 
   @Benchmark
@@ -84,16 +84,5 @@ public class StdQueue extends QueueBenchmark {
   @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
   public int bitMaskNotShrink_parallel_gc() {
     return dequeMany(enqueueMany(bitMaskNotShrinkParallel));
-  }
-
-  @Benchmark
-  public int bitMaskNotShrink_intrinsic() {
-    return dequeMany(enqueueMany(bitMaskNotShrinkIntrinsic));
-  }
-
-  @Benchmark
-  @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
-  public int bitMaskNotShrink_parallel_gc_intrinsic() {
-    return dequeMany(enqueueMany(bitMaskNotShrinkParallelIntrinsic));
   }
 }

@@ -1,17 +1,16 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.CompilerControl;
-import org.openjdk.jmh.annotations.CompilerControl.Mode;
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.infra.Blackhole;
-import org.openjdk.jol.info.ClassLayout;
 
 import java.util.Random;
+
+import ua.ds.linked.boxed.LinkedQueueBoxed;
 
 @State(Scope.Benchmark)
 public class ContiguousAllocation {

@@ -1,5 +1,7 @@
 package ua.ds;
 
+import ua.ds.array.ArrayQueue;
+
 public class LinkedArrayQueuePrimitive implements SequentialQueue {
   private final int segmentCapacity;
   private Segment head;
@@ -10,7 +12,7 @@ public class LinkedArrayQueuePrimitive implements SequentialQueue {
   }
 
   public LinkedArrayQueuePrimitive(int segmentCapacity) {
-    this.segmentCapacity = SequentialQueue.nextPowerOfTwo(segmentCapacity);
+    this.segmentCapacity = ArrayQueue.nextPowerOfTwo(segmentCapacity);
   }
 
   @Override

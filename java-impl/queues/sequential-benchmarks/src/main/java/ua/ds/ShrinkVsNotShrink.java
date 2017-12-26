@@ -1,10 +1,12 @@
 package ua.ds;
 
 import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.Fork;
-import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Setup;
-import org.openjdk.jmh.annotations.Warmup;
+
+import ua.ds.array.primitive.BitMaskResizableArrayQueuePrimitive;
+import ua.ds.array.primitive.BitMaskResizableNotShrinkArrayQueuePrimitive;
+import ua.ds.array.primitive.ConditionalResizableArrayQueuePrimitive;
+import ua.ds.array.primitive.ConditionalResizableNotShrinkArrayQueuePrimitive;
 
 public class ShrinkVsNotShrink extends QueueBenchmark {
 

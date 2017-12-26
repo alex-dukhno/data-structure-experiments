@@ -4,6 +4,9 @@ import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Setup;
 
+import ua.ds.array.primitive.ConditionalNonResizableArrayQueuePrimitive;
+import ua.ds.linked.primitive.LinkedQueuePrimitive;
+
 public class LinkedVsArray extends QueueBenchmark {
 
   private LinkedQueuePrimitive linked;
@@ -23,6 +26,12 @@ public class LinkedVsArray extends QueueBenchmark {
   @Benchmark
   @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
   public int linked_parallel() {
+    return dequeMany(enqueueMany(linked));
+  }
+
+  @Benchmark
+  @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+  public int linked_cms() {
     return dequeMany(enqueueMany(linked));
   }
 

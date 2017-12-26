@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 
-cd rust-impl \
-&& RUST_TEST_THREADS=1 cargo bench benchmarks::rc_ref_cell_linked_queue | tee target/rc_ref_cell_linked_queue \
-&& RUST_TEST_THREADS=1 cargo bench benchmarks::shared_linked_queue | tee target/shared_linked_queue \
-&& RUST_TEST_THREADS=1 cargo bench benchmarks::non_resizable_array_queue | tee target/non_resizable_array_queue \
-&& RUST_TEST_THREADS=1 cargo bench benchmarks::resizable_array_queue | tee target/resizable_array_queue \
-&& RUST_TEST_THREADS=1 cargo bench benchmarks::std_resizable_array_queue | tee target/std_resizable_array_queue \
-&& RUST_TEST_THREADS=1 cargo bench benchmarks::rc_ref_cell_linked_array_queue | tee target/rc_ref_cell_linked_array_queue \
-&& RUST_TEST_THREADS=1 cargo bench benchmarks::shared_linked_array_queue | tee target/shared_linked_array_queue \
-&& cd .. \
-&& cd java-impl \
+cd java-impl \
 && gradle clean jmhJar \
 && cd queues/sequential \
 && mkdir -p build/reports/jmh/ \
