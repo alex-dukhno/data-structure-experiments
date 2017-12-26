@@ -22,6 +22,7 @@ import ua.ds.linked.primitive.LinkedQueuePrimitivePooled;
 import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.Pool;
 import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.PreInitializedPool;
 import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.SimplePool;
+import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.UnsafePool;
 
 @Fork(3)
 @Warmup(iterations = 10)
@@ -30,8 +31,9 @@ import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.SimplePool;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Benchmark)
 public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
-  @Param({"true", "false"})
-  private boolean preInit;
+
+  @Param({"s", "p", "u"})
+  private char poolType;
   
   LinkedQueuePrimitivePooled linked;
 
@@ -44,10 +46,16 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
       data[i] = r.nextInt();
     }
     final Pool pool;
-    if (preInit) {
-      pool = new PreInitializedPool(size());
-    } else {
-      pool = new SimplePool(size());
+    switch (poolType) {
+      case 'p':
+        pool = new PreInitializedPool(size);
+        break;
+      case 'u':
+        pool = new UnsafePool(size);
+        break;
+      default:
+        pool = new SimplePool(size);
+        break;
     }
     linked = new LinkedQueuePrimitivePooled(pool);
   }
@@ -82,7 +90,7 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -111,7 +119,7 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -140,7 +148,7 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -169,7 +177,7 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -198,7 +206,7 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -227,7 +235,7 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -256,7 +264,7 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -285,7 +293,7 @@ public abstract class LinkedPooledQueuesPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));

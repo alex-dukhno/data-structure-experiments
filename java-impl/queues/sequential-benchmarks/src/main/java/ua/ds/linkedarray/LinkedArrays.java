@@ -1,8 +1,12 @@
-package ua.ds;
+package ua.ds.linkedarray;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Setup;
+
+import ua.ds.LinkedArrayQueueBoxed;
+import ua.ds.LinkedArrayQueuePrimitive;
+import ua.ds.QueueBenchmark;
 
 public class LinkedArrays extends QueueBenchmark {
 

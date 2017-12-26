@@ -1,9 +1,10 @@
-package ua.ds;
+package ua.ds.experiments.n01;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Setup;
 
+import ua.ds.QueueBenchmark;
 import ua.ds.array.primitive.ConditionalNonResizableArrayQueuePrimitive;
 import ua.ds.linked.primitive.LinkedQueuePrimitive;
 

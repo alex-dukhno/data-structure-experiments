@@ -74,7 +74,7 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -109,7 +109,7 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -144,7 +144,7 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -179,7 +179,7 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -214,7 +214,7 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -249,7 +249,7 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -284,7 +284,7 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));
@@ -319,7 +319,7 @@ public abstract class LinkedVsArrayPerOp extends QueueMethods {
     }
 
     @Benchmark
-    @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+    @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
     @OperationsPerInvocation(SIZE)
     public int linked_cms() {
       return dequeMany(enqueueMany(linked));

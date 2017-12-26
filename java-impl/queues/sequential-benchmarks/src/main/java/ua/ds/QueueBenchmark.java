@@ -23,8 +23,8 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 public abstract class QueueBenchmark extends QueueMethods {
 
-  @Param({""+K, ""+2*K, ""+4*K, ""+8*K, ""+16*K, ""+32*K, ""+64*K, ""+128*K, ""+256*K, ""+512*K, ""+M, ""+2*M, ""+4*M, ""+8*M, ""+16*M, ""+32*M})
-  int size;
+  @Param({"" + K, "" + 2 * K, "" + 4 * K, "" + 8 * K, "" + 16 * K, "" + 32 * K, "" + 64 * K, "" + 128 * K, "" + 256 * K, "" + 512 * K, "" + M, "" + 2 * M, "" + 4 * M, "" + 8 * M, "" + 16 * M, "" + 32 * M})
+  protected int size;
 
   @Setup(Level.Invocation)
   public void populateData() {

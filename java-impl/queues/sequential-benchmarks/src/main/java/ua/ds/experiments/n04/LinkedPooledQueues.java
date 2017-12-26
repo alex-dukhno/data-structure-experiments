@@ -1,4 +1,4 @@
-package ua.ds;
+package ua.ds.experiments.n04;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Fork;
@@ -7,6 +7,7 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.TearDown;
 
+import ua.ds.QueueBenchmark;
 import ua.ds.linked.primitive.LinkedQueuePrimitivePooled;
 import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.Pool;
 import ua.ds.linked.primitive.LinkedQueuePrimitivePooled.PreInitializedPool;

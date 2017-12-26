@@ -1,9 +1,10 @@
-package ua.ds;
+package ua.ds.experiments.n05;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Setup;
 
+import ua.ds.QueueBenchmark;
 import ua.ds.array.boxed.BitMaskResizableNotShrinkArrayQueueBoxed;
 import ua.ds.array.primitive.BitMaskResizableNotShrinkArrayQueuePrimitive;
 import ua.ds.linked.boxed.LinkedQueueBoxed;
@@ -53,7 +54,7 @@ public class PrimitiveVsBoxed extends QueueBenchmark {
   }
 
   @Benchmark
-  @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+  @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
   public int boxed_resize_cms() {
     return dequeMany(enqueueMany(boxedResizeCms));
   }
@@ -70,7 +71,7 @@ public class PrimitiveVsBoxed extends QueueBenchmark {
   }
 
   @Benchmark
-  @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+  @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
   public int primitives_linked_cms() {
     return dequeMany(enqueueMany(linkedQueuePrimitiveCms));
   }
@@ -87,7 +88,7 @@ public class PrimitiveVsBoxed extends QueueBenchmark {
   }
 
   @Benchmark
-  @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+  @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
   public int boxed_linked_cms() {
     return dequeMany(enqueueMany(linkedQueueBoxedCms));
   }

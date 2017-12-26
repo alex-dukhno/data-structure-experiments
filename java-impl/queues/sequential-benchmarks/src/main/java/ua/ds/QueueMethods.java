@@ -8,31 +8,31 @@ abstract class QueueMethods {
 
   int[] data;
 
-  final SequentialQueue enqueueOne(SequentialQueue queue) {
+  protected final SequentialQueue enqueueOne(SequentialQueue queue) {
     queue.enqueue(data[0]);
     return queue;
   }
 
-  final SequentialQueue enqueueMany(SequentialQueue queue) {
+  protected final SequentialQueue enqueueMany(SequentialQueue queue) {
     for (int item : data) {
       queue.enqueue(item);
     }
     return queue;
   }
 
-  final SequentialQueueBoxed enqueueOne(SequentialQueueBoxed queue) {
+  protected final SequentialQueueBoxed enqueueOne(SequentialQueueBoxed queue) {
     queue.enqueue(data[0]);
     return queue;
   }
 
-  final SequentialQueueBoxed enqueueMany(SequentialQueueBoxed queue) {
+  protected final SequentialQueueBoxed enqueueMany(SequentialQueueBoxed queue) {
     for (int item : data) {
       queue.enqueue(item);
     }
     return queue;
   }
 
-  final int dequeMany(SequentialQueue queue) {
+  protected final int dequeMany(SequentialQueue queue) {
     int sum = 0;
     int item;
     while ((item = queue.deque()) != -1) {
@@ -41,7 +41,7 @@ abstract class QueueMethods {
     return sum;
   }
 
-  final Integer dequeMany(SequentialQueueBoxed queue) {
+  protected final Integer dequeMany(SequentialQueueBoxed queue) {
     Integer sum = 0;
     Integer item;
     while ((item = queue.deque()) != null) {
@@ -50,14 +50,14 @@ abstract class QueueMethods {
     return sum;
   }
 
-  final Queue<Integer> enqueueMany(Queue<Integer> queue) {
+  protected final Queue<Integer> enqueueMany(Queue<Integer> queue) {
     for (int item : data) {
       queue.add(item);
     }
     return queue;
   }
 
-  final int dequeMany(Queue<Integer> queue) {
+  protected final int dequeMany(Queue<Integer> queue) {
     Integer sum = 0;
     Integer item;
     while ((item = queue.poll()) != null) {

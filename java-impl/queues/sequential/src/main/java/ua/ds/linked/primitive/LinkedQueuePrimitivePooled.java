@@ -24,7 +24,7 @@ public class LinkedQueuePrimitivePooled extends AbstractLinkedQueuePrimitive {
     private final Node[] nodes;
     private int index;
 
-    SimplePool(int size) {
+    public SimplePool(int size) {
       nodes = new Node[size];
     }
 
@@ -39,7 +39,7 @@ public class LinkedQueuePrimitivePooled extends AbstractLinkedQueuePrimitive {
     private final Node[] nodes;
     private int index;
 
-    PreInitializedPool(int size) {
+    public PreInitializedPool(int size) {
       nodes = new Node[size];
       for (int i = 0; i < size; i++) {
         nodes[i] = new Node();
@@ -68,7 +68,7 @@ public class LinkedQueuePrimitivePooled extends AbstractLinkedQueuePrimitive {
       }
     }
 
-    UnsafePool(int size) {
+    public UnsafePool(int size) {
       nodes = new Node[size];
     }
 

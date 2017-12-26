@@ -1,8 +1,9 @@
-package ua.ds;
+package ua.ds.experiments.n03;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
+import ua.ds.QueueBenchmark;
 import ua.ds.array.primitive.BitMaskResizableArrayQueuePrimitive;
 import ua.ds.array.primitive.BitMaskResizableNotShrinkArrayQueuePrimitive;
 import ua.ds.array.primitive.ConditionalResizableArrayQueuePrimitive;

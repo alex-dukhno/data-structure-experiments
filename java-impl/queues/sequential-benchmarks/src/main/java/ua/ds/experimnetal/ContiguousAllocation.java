@@ -1,4 +1,4 @@
-package ua.ds;
+package ua.ds.experimnetal;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Level;
@@ -10,6 +10,7 @@ import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.Random;
 
+import ua.ds.SequentialQueueBoxed;
 import ua.ds.linked.boxed.LinkedQueueBoxed;
 
 @State(Scope.Benchmark)
