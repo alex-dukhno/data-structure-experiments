@@ -31,7 +31,7 @@ public class LinkedVsArray extends QueueBenchmark {
   }
 
   @Benchmark
-  @Fork(value = 3, jvmArgs = "-XX:+UseParallelGC")
+  @Fork(value = 3, jvmArgs = "-XX:+UseConcMarkSweepGC")
   public int linked_cms() {
     return dequeMany(enqueueMany(linked));
   }
