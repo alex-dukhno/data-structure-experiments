@@ -12,7 +12,7 @@ use datastructures::queues::Queue;
 
 #[test]
 fn rc_linked_queue_baseline() {
-    let input = generate_input(10, 26);
+    let input = generate_input_with_strategy(10, 26, power);
     Criterion::default()
         .bench_function_over_inputs(
             "rc-linear-enqueue-deque-baseline",
@@ -33,30 +33,8 @@ fn rc_linked_queue_baseline() {
 }
 
 #[test]
-fn padded_048_rc_linked_queue() {
-    let input = generate_input(10, 18);
-    Criterion::default()
-        .bench_function_over_inputs(
-            "rc-linear-enqueue-deque-48-bytes-node",
-            |b, &&size| {
-                let queue: RcRefCellLinkedQueue<(i64, i64)> = RcRefCellLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_2,
-                    generate_next_tuple_2,
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0));
-                    queue_consumer.deque_all((0, 0))
-                });
-            },
-            &input,
-        );
-}
-
-#[test]
 fn padded_064_rc_linked_queue() {
-    let input = generate_input(10, 18);
+    let input = generate_input_with_strategy(13, 17, next);
     Criterion::default()
         .bench_function_over_inputs(
             "rc-linear-enqueue-deque-64-bytes-node",
@@ -78,7 +56,7 @@ fn padded_064_rc_linked_queue() {
 
 #[test]
 fn padded_128_rc_linked_queue() {
-    let input = generate_input(10, 18);
+    let input = generate_input_with_strategy(13, 17, next);
     Criterion::default()
         .bench_function_over_inputs(
             "rc-linear-enqueue-deque-128-bytes-node",
@@ -100,10 +78,10 @@ fn padded_128_rc_linked_queue() {
 
 #[test]
 fn shared_linked_queue_baseline() {
-    let input = generate_input(10, 26);
+    let input = generate_input_with_strategy(10, 26, power);
     Criterion::default()
         .bench_function_over_inputs(
-            "shared-linear-enqueue-dequeue-16-bytes-node",
+            "shared-linear-enqueue-dequeue-baseline",
             |b, &&size| {
                 let queue: SharedLinkedQueue<(i64)> = SharedLinkedQueue::new();
                 let mut queue_consumer = QueueConsumer::new(
@@ -121,30 +99,8 @@ fn shared_linked_queue_baseline() {
 }
 
 #[test]
-fn padded_048_shared_linked_queue() {
-    let input = generate_input(10, 18);
-    Criterion::default()
-        .bench_function_over_inputs(
-            "shared-linear-enqueue-dequeue-48-bytes-node",
-            |b, &&size| {
-                let queue: SharedLinkedQueue<(i64, i64, i64, i64, i64)> = SharedLinkedQueue::new();
-                let mut queue_consumer = QueueConsumer::new(
-                    queue,
-                    accumulate_tuple_5,
-                    generate_next_tuple_5,
-                );
-                b.iter(|| {
-                    queue_consumer.enqueue_many(size, (0, 0, 0, 0, 0));
-                    queue_consumer.deque_all((0, 0, 0, 0, 0))
-                });
-            },
-            &input,
-        );
-}
-
-#[test]
 fn padded_064_shared_linked_queue() {
-    let input = generate_input(10, 18);
+    let input = generate_input_with_strategy(13, 17, next);
     Criterion::default()
         .bench_function_over_inputs(
             "shared-linear-enqueue-dequeue-64-bytes-node",
@@ -166,7 +122,7 @@ fn padded_064_shared_linked_queue() {
 
 #[test]
 fn padded_128_shared_linked_queue() {
-    let input = generate_input(10, 18);
+    let input = generate_input_with_strategy(13, 17, next);
     Criterion::default()
         .bench_function_over_inputs(
             "shared-linear-enqueue-dequeue-128-bytes-node",
@@ -306,4 +262,21 @@ fn generate_next_tuple_15(tuple: (i64, i64, i64, i64, i64, i64, i64, i64, i64, i
 fn generate_input(min_size: u32, max_size: u32) -> Vec<usize> {
     (min_size..max_size).map(|size| 2usize.pow(size))
         .collect::<Vec<usize>>()
+}
+
+fn generate_input_with_strategy(min_size: u32, max_size: u32, strategy: fn(u32) -> Vec<usize>) -> Vec<usize> {
+    (min_size..max_size)
+        .flat_map(|size| strategy(size).into_iter())
+        .collect::<Vec<usize>>()
+}
+
+fn power(num: u32) -> Vec<usize> {
+    let r = 2usize.pow(num);
+    (r..r+1).into_iter().collect::<Vec<usize>>()
+}
+
+fn next(num: u32) -> Vec<usize> {
+    let r = 2usize.pow(num);
+    let l = 2usize.pow(num+1);
+    (r..).step_by(1024).take_while(|i| i <= &l).collect::<Vec<usize>>()
 }
