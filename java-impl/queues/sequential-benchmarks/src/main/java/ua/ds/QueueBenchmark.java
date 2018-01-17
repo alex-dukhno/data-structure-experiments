@@ -12,6 +12,7 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -26,12 +27,19 @@ public abstract class QueueBenchmark extends QueueMethods {
   @Param({"" + K, "" + 2 * K, "" + 4 * K, "" + 8 * K, "" + 16 * K, "" + 32 * K, "" + 64 * K, "" + 128 * K, "" + 256 * K, "" + 512 * K, "" + M, "" + 2 * M, "" + 4 * M, "" + 8 * M, "" + 16 * M, "" + 32 * M})
   protected int size;
 
-  @Setup(Level.Invocation)
-  public void populateData() {
+  private int[] generatedArray;
+
+  @Setup(Level.Iteration)
+  public void generateData() {
     Random r = new Random();
-    data = new int[size];
-    for (int i = 0; i < data.length; i++) {
-      data[i] = r.nextInt();
+    generatedArray = new int[size];
+    for (int i = 0; i < generatedArray.length; i++) {
+      generatedArray[i] = r.nextInt();
     }
+  }
+
+  @Setup(Level.Invocation)
+  public void copyData() {
+    data = Arrays.copyOf(generatedArray, size);
   }
 }

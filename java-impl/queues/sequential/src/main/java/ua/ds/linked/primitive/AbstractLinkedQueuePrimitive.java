@@ -10,10 +10,12 @@ public abstract class AbstractLinkedQueuePrimitive implements SequentialQueue {
   public int deque() {
     if (head == null) return -1;
     int item = head.item;
-    if (head == tail) {
+    Node first = head;
+    head = head.next;
+    first.next = null;
+    if (head == null) {
       tail = null;
     }
-    head = head.next;
     return item;
   }
 

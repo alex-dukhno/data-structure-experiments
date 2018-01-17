@@ -44,7 +44,8 @@ public class LinkedPooledQueues extends QueueBenchmark {
   }
 
   @Benchmark
-  public int pooled() {
+  @Fork(value = 3, jvmArgs = "-XX:+UseG1GC")
+  public int pooled_g1() {
     return dequeMany(enqueueMany(linked));
   }
 

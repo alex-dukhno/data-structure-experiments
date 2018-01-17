@@ -43,7 +43,8 @@ public class PrimitiveVsBoxed extends QueueBenchmark {
   }
 
   @Benchmark
-  public int boxed_resize() {
+  @Fork(value = 3, jvmArgs = "-XX:+UseG1GC")
+  public int boxed_resize_g1() {
     return dequeMany(enqueueMany(boxedResize));
   }
 
@@ -60,7 +61,8 @@ public class PrimitiveVsBoxed extends QueueBenchmark {
   }
 
   @Benchmark
-  public int primitives_linked() {
+  @Fork(value = 3, jvmArgs = "-XX:+UseG1GC")
+  public int primitives_linked_g1() {
     return dequeMany(enqueueMany(linkedQueuePrimitive));
   }
 
@@ -77,7 +79,8 @@ public class PrimitiveVsBoxed extends QueueBenchmark {
   }
 
   @Benchmark
-  public int boxed_linked() {
+  @Fork(value = 3, jvmArgs = "-XX:+UseG1GC")
+  public int boxed_linked_g1() {
     return dequeMany(enqueueMany(linkedQueueBoxed));
   }
 
