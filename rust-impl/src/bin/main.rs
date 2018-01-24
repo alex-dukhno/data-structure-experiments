@@ -2,9 +2,8 @@
 
 fn main() {
     assert_eq!(generate_input(10, 26), generate_input_with_strategy(10, 26, power));
-    println!("generate_input_with_strategy(19, 21) = {:?}", generate_input_with_strategy(19, 21, next).iter().skip_while(|&i| 1048576 - i > 100 * 1024)
-        .take_while(|&i| *i < (1048576 + 100 * 1024))
-        .cloned().collect::<Vec<usize>>());
+    let vec = generate_input_with_strategy(17, 18, next).into_iter().skip_while(|&item| item < 231424).collect::<Vec<usize>>();
+    println!("generate_input_with_strategy(17, 18) = {:?}", (vec));
 }
 
 

@@ -33,8 +33,30 @@ fn rc_linked_queue_baseline() {
 }
 
 #[test]
+fn padded_048_rc_linked_queue() {
+    let input = generate_input_with_strategy(13, 20, next);
+    Criterion::default()
+        .bench_function_over_inputs(
+            "rc-linear-enqueue-deque-48-bytes-node",
+            |b, &&size| {
+                let queue: RcRefCellLinkedQueue<(i64)> = RcRefCellLinkedQueue::new();
+                let mut queue_consumer = QueueConsumer::new(
+                    queue,
+                    accumulate_tuple_1,
+                    generate_next_tuple_1,
+                );
+                b.iter(|| {
+                    queue_consumer.enqueue_many(size, (0));
+                    queue_consumer.deque_all((0))
+                });
+            },
+            &input,
+        );
+}
+
+#[test]
 fn padded_064_rc_linked_queue() {
-    let input = generate_input_with_strategy(13, 17, next);
+    let input = generate_input_with_strategy(13, 20, next);
     Criterion::default()
         .bench_function_over_inputs(
             "rc-linear-enqueue-deque-64-bytes-node",
@@ -56,7 +78,7 @@ fn padded_064_rc_linked_queue() {
 
 #[test]
 fn padded_128_rc_linked_queue() {
-    let input = generate_input_with_strategy(13, 17, next);
+    let input = generate_input_with_strategy(13, 20, next);
     Criterion::default()
         .bench_function_over_inputs(
             "rc-linear-enqueue-deque-128-bytes-node",
@@ -99,8 +121,30 @@ fn shared_linked_queue_baseline() {
 }
 
 #[test]
+fn padded_016_shared_linked_queue() {
+    let input = generate_input_with_strategy(13, 20, next);
+    Criterion::default()
+        .bench_function_over_inputs(
+            "shared-linear-enqueue-dequeue-16-bytes-node",
+            |b, &&size| {
+                let queue: SharedLinkedQueue<(i64)> = SharedLinkedQueue::new();
+                let mut queue_consumer = QueueConsumer::new(
+                    queue,
+                    accumulate_tuple_1,
+                    generate_next_tuple_1,
+                );
+                b.iter(|| {
+                    queue_consumer.enqueue_many(size, (0));
+                    queue_consumer.deque_all((0))
+                });
+            },
+            &input,
+        );
+}
+
+#[test]
 fn padded_064_shared_linked_queue() {
-    let input = generate_input_with_strategy(13, 17, next);
+    let input = generate_input_with_strategy(13, 20, next);
     Criterion::default()
         .bench_function_over_inputs(
             "shared-linear-enqueue-dequeue-64-bytes-node",
@@ -122,7 +166,7 @@ fn padded_064_shared_linked_queue() {
 
 #[test]
 fn padded_128_shared_linked_queue() {
-    let input = generate_input_with_strategy(13, 17, next);
+    let input = generate_input_with_strategy(13, 18, next);
     Criterion::default()
         .bench_function_over_inputs(
             "shared-linear-enqueue-dequeue-128-bytes-node",
