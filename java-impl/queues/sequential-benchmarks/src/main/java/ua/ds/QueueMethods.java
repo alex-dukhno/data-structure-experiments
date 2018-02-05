@@ -6,7 +6,7 @@ abstract class QueueMethods {
   static final int K = 1024;
   static final int M = K * K;
 
-  int[] data;
+  protected int[] data;
 
   protected final SequentialQueue enqueueOne(SequentialQueue queue) {
     queue.enqueue(data[0]);
