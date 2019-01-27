@@ -9,9 +9,16 @@
 
   <modules>
     <module>queues</module>
+    <module>linked-lists</module>
   </modules>
 
   <dependencies>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.10.0</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-core</artifactId>
@@ -58,12 +65,17 @@
       <artifactId>junit-platform-surefire-provider</artifactId>
       <version>1.0.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.openjdk.jcstress</groupId>
+      <artifactId>jcstress-core</artifactId>
+      <version>0.4</version>
+    </dependency>
   </dependencies>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jmh.version>1.20</jmh.version>
-    <javac.target>9</javac.target>
+    <javac.target>11</javac.target>
     <junit.version>5.0.0</junit.version>
   </properties>
 
